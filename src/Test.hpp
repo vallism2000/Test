@@ -7,6 +7,9 @@
 #include <bb/cascades/NavigationPane>
 #include <bb/cascades/ListView>
 #include <bb/cascades/ArrayDataModel>
+#include <QString>
+
+#include <string>
 
 namespace bb { namespace cascades { class Application; }}
 
@@ -23,11 +26,24 @@ public:
     virtual ~Test() {}
     Q_INVOKABLE void getFullList();
     Q_INVOKABLE void getSearchedList();
+    Q_INVOKABLE void getRecipe(int index, int id);
+
+    Q_INVOKABLE QString getRecipeName();
+    Q_INVOKABLE QString getRecipeInfo();
 private:
+    bb::cascades::NavigationPane *root;
     bb::cascades::ListView *list;
     bb::cascades::ArrayDataModel *model1;
     bb::cascades::ArrayDataModel *model2;
+
+    int recipeID;
+    std::string recipeName;
+    std::string recipeInfo;
 };
 
 
 #endif /* Test_HPP_ */
+
+
+
+

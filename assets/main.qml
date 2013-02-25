@@ -4,24 +4,30 @@ NavigationPane {
     id: nav
     Page {
         id: mainPage
+        titleBar: TitleBar {
+            id: titleLabel
+            title: "DrinkIt App"
+        }
         Container {
             layout: StackLayout {}
-            Label {
-                id: titleLabel
-                text: qsTr("DrinkIt App")
-                textStyle.base: SystemDefaults.TextStyles.BigText
-            }
+            //Label {
+            //    id: titleLabel
+            //    text: qsTr("DrinkIt App")
+            //    textStyle.base: SystemDefaults.TextStyles.BigText
+            //    horizontalAlignment: HorizontalAlignment.Center
+            //    textStyle.textAlign: TextAlign.Center
+            //}
             TextField {
                 id: searchText
                 input.submitKey: SubmitKey.Search
                 hintText: "Search by Alcohol"
                 onTextChanged: {
                     if (searchText.text == "") {
-                        titleLabel.text = "DrinkIt App";
+                        titleLabel.title = "DrinkIt App";
                         TestObject.getFullList();
                     }
                     else {
-                        titleLabel.text = "Searching for: " + searchText.text;
+                        titleLabel.title = "Searching for: " + searchText.text;
                         TestObject.getSearchedList();
                     }
                 }
@@ -49,7 +55,7 @@ NavigationPane {
                 }
                 onSelectionChanged: {
                     if (selected) {
-                        //
+                        TestObject.getRecipe(indexPath, recipeID.data(indexPath));
                     }
                 }
             }
@@ -58,6 +64,20 @@ NavigationPane {
             ComponentDefinition {
                 id: recipePageDefinition
                 source: "recipe.qml"
+            },
+            ComponentDefinition {
+                id: addPageDefinition
+                source: "add.qml"
+            }
+        ]
+        actions: [
+            ActionItem {
+                title: "AddItem"
+                ActionBar.placement: ActionBarPlacement.OnBar
+                onTriggered: {
+                    var page = addPageDefinition.createObject();
+                    nav.push(page);
+                }
             }
         ]
     }
