@@ -1,4 +1,4 @@
-QMAKE_TARGET  = Test
+QMAKE_TARGET  = DrinkItApp
 LUPDATE       = $(QNX_HOST)/usr/bin/lupdate
 LRELEASE      = $(QNX_HOST)/usr/bin/lrelease
 

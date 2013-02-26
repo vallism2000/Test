@@ -1,4 +1,4 @@
-APP_NAME = Test
+APP_NAME = DrinkItApp
 
 CONFIG += qt warn_on cascades10
 
