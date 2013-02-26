@@ -1,6 +1,6 @@
 // Default empty project template
-#ifndef Test_HPP_
-#define Test_HPP_
+#ifndef DrinkItApp_HPP_
+#define DrinkItApp_HPP_
 
 #include <QObject>
 
@@ -18,12 +18,12 @@ namespace bb { namespace cascades { class Application; }}
  *
  *Use this object to create and init app UI, to create context objects, to register the new meta types etc.
  */
-class Test : public QObject
+class DrinkItApp : public QObject
 {
     Q_OBJECT
 public:
-    Test(bb::cascades::Application *app);
-    virtual ~Test() {}
+    DrinkItApp(bb::cascades::Application *app);
+    virtual ~DrinkItApp() {}
     Q_INVOKABLE void getFullList();
     Q_INVOKABLE void getSearchedList();
     Q_INVOKABLE void getRecipe(int index, int id);

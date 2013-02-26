@@ -1,5 +1,5 @@
 // Default empty project template
-#include "Test.hpp"
+#include "DrinkItApp.hpp"
 
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
@@ -11,7 +11,7 @@
 
 using namespace bb::cascades;
 
-Test::Test(bb::cascades::Application *app)
+DrinkItApp::DrinkItApp(bb::cascades::Application *app)
 : QObject(app)
 {
     // create scene document from main.qml asset
@@ -34,7 +34,7 @@ Test::Test(bb::cascades::Application *app)
     getFullList();
 }
 
-void Test::getFullList()
+void DrinkItApp::getFullList()
 {
 	model1->clear(); model2->clear();
 	model1->append(0); model2->append("Drink with Vodka");
@@ -43,14 +43,14 @@ void Test::getFullList()
 	model1->append(3); model2->append("Drink with Vodka and Rum");
 }
 
-void Test::getSearchedList()
+void DrinkItApp::getSearchedList()
 {
 	model1->clear(); model2->clear();
 	model1->append(0); model2->append("Drink with Vodka");
 	model1->append(3); model2->append("Drink with Vodka and Rum");
 }
 
-void Test::getRecipe(int index, int id)
+void DrinkItApp::getRecipe(int index, int id)
 {
 	recipeID = id;
 	recipeName = "";
@@ -82,13 +82,13 @@ void Test::getRecipe(int index, int id)
 	std::cout << "index: '" << index << "', id: '" << id << "'" << std::endl;
 }
 
-QString Test::getRecipeName()
+QString DrinkItApp::getRecipeName()
 {
 	std::cout << "recipe name: '" << recipeName << "'" << std::endl;
 	return (QString(recipeName.c_str()));
 }
 
-QString Test::getRecipeInfo()
+QString DrinkItApp::getRecipeInfo()
 {
 	return (QString(recipeInfo.c_str()));
 }

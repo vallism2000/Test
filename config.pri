@@ -7,11 +7,11 @@ INCLUDEPATH +=  \
     $$BASEDIR/src
 
 SOURCES +=  \
-    $$BASEDIR/src/Test.cpp \
+    $$BASEDIR/src/DrinkItApp.cpp \
     $$BASEDIR/src/main.cpp
 
 HEADERS +=  \
-    $$BASEDIR/src/Test.hpp
+    $$BASEDIR/src/DrinkItApp.hpp
 
 CONFIG += precompile_header
 PRECOMPILED_HEADER = $$BASEDIR/precompiled.h
