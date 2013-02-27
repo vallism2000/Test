@@ -30,6 +30,8 @@ public:
 
     Q_INVOKABLE QString getRecipeName();
     Q_INVOKABLE QString getRecipeInfo();
+
+    Q_INVOKABLE void submitRecipe();
 private:
     bb::cascades::NavigationPane *root;
     bb::cascades::ListView *list;
@@ -39,6 +41,8 @@ private:
     int recipeID;
     std::string recipeName;
     std::string recipeInfo;
+
+    bool recipeSubmitted;
 };
 
 

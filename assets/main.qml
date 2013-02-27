@@ -84,6 +84,7 @@ NavigationPane {
     onTopChanged: {
         if (page == mainPage) {
             recipeList.clearSelection();
+            TestObject.getFullList();
         }
     }
     onPopTransitionEnded: {
