@@ -39,10 +39,10 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
 void DrinkItApp::getFullList()
 {
 	model1->clear(); model2->clear();
-	model1->append(0); model2->append("Drink with Vodka");
-	model1->append(1); model2->append("Drink with Rum");
-	model1->append(2); model2->append("Drink with Whisky");
-	model1->append(3); model2->append("Drink with Vodka and Rum");
+	model1->append(0); model2->append("White Russian");
+	model1->append(1); model2->append("Rum and Coke");
+	model1->append(2); model2->append("Irish Car Bomb");
+	model1->append(3); model2->append("Long Island Iced Tea");
 	if (recipeSubmitted) {
 		model1->append(4); model2->append("Submitted Recipe Name");
 	}
@@ -51,8 +51,8 @@ void DrinkItApp::getFullList()
 void DrinkItApp::getSearchedList()
 {
 	model1->clear(); model2->clear();
-	model1->append(0); model2->append("Drink with Vodka");
-	model1->append(3); model2->append("Drink with Vodka and Rum");
+	model1->append(0); model2->append("White Russian");
+	model1->append(3); model2->append("Long Island Iced Tea");
 }
 
 void DrinkItApp::getRecipe(int index, int id)
@@ -60,32 +60,32 @@ void DrinkItApp::getRecipe(int index, int id)
 	recipeID = id;
 	recipeName = "";
 	if (id == 0) {
-		recipeName = "Drink with Vodka";
+		recipeName = "White Russian";
 	}
 	else if (id == 1) {
-		recipeName = "Drink with Rum";
+		recipeName = "Rum and Coke";
 	}
 	else if (id == 2) {
-		recipeName = "Drink with Whisky";
+		recipeName = "Irish Car Bomb";
 	}
 	else if (id == 3) {
-		recipeName = "Drink with Vodka and Rum";
+		recipeName = "Long Island Iced Tea";
 	}
 	else if (id == 4) {
 		recipeName = "Submitted Recipe Name";
 	}
 	recipeInfo = "";
 	if (id == 0) {
-		recipeInfo = "This drink recipe uses Vodka";
+		recipeInfo = "Ingredients:\n2oz Vodka\n1oz Coffee Liqueur\nCream";
 	}
 	else if (id == 1) {
-		recipeInfo = "This drink recipe uses Rum";
+		recipeInfo = "Ingredients:\n4oz Rum\n8oz Coca Cola";
 	}
 	else if (id == 2) {
-		recipeInfo = "This drink recipe uses Whisky";
+		recipeInfo = "Ingredients:\n1 Pint Guiness/Dry Irish Stout\n1oz Irish Cream Liqueur\n1oz Irish Whiskey";
 	}
 	else if (id == 3) {
-		recipeInfo = "This drink recipe uses Vodka and Rum";
+		recipeInfo = "Ingredients:\n1oz Vodka\n1oz Tequila\n1oz Rum\n1oz Gin\n1oz Triple Sec\n1.5oz Sour Mix\n1 Splash Coca Cola";
 	}
 	else if (id == 4) {
 		recipeInfo = "Submitted Recipe Info";
