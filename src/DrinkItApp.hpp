@@ -32,6 +32,7 @@ public:
     Q_INVOKABLE QString getRecipeInfo();
 
     Q_INVOKABLE void saveJSON(QString text);
+    Q_INVOKABLE void submitRecipe();
     Q_INVOKABLE QString loadJSON();
 
 private:
@@ -43,6 +44,8 @@ private:
     int recipeID;
     std::string recipeName;
     std::string recipeInfo;
+
+    bool recipeSubmitted;
 };
 
 

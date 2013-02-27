@@ -24,6 +24,10 @@ Page {
         }
         Button {
             text: "Save Recipe"
+            onClicked: {
+                TestObject.submitRecipe();
+                nav.pop();
+            }
         }
     }
 }

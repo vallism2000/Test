@@ -31,6 +31,8 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     model1 = root->findChild<ArrayDataModel*>("recipeID");
     model2 = root->findChild<ArrayDataModel*>("recipeName");
 
+    recipeSubmitted = false;
+
     getFullList();
 }
 
@@ -41,6 +43,9 @@ void DrinkItApp::getFullList()
 	model1->append(1); model2->append("Drink with Rum");
 	model1->append(2); model2->append("Drink with Whisky");
 	model1->append(3); model2->append("Drink with Vodka and Rum");
+	if (recipeSubmitted) {
+		model1->append(4); model2->append("Submitted Recipe Name");
+	}
 }
 
 void DrinkItApp::getSearchedList()
@@ -66,6 +71,9 @@ void DrinkItApp::getRecipe(int index, int id)
 	else if (id == 3) {
 		recipeName = "Drink with Vodka and Rum";
 	}
+	else if (id == 4) {
+		recipeName = "Submitted Recipe Name";
+	}
 	recipeInfo = "";
 	if (id == 0) {
 		recipeInfo = "This drink recipe uses Vodka";
@@ -79,6 +87,9 @@ void DrinkItApp::getRecipe(int index, int id)
 	else if (id == 3) {
 		recipeInfo = "This drink recipe uses Vodka and Rum";
 	}
+	else if (id == 4) {
+		recipeInfo = "Submitted Recipe Info";
+	}
 	std::cout << "index: '" << index << "', id: '" << id << "'" << std::endl;
 }
 
@@ -91,6 +102,11 @@ QString DrinkItApp::getRecipeName()
 QString DrinkItApp::getRecipeInfo()
 {
 	return (QString(recipeInfo.c_str()));
+}
+
+void DrinkItApp::submitRecipe()
+{
+	recipeSubmitted = true;
 }
 
 //The following are file save/load methods and should not be located here according to our architecture.
