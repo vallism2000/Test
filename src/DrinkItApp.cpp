@@ -93,6 +93,20 @@ QString DrinkItApp::getRecipeInfo()
 	return (QString(recipeInfo.c_str()));
 }
 
+//The following are file save/load methods and should not be located here according to our architecture.
+
+void DrinkItApp::saveJSON(QString text)
+{
+	std::cout << "Saving " << text.toStdString() << " to file." << std::endl;
+}
+
+QString DrinkItApp::loadJSON()
+{
+	std::cout << "Loading data from file." << std::endl;
+
+	return "NOTWORKINGYET";
+}
+
 
 
 

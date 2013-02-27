@@ -68,6 +68,10 @@ NavigationPane {
             ComponentDefinition {
                 id: addPageDefinition
                 source: "add.qml"
+            },
+            ComponentDefinition {
+                id: fileOpPageDefinition
+                source: "fileOp.qml"
             }
         ]
         actions: [
@@ -76,6 +80,14 @@ NavigationPane {
                 ActionBar.placement: ActionBarPlacement.OnBar
                 onTriggered: {
                     var page = addPageDefinition.createObject();
+                    nav.push(page);
+                }
+            },
+            ActionItem {
+                title: "Save/Load Demo"
+                ActionBar.placement: ActionBarPlacement.OnBar
+                onTriggered: {
+                    var page = fileOpPageDefinition.createObject();
                     nav.push(page);
                 }
             }

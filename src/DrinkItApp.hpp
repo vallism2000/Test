@@ -30,6 +30,10 @@ public:
 
     Q_INVOKABLE QString getRecipeName();
     Q_INVOKABLE QString getRecipeInfo();
+
+    Q_INVOKABLE void saveJSON(QString text);
+    Q_INVOKABLE QString loadJSON();
+
 private:
     bb::cascades::NavigationPane *root;
     bb::cascades::ListView *list;
@@ -42,7 +46,7 @@ private:
 };
 
 
-#endif /* Test_HPP_ */
+#endif /* DrinkItApp_HPP_ */
 
 
 
