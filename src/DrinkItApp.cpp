@@ -7,6 +7,7 @@
 
 #include <bb/cascades/Label>
 
+#include <bb/data/JsonDataAccess>
 #include <iostream>
 
 using namespace bb::cascades;
@@ -110,17 +111,52 @@ void DrinkItApp::submitRecipe()
 }
 
 //The following are file save/load methods and should not be located here according to our architecture.
-
 void DrinkItApp::saveJSON(QString text)
 {
 	std::cout << "Saving " << text.toStdString() << " to file." << std::endl;
+
+	QVariantMap testObj;
+	testObj.insert("text",text);
+
+	QVariant testData = QVariant(testObj);
+
+	QDir home = QDir::home();
+	QFile file(home.absoluteFilePath("test.json"));
+
+	if (file.open(QIODevice::WriteOnly))
+	{
+		bb::data::JsonDataAccess jda;
+		jda.save(testData, &file);
+
+		if(jda.hasError())
+		{
+			std::cout << "errors encountered saving" << std::endl;
+		}
+		file.close();
+	}
+	else
+	{
+		std::cout << "File would not open." << std::endl;
+	}
 }
 
 QString DrinkItApp::loadJSON()
 {
 	std::cout << "Loading data from file." << std::endl;
 
-	return "NOTWORKINGYET";
+	bb::data::JsonDataAccess jda;
+	QDir home = QDir::home();
+	QVariant list = jda.load(home.absoluteFilePath("test.json"));
+
+	if(jda.hasError())
+	{
+		std::cout << "errors encountered loading" << std::endl;
+
+		std::cout << jda.error().errorMessage().toStdString() << std::endl;
+	}
+
+	QVariantMap map = list.value<QVariantMap>();
+	return map.value("text").toString();
 }
 
 
