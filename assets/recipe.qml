@@ -24,4 +24,22 @@ Page {
             }
         }
     }
+    attachedObjects: [
+        ComponentDefinition {
+            id: sharePageDefinition
+            source: "share.qml"
+        }
+    ]
+    actions: [
+        ActionItem {
+            id: share
+            title: "Share"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            
+            onTriggered: {
+                var page = sharePageDefinition.createObject();
+                nav.push(page);
+            }
+        }
+    ]
 }
