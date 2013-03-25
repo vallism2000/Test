@@ -53,6 +53,7 @@ void DrinkItApp::getFullList()
 
 void DrinkItApp::getSearchedList()
 {
+	//Example call to the CoreEventBus
 	CoreEventBus::GetInstance().FireEvent(NULL);
 
 	model1->clear(); model2->clear();
