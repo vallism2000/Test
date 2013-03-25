@@ -64,7 +64,7 @@
     
     <!--  The category where the application appears. Either core.games or core.media. -->
     <category>core.games</category>
-    <configuration name="Device-Debug">
+  <configuration name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="arm/o.le-v7-g/DrinkItApp" entry="true" type="Qnx/Elf">DrinkItApp</asset>
     </configuration>
@@ -81,6 +81,7 @@
        <platformArchitecture>x86</platformArchitecture>
        <asset path="x86/o-g/DrinkItApp" entry="true" type="Qnx/Elf">DrinkItApp</asset>
     </configuration>
+
     
     <!--  The icon for the application, which should be 86x86. -->
     <icon>

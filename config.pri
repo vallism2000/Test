@@ -8,10 +8,14 @@ INCLUDEPATH +=  \
 
 SOURCES +=  \
     $$BASEDIR/src/DrinkItApp.cpp \
+    $$BASEDIR/src/drinkObjects/DrinkRecipe.cpp \
+    $$BASEDIR/src/drinkObjects/DrinkIngredient.cpp \
     $$BASEDIR/src/main.cpp
 
 HEADERS +=  \
-    $$BASEDIR/src/DrinkItApp.hpp
+    $$BASEDIR/src/DrinkItApp.hpp \
+    $$BASEDIR/src/drinkObjects/DrinkRecipe.hpp \
+    $$BASEDIR/src/drinkObjects/DrinkIngredient.hpp
 
 CONFIG += precompile_header
 PRECOMPILED_HEADER = $$BASEDIR/precompiled.h
