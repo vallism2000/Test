@@ -10,6 +10,8 @@
 #include <bb/data/JsonDataAccess>
 #include <iostream>
 
+#include "CoreEventBus.hpp"
+
 using namespace bb::cascades;
 
 DrinkItApp::DrinkItApp(bb::cascades::Application *app)
@@ -51,6 +53,8 @@ void DrinkItApp::getFullList()
 
 void DrinkItApp::getSearchedList()
 {
+	CoreEventBus::GetInstance().FireEvent(NULL);
+
 	model1->clear(); model2->clear();
 	model1->append(0); model2->append("White Russian");
 	model1->append(3); model2->append("Long Island Iced Tea");
