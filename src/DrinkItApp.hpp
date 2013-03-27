@@ -10,6 +10,8 @@
 #include <QString>
 
 #include <string>
+#include "drinkObjects/DrinkRecipe.hpp"
+#include "SharePage.hpp"
 
 namespace bb { namespace cascades { class Application; }}
 
@@ -34,6 +36,7 @@ public:
     Q_INVOKABLE void saveJSON(QString text);
     Q_INVOKABLE void submitRecipe();
     Q_INVOKABLE QString loadJSON();
+    Q_INVOKABLE void triggerShareEvent(QString type);
 
 private:
     bb::cascades::NavigationPane *root;
@@ -46,6 +49,9 @@ private:
     std::string recipeInfo;
 
     bool recipeSubmitted;
+
+    void createModules();
+    SharePage* _sharePage;
 };
 
 

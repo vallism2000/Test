@@ -12,6 +12,9 @@
 
 #include "CoreEventBus.hpp"
 
+#include "events/ShareRecipeEvent.hpp"
+#include "ShareEventBus.hpp"
+
 using namespace bb::cascades;
 
 DrinkItApp::DrinkItApp(bb::cascades::Application *app)
@@ -37,6 +40,7 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     recipeSubmitted = false;
 
     getFullList();
+    createModules();
 }
 
 void DrinkItApp::getFullList()
@@ -162,6 +166,19 @@ QString DrinkItApp::loadJSON()
 
 	QVariantMap map = list.value<QVariantMap>();
 	return map.value("text").toString();
+}
+
+void DrinkItApp::createModules(){
+	_sharePage = new SharePage();
+}
+
+void DrinkItApp::triggerShareEvent(QString type){
+	std::cout << "trigger share event" << std::endl;
+	DrinkRecipe* m_recipe = new DrinkRecipe(1, "foo", "fooooooo", new DrinkIngredient(1, "bar", "1 part"), 1);
+    // Assuming the share page somehow knows which recipe to share
+    ShareRecipeEvent *e = new ShareRecipeEvent(type.toStdString()+"Share", m_recipe);
+	ShareEventBus::GetInstance().FireEvent(e);
+
 }
 
 

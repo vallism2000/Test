@@ -10,6 +10,12 @@
 
 using namespace bb::cascades;
 
+// This is to help with debugging, may want to take it out later
+void messageLogger(QtMsgType type, const char *msg) {
+    std::fprintf(stdout, "%s\n", msg);
+    std::fflush(stdout);
+}
+
 Q_DECL_EXPORT int main(int argc, char **argv)
 {
     // this is where the server is started etc
@@ -22,7 +28,7 @@ Q_DECL_EXPORT int main(int argc, char **argv)
     if (translator.load(filename, "app/native/qm")) {
         app.installTranslator( &translator );
     }
-
+    qInstallMsgHandler(messageLogger);
     new DrinkItApp(&app);
 
     // we complete the transaction started in the app constructor and start the client event loop here
