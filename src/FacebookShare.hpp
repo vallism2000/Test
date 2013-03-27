@@ -1,22 +1,30 @@
 /*
  * FacebookShare.hpp
  *
- *  Created on: Mar 25, 2013
- *      Author: kirstensolomon
  */
 
 #ifndef FACEBOOKSHARE_HPP_
 #define FACEBOOKSHARE_HPP_
 
-#include "ShareComponent.hpp"
+#include <QObject>
 #include <string>
+#include <bb/cascades/Invocation>
+#include <bb/cascades/InvokeQuery>
+#include "ShareComponent.hpp"
 
-class FacebookShare: public ShareComponent{
+class FacebookShare: public QObject, public ShareComponent{
+	Q_OBJECT
 
 public:
 	FacebookShare();
 	virtual ~FacebookShare();
 	void share(std::string data);
+
+private:
+	bb::cascades::Invocation *m_Invocation;
+
+public slots:
+    void onArmed();
 
 };
 

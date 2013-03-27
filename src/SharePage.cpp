@@ -1,35 +1,34 @@
 /*
  * SharePage.cpp
  *
- *  Created on: Mar 25, 2013
- *      Author: kirstensolomon
  */
 
 #include "SharePage.hpp"
 #include "events/ShareRecipeEvent.hpp"
 #include "ShareEventBus.hpp"
+#include "eventListeners/ShareEventListener.hpp"
 #include <iostream>
 
-
 SharePage::SharePage(){
-    m_recipe = NULL; //tmp
-
+	// For now the recipe is being mocked in the triggerShareEvent() function, fix this later
+    m_recipe = NULL;
     m_qml = QmlDocument::create("asset:///share.qml");
-    m_qml->setContextProperty("_share", this);
+    m_qml->setContextProperty("_shareObject", this);
     m_root = m_qml->createRootObject<Page>();
 
+    std::cout << "SharePage created" << std::endl;
 }
 
 SharePage::~SharePage(){
 
 }
 
-void SharePage::triggerShareEvent(std::string type){
+void SharePage::triggerShareEvent(QString type){
 	std::cout << "trigger share event" << std::endl;
-	// Need to get drinkrecipe pointer from somewhere
+	// Will need to get drinkrecipe pointer from somewhere
 	DrinkRecipe* m_recipe = new DrinkRecipe(1, "foo", "fooooooo", new DrinkIngredient(1, "bar", "1 part"), 1);
-    // Assuming the share page somehow know which recipe to share
-	ShareRecipeEvent *e = new ShareRecipeEvent(type, m_recipe);
+
+	ShareRecipeEvent *e = new ShareRecipeEvent(type.toStdString()+"Share", m_recipe);
 	ShareEventBus::GetInstance().FireEvent(e);
 
 }

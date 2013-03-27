@@ -11,6 +11,7 @@
 
 #include <string>
 #include "drinkObjects/DrinkRecipe.hpp"
+#include "eventListeners/ShareEventListener.hpp"
 #include "SharePage.hpp"
 
 namespace bb { namespace cascades { class Application; }}
@@ -36,9 +37,10 @@ public:
     Q_INVOKABLE void saveJSON(QString text);
     Q_INVOKABLE void submitRecipe();
     Q_INVOKABLE QString loadJSON();
-    Q_INVOKABLE void triggerShareEvent(QString type);
 
 private:
+    Application *_app;
+    QmlDocument *_qml;
     bb::cascades::NavigationPane *root;
     bb::cascades::ListView *list;
     bb::cascades::ArrayDataModel *model1;
@@ -52,6 +54,7 @@ private:
 
     void createModules();
     SharePage* _sharePage;
+    ShareEventListener* _shareListener;
 };
 
 

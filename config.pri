@@ -19,6 +19,11 @@ SOURCES +=  \
     $$BASEDIR/src/CoreEventBus.cpp \
     $$BASEDIR/src/ShareEventBus.cpp \
     $$BASEDIR/src/SharePage.cpp \
+    $$BASEDIR/src/ShareComponent.cpp \
+    $$BASEDIR/src/BBMShare.cpp \
+    $$BASEDIR/src/FacebookShare.cpp \
+    $$BASEDIR/src/NFCShare.cpp \
+    $$BASEDIR/src/TwitterShare.cpp \
     $$BASEDIR/src/main.cpp
 
 HEADERS +=  \
@@ -33,7 +38,12 @@ HEADERS +=  \
     $$BASEDIR/src/eventListeners/ShareEventListener.hpp \
     $$BASEDIR/src/CoreEventBus.hpp \
     $$BASEDIR/src/ShareEventBus.hpp \
-    $$BASEDIR/src/SharePage.hpp
+    $$BASEDIR/src/SharePage.hpp \
+    $$BASEDIR/src/ShareComponent.hpp \
+    $$BASEDIR/src/BBMShare.hpp \
+    $$BASEDIR/src/FacebookShare.hpp \
+    $$BASEDIR/src/NFCShare.hpp \
+    $$BASEDIR/src/TwitterShare.hpp \
 
 CONFIG += precompile_header
 PRECOMPILED_HEADER = $$BASEDIR/precompiled.h

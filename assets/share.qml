@@ -28,7 +28,7 @@ Page {
             onTriggered: {
                 var selectedItem = dataModel.data(indexPath);
                 console.log("Selected " + selectedItem.name);
-                TestObject.triggerShareEvent(selectedItem.name);
+                _shareObject.triggerShareEvent("foo");
             }
         }
     }

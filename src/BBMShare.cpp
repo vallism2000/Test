@@ -16,22 +16,23 @@ BBMShare::~BBMShare(){
 }
 
 void BBMShare::share(std::string data){
-	// TODO add invocation framework calls, trigger ShareResponseStatusEvent when done,
+	// TODO trigger ShareResponseStatusEvent when done,
 	// make sure it goes back to the recipe page? or at least the share page.
-
-	m_pInvocation = Invocation::create(
-		  InvokeQuery::create()
+	QByteArray dataArray = QByteArray();
+	dataArray.insert(0, QString::fromStdString(data) );
+	m_Invocation = bb::cascades::Invocation::create(
+		  bb::cascades::InvokeQuery::create()
 		   .parent(this)
 		   .mimeType("text/plain")
-		   .data(data)
-		   .targetID(sys.bbm.sharehandler)
+		   .data(dataArray)
+		   .invokeTargetId("sys.bbm.sharehandler")
 	);
-	QObject::connect(m_pInvocation, SIGNAL(armed()), this, SLOT(onArmed()));
-	QObject::connect(m_pInvocation, SIGNAL(finished()), m_pInvocation, SLOT(deleteLater()));
+	QObject::connect(m_Invocation, SIGNAL(armed()), this, SLOT(onArmed()));
+	QObject::connect(m_Invocation, SIGNAL(finished()), m_Invocation, SLOT(deleteLater()));
 
 
 }
 
 void BBMShare::onArmed() {
-	m_pInvocation->trigger("bb.action.SHARE");
+	m_Invocation->trigger("bb.action.SHARE");
 }

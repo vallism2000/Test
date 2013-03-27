@@ -1,8 +1,6 @@
 /*
  * NFCShare.cpp
  *
- *  Created on: Mar 25, 2013
- *      Author: kirstensolomon
  */
 #include "NFCShare.hpp"
 
@@ -23,7 +21,11 @@ void NFCShare::share(std::string data){
 // We've specified that sharing sends a string,
 // but need to parse that data from the recipe sent in the ShareRecipeEvent.
 // Maybe add a general parseRecipe function somewhere?
-std::string NFCShare::parseRecipes(Recipe r){
+std::string NFCShare::parseRecipe(DrinkRecipe *r){
 
 	return "Foo";
+}
+
+void NFCShare::onArmed() {
+	m_Invocation->trigger("bb.action.SHARE");
 }

@@ -20,10 +20,11 @@ public:
 	void RegisterListener(IEventListener * el);
 	void UnRegisterListener(IEventListener * el);
 	void FireEvent(IEvent *e);
+	void debugDump();
 
 private:
 	static ShareEventBus * s_ShareInstance;
-	std::vector<IEventListener *> m_eventListeners;
+	std::vector<IEventListener *> m_shareEventListeners;
 
 	//Private constructor to enforce singleton
 	ShareEventBus();

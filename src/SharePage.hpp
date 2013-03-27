@@ -1,8 +1,6 @@
 /*
  * SharePage.hpp
  *
- *  Created on: Mar 25, 2013
- *      Author: kirstensolomon
  */
 
 #ifndef SHAREPAGE_HPP_
@@ -14,6 +12,7 @@
 #include <bb/cascades/Page>
 #include <string>
 #include "events/ShareRecipeEvent.hpp"
+#include "eventListeners/ShareEventListener.hpp"
 #include "drinkObjects/DrinkRecipe.hpp"
 
 using namespace bb::cascades;
@@ -25,11 +24,11 @@ class SharePage: public QObject{
 public:
 	SharePage();
 	virtual ~SharePage();
+	Q_INVOKABLE void triggerShareEvent(QString type);
 
 private:
 	QmlDocument *m_qml;
 	Page *m_root;
-	Q_INVOKABLE void triggerShareEvent(std::string type);
 	DrinkRecipe *m_recipe;
 
 };

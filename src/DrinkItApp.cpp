@@ -20,15 +20,17 @@ using namespace bb::cascades;
 DrinkItApp::DrinkItApp(bb::cascades::Application *app)
 : QObject(app)
 {
+
+	_app = app;
     // create scene document from main.qml asset
     // set parent to created document to ensure it exists for the whole application lifetime
-    QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
+    _qml = QmlDocument::create("asset:///main.qml").parent(this);
 
     //
-    qml->setContextProperty("TestObject", this);
+    _qml->setContextProperty("TestObject", this);
 
     // create root object for the UI
-    root = qml->createRootObject<NavigationPane>();
+    root = _qml->createRootObject<NavigationPane>();
     // set created root object as a scene
     app->setScene(root);
 
@@ -41,6 +43,12 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
 
     getFullList();
     createModules();
+    _qml->setContextProperty("_shareObject", _sharePage);
+
+    _shareListener = new ShareEventListener();
+    ShareEventBus::GetInstance().RegisterListener(_shareListener);
+    ShareEventBus::GetInstance().debugDump();
+    _shareListener->debugTest();
 }
 
 void DrinkItApp::getFullList()
@@ -172,14 +180,7 @@ void DrinkItApp::createModules(){
 	_sharePage = new SharePage();
 }
 
-void DrinkItApp::triggerShareEvent(QString type){
-	std::cout << "trigger share event" << std::endl;
-	DrinkRecipe* m_recipe = new DrinkRecipe(1, "foo", "fooooooo", new DrinkIngredient(1, "bar", "1 part"), 1);
-    // Assuming the share page somehow knows which recipe to share
-    ShareRecipeEvent *e = new ShareRecipeEvent(type.toStdString()+"Share", m_recipe);
-	ShareEventBus::GetInstance().FireEvent(e);
 
-}
 
 
 

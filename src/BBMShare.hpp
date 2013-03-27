@@ -1,8 +1,6 @@
 /*
  * BBMShare.hpp
  *
- *  Created on: Mar 25, 2013
- *      Author: kirstensolomon
  */
 
 #ifndef BBMSHARE_HPP_
@@ -13,6 +11,8 @@
 #include <bb/cascades/Invocation>
 #include <bb/cascades/InvokeQuery>
 #include "ShareComponent.hpp"
+
+namespace bb { namespace cascades { class Invocation; } }
 
 class BBMShare: public QObject, public ShareComponent{
 
@@ -25,7 +25,7 @@ public:
 
 
 private:
-	bb::cascades::Invocation *m_pInvocation;
+	bb::cascades::Invocation *m_Invocation;
 
 public slots:
     void onArmed();

@@ -11,16 +11,24 @@
 #include "ShareComponent.hpp"
 #include "drinkObjects/DrinkRecipe.hpp"
 #include <string>
+#include <QObject>
+#include <bb/cascades/Invocation>
 
-class NFCShare: public ShareComponent{
+class NFCShare: public QObject, public ShareComponent{
+
+	Q_OBJECT
 
 public:
 	NFCShare();
 	virtual ~NFCShare();
 	void share(std::string data);
+	std::string parseRecipe(DrinkRecipe *r);
 
 private:
-	std::string parseRecipe(Recipe r);
+	bb::cascades::Invocation *m_Invocation;
+
+public slots:
+	void onArmed();
 
 };
 
