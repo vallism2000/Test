@@ -10,6 +10,7 @@
 #include <QString>
 
 #include <string>
+#include "dataLayer/DataMgr.hpp"
 
 namespace bb { namespace cascades { class Application; }}
 
@@ -46,6 +47,7 @@ private:
     std::string recipeInfo;
 
     bool recipeSubmitted;
+    DataMgr * m_dataManager;
 };
 
 

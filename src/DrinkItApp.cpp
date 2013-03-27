@@ -29,6 +29,14 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     // set created root object as a scene
     app->setScene(root);
 
+    //Initialize the event bus
+    CoreEventBus::Initialize();
+
+    //Initialize the data manager.
+    //It will live at the app layer. Nothing calls it directly.
+    //Just through the event bus.
+    m_dataManager = new DataMgr();
+
     // Test Stuff
     list = root->findChild<ListView*>("recipeList");
     model1 = root->findChild<ArrayDataModel*>("recipeID");
@@ -54,7 +62,7 @@ void DrinkItApp::getFullList()
 void DrinkItApp::getSearchedList()
 {
 	//Example call to the CoreEventBus
-	CoreEventBus::GetInstance().FireEvent(NULL);
+	CoreEventBus::FireEvent(NULL);
 
 	model1->clear(); model2->clear();
 	model1->append(0); model2->append("White Russian");

@@ -12,6 +12,7 @@ SOURCES +=  \
     $$BASEDIR/src/drinkObjects/DrinkIngredient.cpp \
     $$BASEDIR/src/events/IEvent.cpp \
     $$BASEDIR/src/eventListeners/IEventListener.cpp \
+    $$BASEDIR/src/dataLayer/DataMgr.cpp \
     $$BASEDIR/src/CoreEventBus.cpp \
     $$BASEDIR/src/main.cpp
 
@@ -21,6 +22,7 @@ HEADERS +=  \
     $$BASEDIR/src/drinkObjects/DrinkIngredient.hpp \
     $$BASEDIR/src/events/IEvent.hpp \
     $$BASEDIR/src/eventListeners/IEventListener.hpp \
+    $$BASEDIR/src/dataLayer/DataMgr.hpp \
     $$BASEDIR/src/CoreEventBus.hpp \
 
 CONFIG += precompile_header

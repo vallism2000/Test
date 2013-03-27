@@ -13,18 +13,18 @@
 class CoreEventBus {
 public:
 	virtual ~CoreEventBus();
-	static CoreEventBus GetInstance();
+	static void Initialize();
 
-	void RegisterListener(IEventListener * el);
-	void UnRegisterListener(IEventListener * el);
-	void FireEvent(IEvent * e);
+	static void RegisterListener(IEventListener * el);
+	static void UnRegisterListener(IEventListener * el);
+	static void FireEvent(IEvent * e);
 
 private:
 	static CoreEventBus * s_Instance;
-	std::vector<IEventListener *> m_eventListeners;
 
 	//Private constructor to enforce singleton
 	CoreEventBus();
+	std::vector<IEventListener *> m_eventListeners;
 
 };
 
