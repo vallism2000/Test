@@ -15,6 +15,7 @@ SOURCES +=  \
     $$BASEDIR/src/events/ShareResponseStatusEvent.cpp \
     $$BASEDIR/src/events/NFCReceivedRecipeEvent.cpp \
     $$BASEDIR/src/eventListeners/IEventListener.cpp \
+    $$BASEDIR/src/dataLayer/DataMgr.cpp \
     $$BASEDIR/src/eventListeners/ShareEventListener.cpp \
     $$BASEDIR/src/CoreEventBus.cpp \
     $$BASEDIR/src/ShareEventBus.cpp \
@@ -35,8 +36,9 @@ HEADERS +=  \
     $$BASEDIR/src/events/ShareResponseStatusEvent.hpp \
     $$BASEDIR/src/events/NFCReceivedRecipeEvent.hpp \
     $$BASEDIR/src/eventListeners/IEventListener.hpp \
-    $$BASEDIR/src/eventListeners/ShareEventListener.hpp \
+    $$BASEDIR/src/dataLayer/DataMgr.hpp \
     $$BASEDIR/src/CoreEventBus.hpp \
+    $$BASEDIR/src/eventListeners/ShareEventListener.hpp \
     $$BASEDIR/src/ShareEventBus.hpp \
     $$BASEDIR/src/SharePage.hpp \
     $$BASEDIR/src/ShareComponent.hpp \

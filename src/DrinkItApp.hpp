@@ -10,7 +10,7 @@
 #include <QString>
 
 #include <string>
-#include "drinkObjects/DrinkRecipe.hpp"
+#include "dataLayer/DataMgr.hpp"
 #include "eventListeners/ShareEventListener.hpp"
 #include "SharePage.hpp"
 
@@ -51,10 +51,12 @@ private:
     std::string recipeInfo;
 
     bool recipeSubmitted;
+    DataMgr * m_dataManager;
 
     void createModules();
     SharePage* _sharePage;
     ShareEventListener* _shareListener;
+
 };
 
 
