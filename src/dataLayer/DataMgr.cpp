@@ -10,6 +10,7 @@
 
 DataMgr::DataMgr()
 {
+	m_fileMgr = FileMgr();
 	std::cout << "About to register the DataMgr" << std::endl;
 	CoreEventBus::RegisterListener(this);
 }
@@ -22,5 +23,8 @@ DataMgr::~DataMgr()
 
 void DataMgr::ActOnEvent(IEvent * e)
 {
-	std::cout << "Data mgr is acting on an event." << std::endl;
+	if(e->GetType() == e->INGREDIENTADD)
+	{
+		std::cout << "Ingredient Add event is being handled." << std::endl;
+	}
 }
