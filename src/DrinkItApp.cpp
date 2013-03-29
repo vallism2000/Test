@@ -13,7 +13,7 @@
 #include "CoreEventBus.hpp"
 
 //TEMP
-#include "events/IngredientAddEvent.hpp"
+#include "events/IngredientListEvent.hpp"
 
 using namespace bb::cascades;
 
@@ -65,7 +65,7 @@ void DrinkItApp::getFullList()
 void DrinkItApp::getSearchedList()
 {
 	//Example call to the CoreEventBus
-	CoreEventBus::FireEvent(new IngredientAddEvent(0, true));
+	CoreEventBus::FireEvent(new IngredientListEvent(0, true, true));
 
 	model1->clear(); model2->clear();
 	model1->append(0); model2->append("White Russian");

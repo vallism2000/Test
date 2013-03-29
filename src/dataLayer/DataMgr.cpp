@@ -23,8 +23,8 @@ DataMgr::~DataMgr()
 
 void DataMgr::ActOnEvent(IEvent * e)
 {
-	if(e->GetType() == e->INGREDIENTADD)
+	if(e->GetType() == e->INGREDIENTLIST)
 	{
-		std::cout << "Ingredient Add event is being handled." << std::endl;
+		std::cout << "Ingredient List event is being handled." << std::endl;
 	}
 }

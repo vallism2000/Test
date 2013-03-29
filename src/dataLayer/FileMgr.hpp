@@ -1,6 +1,14 @@
 /*
  * FileMgr.hpp
  *
+ * Manages two main files.
+ *
+ * Ingredient Collection/Shopping List
+ * Can add items to each list
+ * Can remove items from each list.
+ *
+ * Recipe Collection
+ *
  */
 
 #ifndef FILEMGR_HPP_
