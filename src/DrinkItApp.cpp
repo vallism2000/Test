@@ -50,12 +50,16 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     recipeSubmitted = false;
 
     getFullList();
+
+    // Set up ShareObject
     createModules();
     _qml->setContextProperty("_shareObject", _sharePage);
 
+    // Initialize share event bus
+    ShareEventBus::Initialize();
     _shareListener = new ShareEventListener();
-    ShareEventBus::GetInstance().RegisterListener(_shareListener);
-    ShareEventBus::GetInstance().debugDump();
+    ShareEventBus::RegisterListener(_shareListener);
+    ShareEventBus::debugDump();
     _shareListener->debugTest();
 }
 

@@ -29,7 +29,7 @@ void ShareEventListener::ActOnEvent(IEvent *e){
 	ShareRecipeEvent *se = (ShareRecipeEvent*)e;
 
 	// For helping debug, remove later
-    std::cout << type << std::endl;
+    std::cout << "ActOnEvent "<< type << std::endl;
 
 	if( type == "NFCShare"){
 		// TODO

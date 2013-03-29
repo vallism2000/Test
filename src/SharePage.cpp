@@ -24,12 +24,12 @@ SharePage::~SharePage(){
 }
 
 void SharePage::triggerShareEvent(QString type){
-	std::cout << "trigger share event" << std::endl;
+	std::cout << "type: " << type.toStdString() << std::endl;
 	// Will need to get drinkrecipe pointer from somewhere
 	DrinkRecipe* m_recipe = new DrinkRecipe(1, "foo", "fooooooo", new DrinkIngredient(1, "bar", "1 part"), 1);
 
 	ShareRecipeEvent *e = new ShareRecipeEvent(type.toStdString()+"Share", m_recipe);
-	ShareEventBus::GetInstance().FireEvent(e);
+	ShareEventBus::FireEvent(e);
 
 }
 

@@ -1,8 +1,6 @@
 /*
  * ShareEventBus.hpp
  *
- *  Created on: Mar 25, 2013
- *      Author: kirstensolomon
  */
 
 #ifndef SHAREEVENTBUS_HPP_
@@ -15,12 +13,12 @@
 class ShareEventBus{
 public:
 	virtual ~ShareEventBus();
-	static ShareEventBus GetInstance();
+	static void Initialize();
 
-	void RegisterListener(IEventListener * el);
-	void UnRegisterListener(IEventListener * el);
-	void FireEvent(IEvent *e);
-	void debugDump();
+	static void RegisterListener(IEventListener * el);
+	static void UnRegisterListener(IEventListener * el);
+	static void FireEvent(IEvent *e);
+	static void debugDump();
 
 private:
 	static ShareEventBus * s_ShareInstance;

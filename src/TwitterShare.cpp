@@ -1,13 +1,12 @@
 /*
  * TwitterShare.cpp
  *
- *  Created on: Mar 25, 2013
- *      Author: kirstensolomon
  */
 
 #include "TwitterShare.hpp"
 #include <bb/cascades/Invocation>
 #include <bb/cascades/InvokeQuery>
+#include <iostream>
 
 TwitterShare::TwitterShare(){
 
@@ -18,6 +17,7 @@ TwitterShare::~TwitterShare(){
 }
 
 void TwitterShare::share(std::string data){
+	std::cout << "Twitter Share called" << std::endl;
 	// TODO: add invocation framework call to share the data
 	// This relies on the Twitter app being on the phone. Should have some sort of check or find out if invocation framework checks
 
@@ -29,6 +29,7 @@ void TwitterShare::share(std::string data){
 	  m_Invocation = bb::cascades::Invocation::create(bb::cascades::InvokeQuery::create()
 		  .parent(this)
 		  .mimeType("text/plain")
+		  .uri("data://")
 		  .invokeTargetId("Twitter")
 		  .data(dataArray));
 	  QObject::connect(m_Invocation, SIGNAL(armed()), this, SLOT(onArmed()));
@@ -36,5 +37,6 @@ void TwitterShare::share(std::string data){
 }
 
 void TwitterShare::onArmed() {
+	std::cout << "calling onArmed" << std::endl;
 	m_Invocation->trigger("bb.action.SHARE");
 }
