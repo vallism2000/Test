@@ -1,48 +1,57 @@
 /*
  * DrinkRecipe.cpp
  *
- *  Created on: Mar 17, 2013
- *      Author: Nathan
  */
 
 #include "DrinkRecipe.hpp"
 
-DrinkRecipe::DrinkRecipe(int rating, std::string name, std::string desc, DrinkIngredient* ingredients, int numIngredients)
+DrinkRecipe::DrinkRecipe(int rating, std::string name, std::string desc)
 {
 	 m_rating = rating;
 	 m_name = name;
 	 m_desc = desc;
-	 m_ingredients = ingredients; //This class takes ownership over the ingredients
-	 m_numIngredients = numIngredients;
+	 m_ingredients = std::vector<std::pair<DrinkIngredient, std::string> >();
 }
 
 DrinkRecipe::~DrinkRecipe()
 {
-	delete m_ingredients;
+	//Ingredients are local, so they clean themselves
 }
 
-int DrinkRecipe::GetRating()
+void DrinkRecipe::AddIngredient(int ingredientID, const std::string & ingredientName, const std::string & amount)
+{
+	m_ingredients.push_back(std::pair<DrinkIngredient, std::string>(DrinkIngredient(ingredientID, ingredientName), amount));
+}
+
+int DrinkRecipe::GetRating() const
 {
 	return m_rating;
 }
 
-const std::string & DrinkRecipe::GetName()
+const std::string & DrinkRecipe::GetName() const
 {
 	return m_name;
 }
 
-const std::string & DrinkRecipe::GetDesc()
+const std::string & DrinkRecipe::GetDesc() const
 {
 	return m_desc;
 }
 
-const DrinkIngredient & DrinkRecipe::GetDrinkIngredient(int index)
+const DrinkIngredient DrinkRecipe::GetIngredient(unsigned int index) const
 {
-	return m_ingredients[index];
+	std::pair<DrinkIngredient, std::string> desiredPair = m_ingredients.at(index);
+	return (desiredPair.first);
 }
 
-int DrinkRecipe::GetNumIngredients()
+const std::string DrinkRecipe::GetIngredientAmount(unsigned int index) const
 {
-	return m_numIngredients;
+	std::pair<DrinkIngredient, std::string> desiredPair = m_ingredients.at(index);
+	return (desiredPair.second);
+}
+
+unsigned int DrinkRecipe::GetNumIngredients() const
+{
+	return m_ingredients.size();
 }
 

@@ -6,18 +6,17 @@
 #include "DrinkIngredient.hpp"
 
 
-DrinkIngredient::DrinkIngredient(int id, const std::string & name, const std::string & amount)
+DrinkIngredient::DrinkIngredient(int id, const std::string & name)
 {
 	m_name = name;
 	m_ingredientID = id;
-	m_amount = amount;
 }
 
 DrinkIngredient::~DrinkIngredient()
 {
 }
 
-const std::string & DrinkIngredient::GetName()
+const std::string & DrinkIngredient::GetName() const
 {
 	return m_name;
 }
@@ -25,9 +24,4 @@ const std::string & DrinkIngredient::GetName()
 int DrinkIngredient::GetID()
 {
 	return m_ingredientID;
-}
-
-const std::string & DrinkIngredient::GetAmount()
-{
-	return m_amount;
 }

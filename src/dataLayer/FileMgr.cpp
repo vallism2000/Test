@@ -35,19 +35,19 @@ void FileMgr::GetIngredientList(bool isShoppingList)
 	std::vector<DrinkIngredient> * tempIngredients = new std::vector<DrinkIngredient>();
 	if(isShoppingList)
 	{
-		tempIngredients->push_back(DrinkIngredient(0, "TestBoozeNeed0", "2 oz."));
-		tempIngredients->push_back(DrinkIngredient(1, "TestBoozeNeed1", "A splash."));
-		tempIngredients->push_back(DrinkIngredient(2, "TestBoozeNeed2", "3 cups."));
-		tempIngredients->push_back(DrinkIngredient(3, "TestBoozeNeed3", "1 part."));
-		tempIngredients->push_back(DrinkIngredient(4, "TestBoozeNeed4", "A bottle."));
+		tempIngredients->push_back(DrinkIngredient(0, "TestBoozeNeed0"));
+		tempIngredients->push_back(DrinkIngredient(1, "TestBoozeNeed1"));
+		tempIngredients->push_back(DrinkIngredient(2, "TestBoozeNeed2"));
+		tempIngredients->push_back(DrinkIngredient(3, "TestBoozeNeed3"));
+		tempIngredients->push_back(DrinkIngredient(4, "TestBoozeNeed4"));
 	}
 	else
 	{
-		tempIngredients->push_back(DrinkIngredient(0, "TestBoozeHave0", "2 oz."));
-		tempIngredients->push_back(DrinkIngredient(1, "TestBoozeHave1", "A splash."));
-		tempIngredients->push_back(DrinkIngredient(2, "TestBoozeHave2", "3 cups."));
-		tempIngredients->push_back(DrinkIngredient(3, "TestBoozeHave3", "1 part."));
-		tempIngredients->push_back(DrinkIngredient(4, "TestBoozeHave4", "A bottle."));
+		tempIngredients->push_back(DrinkIngredient(0, "TestBoozeHave0"));
+		tempIngredients->push_back(DrinkIngredient(1, "TestBoozeHave1"));
+		tempIngredients->push_back(DrinkIngredient(2, "TestBoozeHave2"));
+		tempIngredients->push_back(DrinkIngredient(3, "TestBoozeHave3"));
+		tempIngredients->push_back(DrinkIngredient(4, "TestBoozeHave4"));
 	}
 	CoreEventBus::FireEvent(new IngredientListResultEvent(isShoppingList, tempIngredients));
 }

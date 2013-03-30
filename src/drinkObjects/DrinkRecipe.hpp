@@ -12,25 +12,31 @@
 
 #include "DrinkIngredient.hpp"
 #include <string>
+#include <vector>
+#include <utility>
 
 class DrinkRecipe {
 public:
-	DrinkRecipe(int rating, std::string name, std::string desc, DrinkIngredient* ingredients, int numIngredients);
+	DrinkRecipe(int rating, std::string name, std::string desc);
 	virtual ~DrinkRecipe();
 
-	int GetRating();
-	const std::string & GetName();
-	const std::string & GetDesc();
-	const DrinkIngredient & GetDrinkIngredient(int index);
-	int GetNumIngredients();
+	void AddIngredient(int ingredientID, const std::string & ingredientName, const std::string & amount);
+
+	int GetRating() const;
+	const std::string & GetName() const;
+	const std::string & GetDesc() const;
+	const DrinkIngredient GetIngredient(unsigned int index) const;
+	const std::string GetIngredientAmount(unsigned int index) const;
+	unsigned int GetNumIngredients() const;
 
 
 private:
 	int m_rating;
 	std::string m_name;
 	std::string m_desc;
-	DrinkIngredient* m_ingredients;
-	int m_numIngredients;
+
+	//DrinkRecipe takes ownership over this allocation.
+	std::vector<std::pair<DrinkIngredient, std::string> > m_ingredients;
 };
 
 #endif /* DRINKRECIPE_H_ */

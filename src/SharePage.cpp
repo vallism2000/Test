@@ -25,7 +25,7 @@ SharePage::~SharePage(){
 void SharePage::triggerShareEvent(QString type){
 	std::cout << "type: " << type.toStdString() << std::endl;
 	// Will need to get drinkrecipe pointer from somewhere
-	DrinkRecipe* m_recipe = new DrinkRecipe(1, "foo", "fooooooo", new DrinkIngredient(1, "bar", "1 part"), 1);
+	DrinkRecipe* m_recipe = new DrinkRecipe(1, "foo", "fooooooo");
 	IEvent::EventType event_type;
 	if (type == "BBM"){
 		event_type = IEvent::BBMSHARE;

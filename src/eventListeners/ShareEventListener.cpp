@@ -5,6 +5,7 @@
 
 #include "events/IEvent.hpp"
 #include "events/ShareRecipeEvent.hpp"
+#include "drinkObjects/DrinkRecipe.hpp"
 #include "ShareEventListener.hpp"
 #include <bb/cascades/InvokeQuery>
 #include <string>

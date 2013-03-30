@@ -15,17 +15,15 @@ class DrinkIngredient
 {
 
 public:
-	DrinkIngredient(int id, const std::string & name, const std::string & amount);
+	DrinkIngredient(int id, const std::string & name);
 	virtual ~DrinkIngredient();
 
-	const std::string & GetName();
-	const std::string & GetAmount();
+	const std::string & GetName() const;
 	int GetID();
 
 
 private:
 	std::string m_name;
-	std::string m_amount;
 	int m_ingredientID;
 
 };
