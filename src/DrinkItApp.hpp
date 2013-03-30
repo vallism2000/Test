@@ -17,6 +17,8 @@
 
 #include "UIEventHandler.hpp"
 
+#include "UIEventHandler.hpp"
+
 namespace bb { namespace cascades { class Application; }}
 
 /*!
@@ -59,6 +61,7 @@ private:
     void createModules();
     SharePage* _sharePage;
     ShareEventListener* _shareListener;
+
 };
 
 
