@@ -11,7 +11,7 @@
 class IEvent {
 public:
 
-	enum EventType { INGREDIENTLIST, RECIPEADD };
+	enum EventType { INGREDIENTLIST, RECIPEADD, UIRECIPELISTREQUEST, UIRECIPEREQUEST, UISHAREREQUEST };
 
 	IEvent(EventType type);
 	virtual ~IEvent();

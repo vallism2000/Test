@@ -4,6 +4,7 @@
 
 #include <QObject>
 
+#include <bb/cascades/TabbedPane>
 #include <bb/cascades/NavigationPane>
 #include <bb/cascades/ListView>
 #include <bb/cascades/ArrayDataModel>
@@ -11,6 +12,8 @@
 
 #include <string>
 #include "dataLayer/DataMgr.hpp"
+
+#include "UIEventHandler.hpp"
 
 namespace bb { namespace cascades { class Application; }}
 
@@ -37,7 +40,7 @@ public:
     Q_INVOKABLE QString loadJSON();
 
 private:
-    bb::cascades::NavigationPane *root;
+    bb::cascades::TabbedPane *root;
     bb::cascades::ListView *list;
     bb::cascades::ArrayDataModel *model1;
     bb::cascades::ArrayDataModel *model2;
@@ -48,6 +51,8 @@ private:
 
     bool recipeSubmitted;
     DataMgr * m_dataManager;
+
+    UIEventHandler * EH;
 };
 
 

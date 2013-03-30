@@ -28,7 +28,7 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     qml->setContextProperty("TestObject", this);
 
     // create root object for the UI
-    root = qml->createRootObject<NavigationPane>();
+    root = qml->createRootObject<TabbedPane>();
     // set created root object as a scene
     app->setScene(root);
 
@@ -40,10 +40,13 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     //Just through the event bus.
     m_dataManager = new DataMgr();
 
-    // Test Stuff
+    // Find Cascades Objects
     list = root->findChild<ListView*>("recipeList");
     model1 = root->findChild<ArrayDataModel*>("recipeID");
     model2 = root->findChild<ArrayDataModel*>("recipeName");
+
+    // Create Listener
+    EH = new UIEventHandler(model1, model2);
 
     recipeSubmitted = false;
 
@@ -52,14 +55,7 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
 
 void DrinkItApp::getFullList()
 {
-	model1->clear(); model2->clear();
-	model1->append(0); model2->append("White Russian");
-	model1->append(1); model2->append("Rum and Coke");
-	model1->append(2); model2->append("Irish Car Bomb");
-	model1->append(3); model2->append("Long Island Iced Tea");
-	if (recipeSubmitted) {
-		model1->append(4); model2->append("Submitted Recipe Name");
-	}
+	EH->getRecipeList("");
 }
 
 void DrinkItApp::getSearchedList()
@@ -67,9 +63,7 @@ void DrinkItApp::getSearchedList()
 	//Example call to the CoreEventBus
 	CoreEventBus::FireEvent(new IngredientListEvent(0, true, true));
 
-	model1->clear(); model2->clear();
-	model1->append(0); model2->append("White Russian");
-	model1->append(3); model2->append("Long Island Iced Tea");
+	EH->getRecipeList("Search Info");
 }
 
 void DrinkItApp::getRecipe(int index, int id)
