@@ -5,7 +5,7 @@
 
 #include "IEvent.hpp"
 
-IEvent::IEvent(std::string type)
+IEvent::IEvent(EventType type)
 {
 	m_type = type;
 }
@@ -14,7 +14,7 @@ IEvent::~IEvent()
 {
 }
 
-const std::string & IEvent::GetType()
+IEvent::EventType IEvent::GetType()
 {
 	return m_type;
 }

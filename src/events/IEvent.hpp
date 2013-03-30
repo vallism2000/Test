@@ -10,13 +10,16 @@
 
 class IEvent {
 public:
-	IEvent(std::string type);
+
+	enum EventType { INGREDIENTLIST, RECIPEADD };
+
+	IEvent(EventType type);
 	virtual ~IEvent();
 
-	const std::string & GetType();
+	EventType GetType();
 
 private:
-	std::string m_type;
+	EventType m_type;
 };
 
 #endif /* IEVENT_HPP_ */

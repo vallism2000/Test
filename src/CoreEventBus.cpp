@@ -50,6 +50,12 @@ void CoreEventBus::UnRegisterListener(IEventListener * el)
 
 void CoreEventBus::FireEvent(IEvent * e)
 {
+	if(e == NULL)
+	{
+		std::cout << "Null event ignored." << std::endl;
+		return;
+	}
+
 	std::cout << "Firing event  on " << s_Instance->m_eventListeners.size() << " listeners." << std::endl;
 	for(unsigned int i = 0; i < s_Instance->m_eventListeners.size(); i++)
 	{

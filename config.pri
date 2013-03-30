@@ -11,13 +11,15 @@ SOURCES +=  \
     $$BASEDIR/src/drinkObjects/DrinkRecipe.cpp \
     $$BASEDIR/src/drinkObjects/DrinkIngredient.cpp \
     $$BASEDIR/src/events/IEvent.cpp \
+    $$BASEDIR/src/events/IngredientListEvent.cpp \
+    $$BASEDIR/src/eventListeners/IEventListener.cpp \
+    $$BASEDIR/src/dataLayer/DataMgr.cpp \
+    $$BASEDIR/src/dataLayer/FileMgr.cpp \
+    $$BASEDIR/src/CoreEventBus.cpp \
     $$BASEDIR/src/events/ShareRecipeEvent.cpp \
     $$BASEDIR/src/events/ShareResponseStatusEvent.cpp \
     $$BASEDIR/src/events/NFCReceivedRecipeEvent.cpp \
-    $$BASEDIR/src/eventListeners/IEventListener.cpp \
-    $$BASEDIR/src/dataLayer/DataMgr.cpp \
     $$BASEDIR/src/eventListeners/ShareEventListener.cpp \
-    $$BASEDIR/src/CoreEventBus.cpp \
     $$BASEDIR/src/ShareEventBus.cpp \
     $$BASEDIR/src/SharePage.cpp \
     $$BASEDIR/src/ShareComponent.cpp \
@@ -32,12 +34,14 @@ HEADERS +=  \
     $$BASEDIR/src/drinkObjects/DrinkRecipe.hpp \
     $$BASEDIR/src/drinkObjects/DrinkIngredient.hpp \
     $$BASEDIR/src/events/IEvent.hpp \
+    $$BASEDIR/src/events/IngredientListEvent.hpp \
+    $$BASEDIR/src/eventListeners/IEventListener.hpp \
+    $$BASEDIR/src/dataLayer/DataMgr.hpp \
+    $$BASEDIR/src/dataLayer/FileMgr.hpp \
+    $$BASEDIR/src/CoreEventBus.hpp \
     $$BASEDIR/src/events/ShareRecipeEvent.hpp \
     $$BASEDIR/src/events/ShareResponseStatusEvent.hpp \
     $$BASEDIR/src/events/NFCReceivedRecipeEvent.hpp \
-    $$BASEDIR/src/eventListeners/IEventListener.hpp \
-    $$BASEDIR/src/dataLayer/DataMgr.hpp \
-    $$BASEDIR/src/CoreEventBus.hpp \
     $$BASEDIR/src/eventListeners/ShareEventListener.hpp \
     $$BASEDIR/src/ShareEventBus.hpp \
     $$BASEDIR/src/SharePage.hpp \
@@ -46,6 +50,7 @@ HEADERS +=  \
     $$BASEDIR/src/FacebookShare.hpp \
     $$BASEDIR/src/NFCShare.hpp \
     $$BASEDIR/src/TwitterShare.hpp \
+    
 
 CONFIG += precompile_header
 PRECOMPILED_HEADER = $$BASEDIR/precompiled.h
