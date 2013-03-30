@@ -61,4 +61,8 @@ void CoreEventBus::FireEvent(IEvent * e)
 	{
 		s_Instance->m_eventListeners.at(i)->ActOnEvent(e);
 	}
+
+	//Clean up the event
+	delete e;
+	e = NULL;
 }

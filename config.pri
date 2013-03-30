@@ -21,6 +21,8 @@ SOURCES +=  \
     $$BASEDIR/src/eventListeners/IEventListener.cpp \
     $$BASEDIR/src/events/IEvent.cpp \
     $$BASEDIR/src/events/IngredientListEvent.cpp \
+    $$BASEDIR/src/events/IngredientListRequestEvent.cpp \
+    $$BASEDIR/src/events/IngredientListResultEvent.cpp \
     $$BASEDIR/src/events/UIRecipeEvent.cpp \
     $$BASEDIR/src/events/UIRecipeListEvent.cpp \
     $$BASEDIR/src/events/UIShareEvent.cpp \
@@ -48,6 +50,8 @@ HEADERS +=  \
     $$BASEDIR/src/eventListeners/IEventListener.hpp \
     $$BASEDIR/src/events/IEvent.hpp \
     $$BASEDIR/src/events/IngredientListEvent.hpp \
+    $$BASEDIR/src/events/IngredientListRequestEvent.hpp \
+    $$BASEDIR/src/events/IngredientListResultEvent.hpp \
     $$BASEDIR/src/events/UIRecipeEvent.hpp \
     $$BASEDIR/src/events/UIRecipeListEvent.hpp \
     $$BASEDIR/src/events/UIShareEvent.hpp \

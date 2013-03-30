@@ -12,10 +12,9 @@ class IngredientListEvent: public IEvent {
 public:
 	IngredientListEvent(int ingredientId, bool isShoppingList, bool isAddEvent);
 	virtual ~IngredientListEvent();
-private:
-	int m_ingredientID;
-	bool m_isShoppingList; //Alternative is inventory
-	bool m_isAddEvent; //Alternative is remove
+	int IngredientID;
+	bool IsShoppingList; //Alternative is inventory
+	bool IsAddEvent; //Alternative is remove
 };
 
 #endif /* INGREDIENTLISTEVENT_HPP_ */

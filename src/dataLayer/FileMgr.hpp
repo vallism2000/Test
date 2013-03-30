@@ -25,9 +25,15 @@ public:
 	FileMgr();
 	virtual ~FileMgr();
 
-	//TODO void GetIngredientList(bool isShoppingList);
-	//TODO void AddToIngredientList(int recipeID, bool isShoppingList);
-	//TODO void RemoveFromIngredientList(int recipeID, bool isShoppingList);
+	//Return the entirety of the designated list. Hope this isn't too big.
+	void GetIngredientList(bool isShoppingList);
+
+	//Add an ingredient to the list (if it isn't there already)
+	//This will not remove it from the other list if it is present there)
+	void AddToIngredientList(int ingredientID, bool isShoppingList);
+
+	//Remove from the designated list only.
+	void RemoveFromIngredientList(int ingredientID, bool isShoppingList);
 
 	//TODO void AddRecipe();
 	//TODO void RemoveRecipe();

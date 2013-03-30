@@ -19,6 +19,7 @@ public:
 	virtual ~DrinkIngredient();
 
 	const std::string & GetName();
+	const std::string & GetAmount();
 	int GetID();
 
 

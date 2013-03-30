@@ -27,3 +27,7 @@ int DrinkIngredient::GetID()
 	return m_ingredientID;
 }
 
+const std::string & DrinkIngredient::GetAmount()
+{
+	return m_amount;
+}
