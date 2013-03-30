@@ -5,11 +5,12 @@
 
 #include "DrinkRecipe.hpp"
 
-DrinkRecipe::DrinkRecipe(int rating, std::string name, std::string desc)
+DrinkRecipe::DrinkRecipe(int rating, std::string name, std::string desc, std::string instructions)
 {
 	 m_rating = rating;
 	 m_name = name;
 	 m_desc = desc;
+	 m_instructions = instructions;
 	 m_ingredients = std::vector<std::pair<DrinkIngredient, std::string> >();
 }
 
@@ -36,6 +37,11 @@ const std::string & DrinkRecipe::GetName() const
 const std::string & DrinkRecipe::GetDesc() const
 {
 	return m_desc;
+}
+
+const std::string & DrinkRecipe::GetInstructions() const
+{
+	return m_instructions;
 }
 
 const DrinkIngredient DrinkRecipe::GetIngredient(unsigned int index) const

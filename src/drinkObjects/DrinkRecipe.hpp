@@ -17,7 +17,7 @@
 
 class DrinkRecipe {
 public:
-	DrinkRecipe(int rating, std::string name, std::string desc);
+	DrinkRecipe(int rating, std::string name, std::string desc, std::string instructions);
 	virtual ~DrinkRecipe();
 
 	void AddIngredient(int ingredientID, const std::string & ingredientName, const std::string & amount);
@@ -25,6 +25,7 @@ public:
 	int GetRating() const;
 	const std::string & GetName() const;
 	const std::string & GetDesc() const;
+	const std::string & GetInstructions() const;
 	const DrinkIngredient GetIngredient(unsigned int index) const;
 	const std::string GetIngredientAmount(unsigned int index) const;
 	unsigned int GetNumIngredients() const;
@@ -34,6 +35,7 @@ private:
 	int m_rating;
 	std::string m_name;
 	std::string m_desc;
+	std::string m_instructions;
 
 	//DrinkRecipe takes ownership over this allocation.
 	std::vector<std::pair<DrinkIngredient, std::string> > m_ingredients;
