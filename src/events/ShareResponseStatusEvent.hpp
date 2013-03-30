@@ -13,13 +13,11 @@
 class ShareResponseStatusEvent: public IEvent{
 
 public:
-	ShareResponseStatusEvent(std::string type, std::string status);
+	ShareResponseStatusEvent(std::string status);
 	virtual ~ShareResponseStatusEvent();
-	const std::string & GetType();
 	std::string GetStatus();
 
 private:
-	std::string m_type;
 	std::string m_status;
 
 };

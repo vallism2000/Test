@@ -1,8 +1,6 @@
 /*
  * NFCShare.hpp
  *
- *  Created on: Mar 25, 2013
- *      Author: kirstensolomon
  */
 
 #ifndef NFCSHARE_HPP_

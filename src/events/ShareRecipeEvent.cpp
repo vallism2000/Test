@@ -6,8 +6,7 @@
 #include "ShareRecipeEvent.hpp"
 #include <iostream>
 
-ShareRecipeEvent::ShareRecipeEvent(std::string type, DrinkRecipe *recipe) : IEvent(type){
-	m_type = type;
+ShareRecipeEvent::ShareRecipeEvent(EventType type, DrinkRecipe *recipe) : IEvent(type){
 	m_recipe = recipe;
 
 	std::cout << "ShareRecipeEvent created" << std::endl;

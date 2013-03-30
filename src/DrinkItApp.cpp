@@ -62,8 +62,6 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     ShareEventBus::Initialize();
     _shareListener = new ShareEventListener();
     ShareEventBus::RegisterListener(_shareListener);
-    ShareEventBus::debugDump();
-    _shareListener->debugTest();
 }
 
 void DrinkItApp::getFullList()

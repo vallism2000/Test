@@ -7,8 +7,7 @@
 
 #include "ShareResponseStatusEvent.hpp"
 
-ShareResponseStatusEvent::ShareResponseStatusEvent(std::string type, std::string status) : IEvent(type){
-	m_type = type;
+ShareResponseStatusEvent::ShareResponseStatusEvent(std::string status) : IEvent(SHARERESPONSESTATUS){
 	m_status = status;
 }
 

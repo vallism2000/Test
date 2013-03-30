@@ -25,20 +25,20 @@ ShareEventListener::~ShareEventListener(){
 
 void ShareEventListener::ActOnEvent(IEvent *e){
     std::string data;
-	std::string type = e->GetType();
+	IEvent::EventType type = e->GetType();
 	ShareRecipeEvent *se = (ShareRecipeEvent*)e;
 
 	// For helping debug, remove later
     std::cout << "ActOnEvent "<< type << std::endl;
 
-	if( type == "NFCShare"){
+	if( type == IEvent::NFCSHARE){
 		// TODO
 		std::cout << "Got NFCShare event" << std::endl;
 
 
 
 
-	} else if( type == "BBMShare" ){
+	} else if( type == IEvent::BBMSHARE ){
 		// Prepare the data that will be shared
 		data = "I just made a " + se->GetRecipe()->GetName() + "with DrinkItApp!";
 		// Call the share function
@@ -48,7 +48,7 @@ void ShareEventListener::ActOnEvent(IEvent *e){
 		std::cout << "Got BBMShare event" << std::endl;
 
 
-	} else if (type == "TwitterShare"){
+	} else if (type == IEvent::TWITTERSHARE){
 		// Prepare the data that will be shared
 	    data = "I just made a " + se->GetRecipe()->GetName() + "with DrinkItApp!";
 
@@ -59,30 +59,21 @@ void ShareEventListener::ActOnEvent(IEvent *e){
 
 		std::cout << "Got TwitterShare event" << std::endl;
 
-	} else if (type == "FacebookShare"){
+	} else if (type == IEvent::FACEBOOKSHARE){
 
 		// Prepare the data that will be shared
-		data = "I just made a " + se->GetRecipe()->GetName() + "with DrinkItApp!";
+		data = "I just made a " + se->GetRecipe()->GetName() + " with DrinkItApp!";
 
 		FacebookShare* fbs = new FacebookShare();
         fbs->share(data);
 
 		std::cout << "Got FacebookShare event" << std::endl;
 
-	} else if (type == "NFCReceivedRecipeEvent"){
+	} else if (type == IEvent::NFCRECEIVEDRECIPE){
 		// TODO
 		std::cout << "Got NFCReceivedRecipe event" << std::endl;
-	} else if (type == "ShareResponseStatus"){
+	} else if (type == IEvent::SHARERESPONSESTATUS){
 		// TODO
 		std::cout << "Got ShareResponseStatus event" << std::endl;
 	}
-}
-
-void ShareEventListener::debugTest(){
-    std::cout << "listener exists" << std::endl;
-
-}
-
-void ShareEventListener::onArmed() {
-  m_invocation->trigger("bb.action.SHARE");
 }

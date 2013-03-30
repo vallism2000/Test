@@ -11,7 +11,8 @@
 class IEvent {
 public:
 
-	enum EventType { INGREDIENTLIST, RECIPEADD };
+	enum EventType { INGREDIENTLIST, RECIPEADD, NFCRECEIVEDRECIPE, SHARERESPONSESTATUS,
+		BBMSHARE, NFCSHARE, FACEBOOKSHARE, TWITTERSHARE };
 
 	IEvent(EventType type);
 	virtual ~IEvent();

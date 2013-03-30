@@ -5,8 +5,7 @@
 
 #include "NFCReceivedRecipeEvent.hpp"
 
-NFCReceivedRecipeEvent::NFCReceivedRecipeEvent(std::string type, DrinkRecipe* recipe) : IEvent(type){
-	m_type = type;
+NFCReceivedRecipeEvent::NFCReceivedRecipeEvent(DrinkRecipe* recipe) : IEvent(NFCRECEIVEDRECIPE){
 	m_recipe = recipe;
 }
 

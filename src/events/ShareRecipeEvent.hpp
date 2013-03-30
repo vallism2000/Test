@@ -14,13 +14,12 @@
 class ShareRecipeEvent: public IEvent{
 
 public:
-	ShareRecipeEvent(std::string type, DrinkRecipe *recipe);
+	ShareRecipeEvent(EventType type, DrinkRecipe *recipe);
 	virtual ~ShareRecipeEvent();
 	DrinkRecipe* GetRecipe();
 
 
 private:
-	std::string m_type;
 	DrinkRecipe *m_recipe;
 
 };

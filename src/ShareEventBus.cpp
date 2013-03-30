@@ -39,13 +39,13 @@ void ShareEventBus::UnRegisterListener(IEventListener * el){
 }
 
 void ShareEventBus::FireEvent(IEvent * e){
+	if(e == NULL){
+		std::cout << "Null event ignored." << std::endl;
+		return;
+	}
 	std::cout << "FireEvent" << std::endl;
 	std::cout << s_ShareInstance->m_shareEventListeners.size() << std::endl;
 	for(unsigned int i = 0; i < s_ShareInstance->m_shareEventListeners.size(); i++){
 		s_ShareInstance->m_shareEventListeners.at(i)->ActOnEvent(e);
 	}
-}
-
-void ShareEventBus::debugDump(){
-	std::cout << s_ShareInstance->m_shareEventListeners.size() << std::endl;
 }

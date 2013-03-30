@@ -21,10 +21,6 @@ public:
 	ShareEventListener();
 	virtual ~ShareEventListener();
 	void ActOnEvent(IEvent *e);
-	void debugTest();
-
-public slots:
-	void onArmed();
 
 
 private:

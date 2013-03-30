@@ -13,12 +13,11 @@
 class NFCReceivedRecipeEvent: public IEvent{
 
 public:
-	NFCReceivedRecipeEvent(std::string type, DrinkRecipe* recipe);
+	NFCReceivedRecipeEvent(DrinkRecipe* recipe);
 	virtual ~NFCReceivedRecipeEvent();
 	DrinkRecipe* GetRecipe();
 
 private:
-	std::string m_type;
 	DrinkRecipe *m_recipe;
 
 };

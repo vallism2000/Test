@@ -16,7 +16,6 @@ SharePage::SharePage(){
     m_qml->setContextProperty("_shareObject", this);
     m_root = m_qml->createRootObject<Page>();
 
-    std::cout << "SharePage created" << std::endl;
 }
 
 SharePage::~SharePage(){
@@ -27,8 +26,18 @@ void SharePage::triggerShareEvent(QString type){
 	std::cout << "type: " << type.toStdString() << std::endl;
 	// Will need to get drinkrecipe pointer from somewhere
 	DrinkRecipe* m_recipe = new DrinkRecipe(1, "foo", "fooooooo", new DrinkIngredient(1, "bar", "1 part"), 1);
+	IEvent::EventType event_type;
+	if (type == "BBM"){
+		event_type = IEvent::BBMSHARE;
+	} else if (type == "Facebook"){
+		event_type = IEvent::FACEBOOKSHARE;
+	} else if (type == "NFC"){
+		event_type = IEvent::NFCSHARE;
+	} else if (type == "Twitter"){
+		event_type = IEvent::TWITTERSHARE;
 
-	ShareRecipeEvent *e = new ShareRecipeEvent(type.toStdString()+"Share", m_recipe);
+	}
+	ShareRecipeEvent *e = new ShareRecipeEvent(event_type, m_recipe);
 	ShareEventBus::FireEvent(e);
 
 }
