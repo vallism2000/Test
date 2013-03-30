@@ -1,5 +1,12 @@
 import bb.cascades 1.0
 
+TabbedPane {
+    showTabsOnActionBar: true
+    Tab {
+        title: "Home"
+
+// ********************
+
 NavigationPane {
     id: nav
     Page {
@@ -101,5 +108,30 @@ NavigationPane {
     }
     onPopTransitionEnded: {
         page.destroy();
+    }
+}
+
+// ********************
+
+    }
+    Tab {
+        title: "Inventory"
+        NavigationPane {
+            Page {
+                titleBar: TitleBar {
+                    title: "Inventory Page"
+                }
+            }
+        }
+    }
+    Tab {
+        title: "Shopping List"
+        NavigationPane {
+            Page {
+                titleBar: TitleBar {
+                    title: "Shopping List Page"
+                }
+            }
+        }
     }
 }

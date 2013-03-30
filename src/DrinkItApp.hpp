@@ -4,6 +4,7 @@
 
 #include <QObject>
 
+#include <bb/cascades/TabbedPane>
 #include <bb/cascades/NavigationPane>
 #include <bb/cascades/ListView>
 #include <bb/cascades/ArrayDataModel>
@@ -13,6 +14,8 @@
 #include "dataLayer/DataMgr.hpp"
 #include "eventListeners/ShareEventListener.hpp"
 #include "SharePage.hpp"
+
+#include "UIEventHandler.hpp"
 
 namespace bb { namespace cascades { class Application; }}
 
@@ -39,9 +42,7 @@ public:
     Q_INVOKABLE QString loadJSON();
 
 private:
-    Application *_app;
-    QmlDocument *_qml;
-    bb::cascades::NavigationPane *root;
+    bb::cascades::TabbedPane *root;
     bb::cascades::ListView *list;
     bb::cascades::ArrayDataModel *model1;
     bb::cascades::ArrayDataModel *model2;
@@ -53,10 +54,11 @@ private:
     bool recipeSubmitted;
     DataMgr * m_dataManager;
 
+    UIEventHandler * EH;
+
     void createModules();
     SharePage* _sharePage;
     ShareEventListener* _shareListener;
-
 };
 
 
