@@ -58,6 +58,14 @@ void FileMgr::AddRecipe(int rating, const std::string & name,
 	(void)ingredients;
 }
 
+void FileMgr::ModifyRecipe(int recipeID, int rating, const std::string & name,
+			const std::string & description, const std::string & instructions,
+			const std::vector<std::pair<std::string, std::string> > & ingredients)
+{
+	std::cout << "FileMgr: Dummy handle for Modify Recipe:"  << recipeID << rating << name << description << instructions << std::endl;
+	(void)ingredients;
+}
+
 void FileMgr::RemoveRecipe(int recipeID)
 {
 	std::cout << "FileMgr: Dummy handle for Delete Recipe:" << recipeID << std::endl;

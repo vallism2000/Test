@@ -47,8 +47,10 @@ public:
 
 	void RemoveRecipe(int recipeID);
 
-	//TODO void EditRecipe();
-	//TODO void GetRecipe(int recipeID);
+	void ModifyRecipe(int recipeId, int rating, const std::string & name,
+				const std::string & description, const std::string & instructions,
+				const std::vector<std::pair<std::string, std::string> > & ingredients);
+
 	//TODO void GetAllRecipes();
 	//TODO void GetSearchResults();
 };
