@@ -15,6 +15,9 @@
 #include <vector>
 #include <utility>
 
+typedef std::pair<int,std::string> RecipeIdNamePair;
+typedef std::vector<RecipeIdNamePair > RecipeIdNameList;
+
 class DrinkRecipe {
 public:
 	DrinkRecipe(int recipeID, int rating, std::string name, std::string desc, std::string instructions);

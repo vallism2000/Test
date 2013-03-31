@@ -11,6 +11,8 @@
 #include "events/AddRecipeEvent.hpp"
 #include "events/RemoveRecipeEvent.hpp"
 #include "events/ModifyRecipeEvent.hpp"
+#include "events/GetAllRecipesEvent.hpp"
+#include "events/GetAllRecipesResultEvent.hpp"
 
 #include <iostream>
 
@@ -72,4 +74,22 @@ void DataMgr::ActOnEvent(IEvent * e)
 						parsedEvent->Description, parsedEvent->Instructions,
 						parsedEvent->GetIngredientsList());
 	}
+	else if (e->GetType() == e->RECIPELISTREQUEST)
+	{
+		std::cout << "DataMgr: Recipe List Request event is being handled." << std::endl;
+		//GetAllRecipesEvent * parsedEvent = (GetAllRecipesEvent *) e;
+		CoreEventBus::FireEvent(new GetAllRecipesResultEvent(m_fileMgr.GetAllRecipes()));
+	}
+
+	/*
+	//DO NOT COMMIT
+	if(e->GetType() == e->RECIPELISTRESULT)
+	{
+		GetAllRecipesResultEvent * parsedEvent = (GetAllRecipesResultEvent *) e;
+		for(unsigned int i = 0; i < parsedEvent->AllRecipeList->size(); i++)
+		{
+			RecipeIdNamePair tempPair = parsedEvent->AllRecipeList->at(i);
+			std::cout << "Recipe " << tempPair.first << " " << tempPair.second << std::endl;
+		}
+	}*/
 }

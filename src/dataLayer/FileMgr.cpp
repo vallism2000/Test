@@ -11,6 +11,26 @@
 
 FileMgr::FileMgr()
 {
+	m_allRecipeList = new RecipeIdNameList();
+
+	//Fill it with dummy data for now
+	m_allRecipeList->push_back(RecipeIdNamePair(0, "AllDrink0"));
+	m_allRecipeList->push_back(RecipeIdNamePair(1, "AllDrink1"));
+	m_allRecipeList->push_back(RecipeIdNamePair(2, "AllDrink2"));
+	m_allRecipeList->push_back(RecipeIdNamePair(3, "AllDrink3"));
+	m_allRecipeList->push_back(RecipeIdNamePair(4, "AllDrink4"));
+	m_allRecipeList->push_back(RecipeIdNamePair(5, "AllDrink5"));
+	m_allRecipeList->push_back(RecipeIdNamePair(6, "AllDrink6"));
+	m_allRecipeList->push_back(RecipeIdNamePair(7, "AllDrink7"));
+	m_allRecipeList->push_back(RecipeIdNamePair(8, "AllDrink8"));
+	m_allRecipeList->push_back(RecipeIdNamePair(9, "AllDrink9"));
+	m_allRecipeList->push_back(RecipeIdNamePair(10, "AllDrink10"));
+	m_allRecipeList->push_back(RecipeIdNamePair(11, "AllDrink11"));
+	m_allRecipeList->push_back(RecipeIdNamePair(12, "AllDrink12"));
+	m_allRecipeList->push_back(RecipeIdNamePair(13, "AllDrink13"));
+	m_allRecipeList->push_back(RecipeIdNamePair(14, "AllDrink14"));
+	m_allRecipeList->push_back(RecipeIdNamePair(15, "AllDrink15"));
+	m_allRecipeList->push_back(RecipeIdNamePair(16, "AllDrink16"));
 }
 
 FileMgr::~FileMgr()
@@ -69,6 +89,14 @@ void FileMgr::ModifyRecipe(int recipeID, int rating, const std::string & name,
 void FileMgr::RemoveRecipe(int recipeID)
 {
 	std::cout << "FileMgr: Dummy handle for Delete Recipe:" << recipeID << std::endl;
+}
+
+//The file manager will keep an active pointer to the full list and only blow it away when things change.
+const RecipeIdNameList * FileMgr::GetAllRecipes()
+{
+	std::cout << "FileMgr: Dummy handle for GetAllRecipes." << std::endl;
+	return m_allRecipeList;
+
 }
 
 

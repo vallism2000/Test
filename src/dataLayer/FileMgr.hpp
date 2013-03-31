@@ -51,8 +51,15 @@ public:
 				const std::string & description, const std::string & instructions,
 				const std::vector<std::pair<std::string, std::string> > & ingredients);
 
-	//TODO void GetAllRecipes();
-	//TODO void GetSearchResults();
+	const RecipeIdNameList * GetAllRecipes();
+
+	//TODO std::vector<DrinkRecipe> GetSearchResults();
+
+private:
+
+	//Maintained by the file manager as the full list of all names and ids.
+	RecipeIdNameList * m_allRecipeList;
+
 };
 
 #endif /* FILEMGR_HPP_ */
