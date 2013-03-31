@@ -58,4 +58,9 @@ void FileMgr::AddRecipe(int rating, const std::string & name,
 	(void)ingredients;
 }
 
+void FileMgr::RemoveRecipe(int recipeID)
+{
+	std::cout << "FileMgr: Dummy handle for Delete Recipe:" << recipeID << std::endl;
+}
+
 

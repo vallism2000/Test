@@ -13,7 +13,7 @@
 #include "CoreEventBus.hpp"
 
 //TEMP
-#include "events/IngredientListEvent.hpp"
+#include "events/RemoveRecipeEvent.hpp"
 
 #include "events/ShareRecipeEvent.hpp"
 #include "ShareEventBus.hpp"
@@ -74,7 +74,7 @@ void DrinkItApp::getFullList()
 void DrinkItApp::getSearchedList()
 {
 	//Example call to the CoreEventBus
-	CoreEventBus::FireEvent(new IngredientListEvent(0, true, true));
+	CoreEventBus::FireEvent(new RemoveRecipeEvent(0));
 
 	EH->getRecipeList("Search Info");
 }

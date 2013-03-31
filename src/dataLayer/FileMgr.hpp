@@ -45,7 +45,8 @@ public:
 			const std::string & description, const std::string & instructions,
 			const std::vector<std::pair<std::string, std::string> > & ingredients);
 
-	//TODO void RemoveRecipe();
+	void RemoveRecipe(int recipeID);
+
 	//TODO void EditRecipe();
 	//TODO void GetRecipe(int recipeID);
 	//TODO void GetAllRecipes();

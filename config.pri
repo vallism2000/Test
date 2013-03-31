@@ -29,6 +29,7 @@ SOURCES +=  \
     $$BASEDIR/src/eventListeners/ShareEventListener.cpp \
     $$BASEDIR/src/events/IEvent.cpp \
     $$BASEDIR/src/events/AddRecipeEvent.cpp \
+    $$BASEDIR/src/events/RemoveRecipeEvent.cpp \
     $$BASEDIR/src/events/IngredientListEvent.cpp \
     $$BASEDIR/src/events/IngredientListRequestEvent.cpp \
     $$BASEDIR/src/events/IngredientListResultEvent.cpp \
@@ -59,6 +60,7 @@ HEADERS +=  \
     $$BASEDIR/src/eventListeners/ShareEventListener.hpp \
     $$BASEDIR/src/events/IEvent.hpp \
     $$BASEDIR/src/events/AddRecipeEvent.hpp \
+    $$BASEDIR/src/events/RemoveRecipeEvent.hpp \
     $$BASEDIR/src/events/IngredientListEvent.hpp \
     $$BASEDIR/src/events/IngredientListRequestEvent.hpp \
     $$BASEDIR/src/events/IngredientListResultEvent.hpp \

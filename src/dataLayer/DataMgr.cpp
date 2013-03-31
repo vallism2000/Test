@@ -9,6 +9,7 @@
 #include "events/IngredientListRequestEvent.hpp"
 #include "events/IngredientListResultEvent.hpp"
 #include "events/AddRecipeEvent.hpp"
+#include "events/RemoveRecipeEvent.hpp"
 
 #include <iostream>
 
@@ -55,5 +56,11 @@ void DataMgr::ActOnEvent(IEvent * e)
 		m_fileMgr.AddRecipe(parsedEvent->Rating, parsedEvent->Name,
 				parsedEvent->Description, parsedEvent->Instructions,
 				parsedEvent->GetIngredientsList());
+	}
+	else if (e->GetType() == e->RECIPEREMOVE)
+	{
+		std::cout << "DataMgr: Remove Recipe event is being handled." << std::endl;
+		RemoveRecipeEvent * parsedEvent = (RemoveRecipeEvent *) e;
+		m_fileMgr.RemoveRecipe(parsedEvent->RecipeID);
 	}
 }
