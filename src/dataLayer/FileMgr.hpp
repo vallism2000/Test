@@ -20,13 +20,19 @@
 #ifndef FILEMGR_HPP_
 #define FILEMGR_HPP_
 
+#include <vector>
+#include <string>
+#include <utility>
+#include "drinkObjects/DrinkIngredient.hpp"
+#include "drinkObjects/DrinkRecipe.hpp"
+
 class FileMgr {
 public:
 	FileMgr();
 	virtual ~FileMgr();
 
 	//Return the entirety of the designated list. Hope this isn't too big.
-	void GetIngredientList(bool isShoppingList);
+	std::vector<DrinkIngredient> * GetIngredientList(bool isShoppingList);
 
 	//Add an ingredient to the list (if it isn't there already)
 	//This will not remove it from the other list if it is present there)
@@ -35,7 +41,10 @@ public:
 	//Remove from the designated list only.
 	void RemoveFromIngredientList(int ingredientID, bool isShoppingList);
 
-	//TODO void AddRecipe();
+	void AddRecipe(int rating, const std::string & name,
+			const std::string & description, const std::string & instructions,
+			const std::vector<std::pair<std::string, std::string> > & ingredients);
+
 	//TODO void RemoveRecipe();
 	//TODO void EditRecipe();
 	//TODO void GetRecipe(int recipeID);

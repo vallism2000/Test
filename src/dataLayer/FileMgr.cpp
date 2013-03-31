@@ -4,12 +4,10 @@
  */
 
 #include "FileMgr.hpp"
-#include "CoreEventBus.hpp"
-#include "events/IngredientListResultEvent.hpp"
 #include "drinkObjects/DrinkIngredient.hpp"
 #include "drinkObjects/DrinkRecipe.hpp"
 #include <iostream>
-#include <vector>
+
 
 FileMgr::FileMgr()
 {
@@ -29,7 +27,7 @@ void FileMgr::RemoveFromIngredientList(int ingredientID, bool isShoppingList)
 	std::cout << "FileMgr: Dummy handle for Remove ingredient: " << ingredientID << " Shopping?: " << isShoppingList << std::endl;
 }
 
-void FileMgr::GetIngredientList(bool isShoppingList)
+std::vector<DrinkIngredient> * FileMgr::GetIngredientList(bool isShoppingList)
 {
 	std::cout << "FileMgr: Dummy handle for GetIngredientList: Shopping?: " << isShoppingList << std::endl;
 	std::vector<DrinkIngredient> * tempIngredients = new std::vector<DrinkIngredient>();
@@ -49,5 +47,15 @@ void FileMgr::GetIngredientList(bool isShoppingList)
 		tempIngredients->push_back(DrinkIngredient(3, "TestBoozeHave3"));
 		tempIngredients->push_back(DrinkIngredient(4, "TestBoozeHave4"));
 	}
-	CoreEventBus::FireEvent(new IngredientListResultEvent(isShoppingList, tempIngredients));
+	return tempIngredients;
 }
+
+void FileMgr::AddRecipe(int rating, const std::string & name,
+			const std::string & description, const std::string & instructions,
+			const std::vector<std::pair<std::string, std::string> > & ingredients)
+{
+	std::cout << "FileMgr: Dummy handle for Add Recipe:" << rating << name << description << instructions << std::endl;
+	(void)ingredients;
+}
+
+

@@ -17,11 +17,12 @@
 
 class DrinkRecipe {
 public:
-	DrinkRecipe(int rating, std::string name, std::string desc, std::string instructions);
+	DrinkRecipe(int recipeID, int rating, std::string name, std::string desc, std::string instructions);
 	virtual ~DrinkRecipe();
 
 	void AddIngredient(int ingredientID, const std::string & ingredientName, const std::string & amount);
 
+	int GetID() const;
 	int GetRating() const;
 	const std::string & GetName() const;
 	const std::string & GetDesc() const;
@@ -32,6 +33,7 @@ public:
 
 
 private:
+	int m_recipeID;
 	int m_rating;
 	std::string m_name;
 	std::string m_desc;

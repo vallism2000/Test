@@ -7,6 +7,8 @@
 #include "CoreEventBus.hpp"
 #include "events/IngredientListEvent.hpp"
 #include "events/IngredientListRequestEvent.hpp"
+#include "events/IngredientListResultEvent.hpp"
+#include "events/AddRecipeEvent.hpp"
 
 #include <iostream>
 
@@ -42,6 +44,16 @@ void DataMgr::ActOnEvent(IEvent * e)
 	{
 		std::cout << "DataMgr: Ingredient List request event is being handled." << std::endl;
 		IngredientListRequestEvent * parsedEvent = (IngredientListRequestEvent *) e;
-		m_fileMgr.GetIngredientList(parsedEvent->IsShoppingList);
+
+		std::vector<DrinkIngredient> * tempIngredients = m_fileMgr.GetIngredientList(parsedEvent->IsShoppingList);
+		CoreEventBus::FireEvent(new IngredientListResultEvent(parsedEvent->IsShoppingList, tempIngredients));
+	}
+	else if (e->GetType() == e->RECIPEADD)
+	{
+		std::cout << "DataMgr: Add Recipe event is being handled." << std::endl;
+		AddRecipeEvent * parsedEvent = (AddRecipeEvent *) e;
+		m_fileMgr.AddRecipe(parsedEvent->Rating, parsedEvent->Name,
+				parsedEvent->Description, parsedEvent->Instructions,
+				parsedEvent->GetIngredientsList());
 	}
 }

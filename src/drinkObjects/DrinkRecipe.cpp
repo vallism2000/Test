@@ -5,8 +5,9 @@
 
 #include "DrinkRecipe.hpp"
 
-DrinkRecipe::DrinkRecipe(int rating, std::string name, std::string desc, std::string instructions)
+DrinkRecipe::DrinkRecipe(int recipeID, int rating, std::string name, std::string desc, std::string instructions)
 {
+	m_recipeID = recipeID;
 	 m_rating = rating;
 	 m_name = name;
 	 m_desc = desc;
@@ -27,6 +28,11 @@ void DrinkRecipe::AddIngredient(int ingredientID, const std::string & ingredient
 int DrinkRecipe::GetRating() const
 {
 	return m_rating;
+}
+
+int DrinkRecipe::GetID() const
+{
+	return m_recipeID;
 }
 
 const std::string & DrinkRecipe::GetName() const
