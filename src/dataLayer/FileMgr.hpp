@@ -53,6 +53,9 @@ public:
 
 	const RecipeIdNameList * GetAllRecipes();
 
+	//Returns a new object. It does not take ownership over the new object
+	DrinkRecipe * GetRecipe(int recipeId);
+
 	//TODO std::vector<DrinkRecipe> GetSearchResults();
 
 private:
