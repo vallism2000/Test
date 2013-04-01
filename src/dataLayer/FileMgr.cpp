@@ -260,7 +260,19 @@ void FileMgr::AddToIngredientList(int ingredientID,const std::string & name, boo
 
 void FileMgr::RemoveFromIngredientList(int ingredientID, bool isShoppingList)
 {
-	std::cout << "FileMgr: Dummy handle for Remove ingredient: " << ingredientID << " Shopping?: " << isShoppingList << std::endl;
+	QSqlDatabase database = QSqlDatabase::database();
+	QString table = (isShoppingList) ? ShoppingTable : InventoryTable;
+	QSqlQuery query(database);
+
+	//Remove it from the list
+	query.prepare("DELETE FROM " + table +
+			" WHERE " + IngredientID + " = :id ;");
+	query.bindValue(":id", ingredientID);
+	if(!query.exec())
+	{
+		std::cout << "Removing ingredient to inv/shop failed: " << query.lastError().text().toStdString() << std::endl;
+	}
+	database.close();
 }
 
 std::vector<DrinkIngredient> * FileMgr::GetIngredientList(bool isShoppingList)
