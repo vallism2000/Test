@@ -38,9 +38,9 @@ FileMgr::~FileMgr()
 {
 }
 
-void FileMgr::AddToIngredientList(int ingredientID, bool isShoppingList)
+void FileMgr::AddToIngredientList(int ingredientID,const std::string & name, bool isShoppingList)
 {
-	std::cout << "FileMgr: Dummy handle for Add ingredient: " << ingredientID << " Shopping?: " << isShoppingList << std::endl;
+	std::cout << "FileMgr: Dummy handle for Add ingredient: " << ingredientID << name <<  " Shopping?: " << isShoppingList << std::endl;
 }
 
 void FileMgr::RemoveFromIngredientList(int ingredientID, bool isShoppingList)

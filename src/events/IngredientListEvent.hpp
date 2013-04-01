@@ -10,9 +10,10 @@
 
 class IngredientListEvent: public IEvent {
 public:
-	IngredientListEvent(int ingredientId, bool isShoppingList, bool isAddEvent);
+	IngredientListEvent(int ingredientId, const std::string & ingredientName, bool isShoppingList, bool isAddEvent);
 	virtual ~IngredientListEvent();
 	int IngredientID;
+	std::string IngredientName;
 	bool IsShoppingList; //Alternative is inventory
 	bool IsAddEvent; //Alternative is remove
 };
