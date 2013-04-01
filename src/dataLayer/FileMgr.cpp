@@ -7,7 +7,9 @@
 #include "drinkObjects/DrinkIngredient.hpp"
 #include "drinkObjects/DrinkRecipe.hpp"
 #include <iostream>
+#include <bb/cascades/Application>
 
+using namespace bb::cascades;
 
 FileMgr::FileMgr()
 {
@@ -32,10 +34,103 @@ FileMgr::FileMgr()
 	m_allRecipeList->push_back(RecipeTuple(14, "AllDrink14", true));
 	m_allRecipeList->push_back(RecipeTuple(15, "AllDrink15", false));
 	m_allRecipeList->push_back(RecipeTuple(16, "AllDrink16", true));
+
+	const QString databasePath = "./data/recipes.db";
+	QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
+	database.setDatabaseName(databasePath);
+	if(database.open())
+	{
+		std::cout << "FileMgr: DB created successfully " << std::endl;
+	}
+	else
+	{
+		std::cout << "FileMgr: Error opening DB. " << std::endl;
+	}
+	database.close();
+
+	CreateTables();
 }
 
 FileMgr::~FileMgr()
 {
+}
+
+void FileMgr::CreateTables()
+{
+	QSqlDatabase database = QSqlDatabase::database();
+
+	//Create Ingredients table
+	const QString ingredientTable = "CREATE TABLE IF NOT EXISTS Ingredients ("
+			" ingredientID INTEGER PRIMARY KEY AUTOINCREMENT,"
+			" ingredientName VARCHAR);";
+	QSqlQuery ingredientsQuery(database);
+	if(ingredientsQuery.exec(ingredientTable))
+	{
+		std::cout << "Ingredient table created successfully." << std::endl;
+	}
+	else
+	{
+		std::cout << "Ingredient table errored on creation." << std::endl;
+	}
+
+	//Create Recipe table
+	const QString recipeTable = "CREATE TABLE IF NOT EXISTS Recipes ("
+			" recipeID INTEGER PRIMARY KEY AUTOINCREMENT,"
+			" recipeRating INTEGER,"
+			" recipeName VARCHAR,"
+			" recipeDesc VARCHAR,"
+			" recipeInstructions VARCHAR);";
+	QSqlQuery recipesQuery(database);
+	if(recipesQuery.exec(recipeTable))
+	{
+		std::cout << "Recipe table created successfully." << std::endl;
+	}
+	else
+	{
+		std::cout << "Recipe table errored on creation." << std::endl;
+	}
+
+	//Create RecipeIngredients table
+	const QString recipeIngredientsTable = "CREATE TABLE IF NOT EXISTS RecipeIngredients ("
+			" recipeID INTEGER,"
+			" ingredientID INTEGER);";
+	QSqlQuery recipeIngredientsQuery(database);
+	if(recipeIngredientsQuery.exec(recipeIngredientsTable))
+	{
+		std::cout << "RecipeIngredients table created successfully." << std::endl;
+	}
+	else
+	{
+		std::cout << "RecipeIngredients table errored on creation." << std::endl;
+	}
+
+	//Create ShoppingList table
+	const QString shoppingTable = "CREATE TABLE IF NOT EXISTS Shopping ("
+			" ingredientID INTEGER PRIMARY KEY);";
+	QSqlQuery shoppingQuery(database);
+	if(shoppingQuery.exec(shoppingTable))
+	{
+		std::cout << "Shopping table created successfully." << std::endl;
+	}
+	else
+	{
+		std::cout << "Shopping table errored on creation." << std::endl;
+	}
+
+	//Create Inventory table
+	const QString inventoryTable = "CREATE TABLE IF NOT EXISTS Inventory ("
+			" ingredientID INTEGER PRIMARY KEY);";
+	QSqlQuery inventoryQuery(database);
+	if(inventoryQuery.exec(inventoryTable))
+	{
+		std::cout << "Inventory table created successfully." << std::endl;
+	}
+	else
+	{
+		std::cout << "Inventory table errored on creation." << std::endl;
+	}
+
+	database.close();
 }
 
 void FileMgr::AddToIngredientList(int ingredientID,const std::string & name, bool isShoppingList)

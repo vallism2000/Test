@@ -25,6 +25,8 @@
 #include <utility>
 #include "drinkObjects/DrinkIngredient.hpp"
 #include "drinkObjects/DrinkRecipe.hpp"
+#include <bb/data/SqlConnection>
+#include <QtSql/QtSql>
 
 class FileMgr {
 public:
@@ -66,6 +68,8 @@ private:
 	//Maintained by the file manager
 	RecipeList * m_lastSearchResults;
 
+	//Initialize the DB if it hasn't already been done
+	void CreateTables();
 };
 
 #endif /* FILEMGR_HPP_ */
