@@ -26,7 +26,7 @@ TabbedPane {
 
     Tab {
         title: "Home"
-
+        imageSource: "ic_home.png"
 		NavigationPane {
 		    id: nav
 		    objectName: "nav"
