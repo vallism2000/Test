@@ -130,11 +130,33 @@ void DrinkItApp::submitRecipe()
 {
 	//recipeSubmitted = true;
 	std::string text[3];
+	std::string ingred[5];
+	std::string amount[5];
+	int size = 5;
+
 	text[0] = root->findChild<TextArea*>("addName")->text().toStdString();
 	text[1] = root->findChild<TextArea*>("addInfo")->text().toStdString();
 	text[2] = root->findChild<TextArea*>("addInst")->text().toStdString();
 
-	EH->addRecipe(0, text, NULL, NULL, 0);
+	ingred[0] = root->findChild<TextArea*>("ing11")->text().toStdString();
+	ingred[1] = root->findChild<TextArea*>("ing21")->text().toStdString();
+	ingred[2] = root->findChild<TextArea*>("ing31")->text().toStdString();
+	ingred[3] = root->findChild<TextArea*>("ing41")->text().toStdString();
+	ingred[4] = root->findChild<TextArea*>("ing51")->text().toStdString();
+
+	amount[0] = root->findChild<TextArea*>("ing12")->text().toStdString();
+	amount[1] = root->findChild<TextArea*>("ing22")->text().toStdString();
+	amount[2] = root->findChild<TextArea*>("ing32")->text().toStdString();
+	amount[3] = root->findChild<TextArea*>("ing42")->text().toStdString();
+	amount[4] = root->findChild<TextArea*>("ing52")->text().toStdString();
+
+	for (int i=5; i>0; i--) {
+		if (ingred[i-1] == "") {
+			size = i-1;
+		}
+	}
+
+	EH->addRecipe(0, text, ingred, amount, size);
 }
 
 //The following are file save/load methods and should not be located here according to our architecture.

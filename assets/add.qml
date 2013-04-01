@@ -26,20 +26,44 @@ Page {
         ScrollView {
             Container {
 		        TextArea {
+		            objectName: "ing11"
+		            hintText: "Ingredient 1"
 		        }
 		        TextArea {
+		            objectName: "ing12"
+		            hintText: "Amount of Ingredient 1"
 		        }
 		        TextArea {
+		            objectName: "ing21"
+		            hintText: "Ingredient 2"
 		        }
 		        TextArea {
+		            objectName: "ing22"
+		            hintText: "Amount of Ingredient 2"
 		        }
 		        TextArea {
+		            objectName: "ing31"
+		            hintText: "Ingredient 3"
 		        }
 		        TextArea {
+		            objectName: "ing32"
+		            hintText: "Amount of Ingredient 3"
 		        }
 		        TextArea {
+		            objectName: "ing41"
+		            hintText: "Ingredient 4"
 		        }
 		        TextArea {
+		            objectName: "ing42"
+		            hintText: "Amount of Ingredient 4"
+		        }
+		        TextArea {
+		            objectName: "ing51"
+		            hintText: "Ingredient 5"
+		        }
+		        TextArea {
+		            objectName: "ing52"
+		            hintText: "Amount of Ingredient 5"
 		        }
 	        }
 	    }

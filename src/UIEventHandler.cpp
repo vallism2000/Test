@@ -6,6 +6,8 @@
 
 #include "events/GetAllRecipesEvent.hpp"
 #include "events/GetAllRecipesResultEvent.hpp"
+#include "events/SearchRecipesEvent.hpp"
+#include "events/SearchRecipesResultEvent.hpp"
 #include "events/GetRecipeEvent.hpp"
 #include "events/GetRecipeResultEvent.hpp"
 #include "events/AddRecipeEvent.hpp"
@@ -96,7 +98,13 @@ void UIEventHandler::getRecipeList(std::string s) {
 	// Test END
 
 	// Fire Request
-	GetAllRecipesEvent * event = new GetAllRecipesEvent();
+	IEvent * event;
+	//if (s == "") {
+		event = new GetAllRecipesEvent();
+	//} else {
+	//	vector<std::string> ing;
+	//	event = new SearchRecipesEvent("", , true);
+	//}
 	CoreEventBus::FireEvent(event);
 }
 void UIEventHandler::getRecipe(int index, int id) {
@@ -148,11 +156,18 @@ void UIEventHandler::getRecipe(int index, int id) {
 }
 void UIEventHandler::addRecipe(int rate, std::string text[], std::string ingred[], std::string amount[], int size) {
 	// Test START
+	std::cout << text[0] << ", " << text[1] << ", " << text[2] << std::endl;
+	for (int i=0; i<size; i++) {
+		std::cout << ingred[i] << ", " << amount[i] << std::endl;
+	}
 	// Test END
 
 	// Fire Submission
 	AddRecipeEvent * event = new AddRecipeEvent(rate, text[0], text[1], text[2]);
-	//
+	for (int i=0; i<size; i++) {
+		event->AddIngredient(ingred[i], amount[i]);
+	}
+	CoreEventBus::FireEvent(event);
 }
 void UIEventHandler::shareRecipe(int id) {
 	//
