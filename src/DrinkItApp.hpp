@@ -17,8 +17,6 @@
 
 #include "UIEventHandler.hpp"
 
-#include "UIEventHandler.hpp"
-
 namespace bb { namespace cascades { class Application; }}
 
 /*!
@@ -43,11 +41,19 @@ public:
     Q_INVOKABLE void submitRecipe();
     Q_INVOKABLE QString loadJSON();
 
+    Q_INVOKABLE void getInvList();
+    Q_INVOKABLE void getShopList();
+
 private:
     bb::cascades::TabbedPane *root;
+    bb::cascades::NavigationPane *nav;
     bb::cascades::ListView *list;
     bb::cascades::ArrayDataModel *model1;
     bb::cascades::ArrayDataModel *model2;
+    bb::cascades::ArrayDataModel *model3;
+    bb::cascades::ArrayDataModel *model4;
+    bb::cascades::ArrayDataModel *model5;
+    bb::cascades::ArrayDataModel *model6;
 
     int recipeID;
     std::string recipeName;
