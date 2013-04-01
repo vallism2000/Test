@@ -22,7 +22,6 @@
 
 DataMgr::DataMgr()
 {
-	m_fileMgr = FileMgr();
 	std::cout << "DataMgr: About to register the DataMgr" << std::endl;
 	CoreEventBus::RegisterListener(this);
 }

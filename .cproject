@@ -25,6 +25,9 @@
 							<builder autoBuildTarget="Device-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.1008235109.475710173" incrementalBuildTarget="Device-Debug" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
 							<tool id="com.qnx.qcc.tool.compiler.1522939136" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.1928868445" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.738866775" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtSql"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1057801018" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.381593521" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
@@ -33,6 +36,7 @@
 							<tool id="com.qnx.qcc.tool.linker.242569959" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
 								<option id="com.qnx.qcc.option.linker.libraries.2118166774" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
 									<listOptionValue builtIn="false" value="curl"/>
+									<listOptionValue builtIn="false" value="QtSql"/>
 								</option>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.110911345" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
@@ -67,6 +71,9 @@
 							<builder autoBuildTarget="Device-Release" enableAutoBuild="true" id="com.qnx.qcc.toolChain.1208628430.1884612410" incrementalBuildTarget="Device-Release" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
 							<tool id="com.qnx.qcc.tool.compiler.2024367357" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.1875820234" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.826641929" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtSql"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1475821068" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.1467609386" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
@@ -75,6 +82,7 @@
 							<tool id="com.qnx.qcc.tool.linker.1455226191" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
 								<option id="com.qnx.qcc.option.linker.libraries.1373467673" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
 									<listOptionValue builtIn="false" value="curl"/>
+									<listOptionValue builtIn="false" value="QtSql"/>
 								</option>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.585396754" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
@@ -109,6 +117,9 @@
 							<builder autoBuildTarget="Device-Profile" enableAutoBuild="true" id="com.qnx.qcc.toolChain.406917069.722122959" incrementalBuildTarget="Device-Profile" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
 							<tool id="com.qnx.qcc.tool.compiler.887643723" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.906114179" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.93767179" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtSql"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1648986812" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.648547963" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
@@ -117,6 +128,7 @@
 							<tool id="com.qnx.qcc.tool.linker.115573180" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
 								<option id="com.qnx.qcc.option.linker.libraries.450540467" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
 									<listOptionValue builtIn="false" value="curl"/>
+									<listOptionValue builtIn="false" value="QtSql"/>
 								</option>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1538240540" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
@@ -151,6 +163,9 @@
 							<builder autoBuildTarget="Simulator-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.1329209548.353746616" incrementalBuildTarget="Simulator-Debug" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
 							<tool id="com.qnx.qcc.tool.compiler.1949198590" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.1935941609" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.1474690274" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtSql"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1020665592" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.2022705965" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
@@ -159,6 +174,7 @@
 							<tool id="com.qnx.qcc.tool.linker.2126816239" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
 								<option id="com.qnx.qcc.option.linker.libraries.1053273890" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
 									<listOptionValue builtIn="false" value="curl"/>
+									<listOptionValue builtIn="false" value="QtSql"/>
 								</option>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.243539270" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
