@@ -11,6 +11,7 @@
 #include <string>
 
 #include "events/AddRecipeEvent.hpp"
+#include "CoreEventBus.hpp"
 
 NFCHandler* NFCHandler::nfch_instance;
 
@@ -118,6 +119,9 @@ void NFCHandler::parseText(QString text){
 		ae->AddIngredient(ing_name, amount);
 
     }
+
+    // Fire add event
+    CoreEventBus::FireEvent(ae);
 
 
 }

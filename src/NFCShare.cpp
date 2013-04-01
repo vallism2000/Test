@@ -62,7 +62,7 @@ std::string NFCShare::recipeToString(DrinkRecipe *r){
 
 	std::string recipe_string;
 	QString tmpstr = QString::number(r->GetRating());
-	recipe_string.append("{rating: " + tmpstr.toStdString() + "} {name: " + r->GetName() + "} {desc: " + r->GetDesc() + "}");
+	recipe_string.append("{rating: " + tmpstr.toStdString() + "} {name: " + r->GetName() + "} {desc: " + r->GetDesc() + "} ");
     recipe_string.append("{instructions: " + r->GetInstructions() + "} {ingredients: ");
 
     std::cout << recipe_string << std::endl;
