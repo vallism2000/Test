@@ -11,6 +11,27 @@
 
 FileMgr::FileMgr()
 {
+	m_lastSearchResults = new RecipeList();
+	m_allRecipeList = new RecipeList();
+
+	//Fill it with dummy data for now
+	m_allRecipeList->push_back(RecipeTuple(0, "AllDrink0", true));
+	m_allRecipeList->push_back(RecipeTuple(1, "AllDrink1", true));
+	m_allRecipeList->push_back(RecipeTuple(2, "AllDrink2", false));
+	m_allRecipeList->push_back(RecipeTuple(3, "AllDrink3", true));
+	m_allRecipeList->push_back(RecipeTuple(4, "AllDrink4", true));
+	m_allRecipeList->push_back(RecipeTuple(5, "AllDrink5", false));
+	m_allRecipeList->push_back(RecipeTuple(6, "AllDrink6", true));
+	m_allRecipeList->push_back(RecipeTuple(7, "AllDrink7", true));
+	m_allRecipeList->push_back(RecipeTuple(8, "AllDrink8", false));
+	m_allRecipeList->push_back(RecipeTuple(9, "AllDrink9", true));
+	m_allRecipeList->push_back(RecipeTuple(10, "AllDrink10", false));
+	m_allRecipeList->push_back(RecipeTuple(11, "AllDrink11", false));
+	m_allRecipeList->push_back(RecipeTuple(12, "AllDrink12", true));
+	m_allRecipeList->push_back(RecipeTuple(13, "AllDrink13", false));
+	m_allRecipeList->push_back(RecipeTuple(14, "AllDrink14", true));
+	m_allRecipeList->push_back(RecipeTuple(15, "AllDrink15", false));
+	m_allRecipeList->push_back(RecipeTuple(16, "AllDrink16", true));
 }
 
 FileMgr::~FileMgr()
@@ -69,6 +90,40 @@ void FileMgr::ModifyRecipe(int recipeID, int rating, const std::string & name,
 void FileMgr::RemoveRecipe(int recipeID)
 {
 	std::cout << "FileMgr: Dummy handle for Delete Recipe:" << recipeID << std::endl;
+}
+
+//The file manager will keep an active pointer to the full list and only blow it away when things change.
+const RecipeList * FileMgr::GetAllRecipes()
+{
+	std::cout << "FileMgr: Dummy handle for GetAllRecipes." << std::endl;
+	return m_allRecipeList;
+
+}
+
+DrinkRecipe * FileMgr::GetRecipe(int recipeId)
+{
+	std::cout << "FileMgr: Dummy handle for GetRecipe." << std::endl;
+	DrinkRecipe * toRet = new DrinkRecipe(recipeId, 5, "Specific Drink", "Tasty.", "Mix!");
+	toRet->AddIngredient(3, "Wodka", "Tons");
+	return toRet;
+}
+
+const RecipeList * FileMgr::GetSearchResults(const std::string & recipeName, const std::vector<std::string> & ingredientList, bool useAND)
+{
+	(void)recipeName;
+	(void)ingredientList;
+	(void)useAND;
+	std::cout << "FileMgr: Dummy handle for GetSearchResults." << std::endl;
+
+	m_lastSearchResults->clear();
+	m_lastSearchResults->push_back(RecipeTuple(5, "Result 1", true));
+	m_lastSearchResults->push_back(RecipeTuple(6, "Result 2", true));
+	m_lastSearchResults->push_back(RecipeTuple(7, "Result 3", true));
+	m_lastSearchResults->push_back(RecipeTuple(8, "Result 4", true));
+
+	std::cout << "FileMgr searched correctly." << std::endl;
+
+	return m_lastSearchResults;
 }
 
 

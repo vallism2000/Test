@@ -51,8 +51,21 @@ public:
 				const std::string & description, const std::string & instructions,
 				const std::vector<std::pair<std::string, std::string> > & ingredients);
 
-	//TODO void GetAllRecipes();
-	//TODO void GetSearchResults();
+	const RecipeList * GetAllRecipes();
+
+	//Returns a new object. It does not take ownership over the new object
+	DrinkRecipe * GetRecipe(int recipeId);
+
+	const RecipeList * GetSearchResults(const std::string & recipeName, const std::vector<std::string> & ingredientList, bool useAND);
+
+private:
+
+	//Maintained by the file manager as the full list of all names and ids.
+	RecipeList * m_allRecipeList;
+
+	//Maintained by the file manager
+	RecipeList * m_lastSearchResults;
+
 };
 
 #endif /* FILEMGR_HPP_ */

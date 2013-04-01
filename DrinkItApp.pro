@@ -2,6 +2,11 @@ APP_NAME = DrinkItApp
 
 CONFIG += qt warn_on cascades10
 
-LIBS += -lbbdata -lnfc -lbbsystem -lQtNfcSubset
+
+LIBS += -lbbdata
+LIBS += -lcurl
+LIBS += -lnfc
+LIBS += -lbbsystem
+LIBS += -lQtNfcSubset
 
 include(config.pri)

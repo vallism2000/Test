@@ -6,6 +6,9 @@
 #include "FacebookShare.hpp"
 #include <bb/cascades/Invocation>
 #include <bb/cascades/InvokeQuery>
+#include <curl/curl.h>
+#include "ShareResponseStatusEvent.hpp"
+#include "ShareEventBus.hpp"
 
 FacebookShare::FacebookShare(){
 
@@ -16,19 +19,34 @@ FacebookShare::~FacebookShare(){
 }
 
 void FacebookShare::share(std::string data){
+	  CURL *curl;
+	  CURLcode res;
 
-	// Getting the data into the right format for the invocation
-	QByteArray dataArray = QByteArray();
-	dataArray.insert(0, QString::fromStdString(data) );
+	  /* In windows, this will init the winsock stuff */
+	  curl_global_init(CURL_GLOBAL_ALL);
 
-	// Using invocation for now, if we want to interact with the DrinkIt facebook app we'll have to change this
-	m_Invocation = bb::cascades::Invocation::create(bb::cascades::InvokeQuery::create()
-	    .parent(this)
-		.mimeType("text/plain")
-	    .invokeTargetId("Facebook")
-		.data(dataArray));
-   QObject::connect(m_Invocation, SIGNAL(armed()), this, SLOT(onArmed()));
-	QObject::connect(m_Invocation, SIGNAL(finished()), m_Invocation, SLOT(deleteLater()));
+	  /* get a curl handle */
+	  curl = curl_easy_init();
+	  if(curl) {
+	    /* First set the URL that is about to receive our POST. This URL can
+	       just as well be a https:// URL if that is what should receive the
+	       data. */
+	    curl_easy_setopt(curl, CURLOPT_URL, "https://graph.facebook.com/me/drinkitapp:make");
+	    /* Now specify the POST data */
+	    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "access_token=AAAImC5A4sygBAGdZCFRZBgOy8ZAXKbHU0CccciSVWp4zTXmBqwYpqp1kt0MZC4ZCd3p20Yl3h6m0qHxD0ubDAKremoT201sZB0uw30lHyGIwZDZD&method=POST&drink=http://samples.ogp.me/604782039551942");
+	    /* Perform the request, res will get the return code */
+	    res = curl_easy_perform(curl);
+	    /* Check for errors */
+	    if(res != CURLE_OK)
+	      fprintf(stderr, "curl_easy_perform() failed: %s\n",
+	              curl_easy_strerror(res));
+
+	    /* always cleanup */
+	    curl_easy_cleanup(curl);
+	    ShareResponseStatusEvent *e = new ShareResponseStatusEvent(ShareResponseStatusEvent::SUCCESS);
+	    ShareEventBus::FireEvent(e);
+	  }
+	  curl_global_cleanup();
 
 }
 

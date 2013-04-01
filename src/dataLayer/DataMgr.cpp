@@ -11,6 +11,12 @@
 #include "events/AddRecipeEvent.hpp"
 #include "events/RemoveRecipeEvent.hpp"
 #include "events/ModifyRecipeEvent.hpp"
+#include "events/GetAllRecipesEvent.hpp"
+#include "events/GetAllRecipesResultEvent.hpp"
+#include "events/GetRecipeEvent.hpp"
+#include "events/GetRecipeResultEvent.hpp"
+#include "events/SearchRecipesEvent.hpp"
+#include "events/SearchRecipesResultEvent.hpp"
 
 #include <iostream>
 
@@ -71,5 +77,29 @@ void DataMgr::ActOnEvent(IEvent * e)
 		m_fileMgr.ModifyRecipe(parsedEvent->RecipeID, parsedEvent->Rating, parsedEvent->Name,
 						parsedEvent->Description, parsedEvent->Instructions,
 						parsedEvent->GetIngredientsList());
+	}
+	else if (e->GetType() == e->RECIPELISTREQUEST)
+	{
+		std::cout << "DataMgr: Recipe List Request event is being handled." << std::endl;
+		//GetAllRecipesEvent * parsedEvent = (GetAllRecipesEvent *) e;
+		CoreEventBus::FireEvent(new GetAllRecipesResultEvent(m_fileMgr.GetAllRecipes()));
+	}
+	else if (e->GetType() == e->RECIPEREQUEST)
+	{
+		std::cout << "DataMgr: Specific Recipe Request event is being handled." << std::endl;
+		GetRecipeEvent * parsedEvent = (GetRecipeEvent *) e;
+		DrinkRecipe * foundRecipe = m_fileMgr.GetRecipe(parsedEvent->RecipeID);
+		GetRecipeResultEvent * toSend = new GetRecipeResultEvent(foundRecipe);
+		CoreEventBus::FireEvent(toSend);
+	}
+	else if (e->GetType() == e->RECIPESEARCHREQUEST)
+	{
+		std::cout << "DataMgr: Search Request event is being handled." << std::endl;
+		SearchRecipesEvent * parsedEvent = (SearchRecipesEvent *) e;
+		const RecipeList * results = m_fileMgr.GetSearchResults(parsedEvent->Name,
+				parsedEvent->IngredientNames,
+				parsedEvent->UseANDForSearch);
+		SearchRecipesResultEvent * toSend = new SearchRecipesResultEvent(results);
+		CoreEventBus::FireEvent(toSend);
 	}
 }
