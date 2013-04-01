@@ -15,6 +15,8 @@
 #include "events/GetAllRecipesResultEvent.hpp"
 #include "events/GetRecipeEvent.hpp"
 #include "events/GetRecipeResultEvent.hpp"
+#include "events/SearchRecipesEvent.hpp"
+#include "events/SearchRecipesResultEvent.hpp"
 
 #include <iostream>
 
@@ -90,16 +92,14 @@ void DataMgr::ActOnEvent(IEvent * e)
 		GetRecipeResultEvent * toSend = new GetRecipeResultEvent(foundRecipe);
 		CoreEventBus::FireEvent(toSend);
 	}
-
-	/*
-	//DO NOT COMMIT
-	if(e->GetType() == e->RECIPELISTRESULT)
+	else if (e->GetType() == e->RECIPESEARCHREQUEST)
 	{
-		GetAllRecipesResultEvent * parsedEvent = (GetAllRecipesResultEvent *) e;
-		for(unsigned int i = 0; i < parsedEvent->AllRecipeList->size(); i++)
-		{
-			RecipeIdNamePair tempPair = parsedEvent->AllRecipeList->at(i);
-			std::cout << "Recipe " << tempPair.first << " " << tempPair.second << std::endl;
-		}
-	}*/
+		std::cout << "DataMgr: Search Request event is being handled." << std::endl;
+		SearchRecipesEvent * parsedEvent = (SearchRecipesEvent *) e;
+		const RecipeList * results = m_fileMgr.GetSearchResults(parsedEvent->Name,
+				parsedEvent->IngredientNames,
+				parsedEvent->UseANDForSearch);
+		SearchRecipesResultEvent * toSend = new SearchRecipesResultEvent(results);
+		CoreEventBus::FireEvent(toSend);
+	}
 }

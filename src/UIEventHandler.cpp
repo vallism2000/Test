@@ -34,11 +34,11 @@ void UIEventHandler::ActOnEvent(IEvent * e) {
 	// Incoming RecipeList Data
 	if (e->GetType() == IEvent::RECIPELISTRESULT) {
 		GetAllRecipesResultEvent * event = (GetAllRecipesResultEvent*) e;
-		const RecipeIdNameList * recipeList = event->AllRecipeList;
+		const RecipeList * recipeList = event->AllRecipeList;
 		//
 		for (unsigned int i=0; i<recipeList->size(); i++) {
-			model1->append(recipeList->at(i).first);
-			std::string s = recipeList->at(i).second;
+			model1->append(recipeList->at(i).RecipeId);
+			std::string s = recipeList->at(i).Name;
 			model2->append(s.c_str());
 		}
 	}

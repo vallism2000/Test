@@ -35,6 +35,8 @@ SOURCES +=  \
     $$BASEDIR/src/events/GetAllRecipesResultEvent.cpp \
     $$BASEDIR/src/events/GetRecipeEvent.cpp \
     $$BASEDIR/src/events/GetRecipeResultEvent.cpp \
+    $$BASEDIR/src/events/SearchRecipesEvent.cpp \
+    $$BASEDIR/src/events/SearchRecipesResultEvent.cpp \
     $$BASEDIR/src/events/IngredientListEvent.cpp \
     $$BASEDIR/src/events/IngredientListRequestEvent.cpp \
     $$BASEDIR/src/events/IngredientListResultEvent.cpp \
@@ -71,6 +73,8 @@ HEADERS +=  \
     $$BASEDIR/src/events/GetAllRecipesResultEvent.hpp \
     $$BASEDIR/src/events/GetRecipeEvent.hpp \
     $$BASEDIR/src/events/GetRecipeResultEvent.hpp \
+    $$BASEDIR/src/events/SearchRecipesEvent.hpp \
+    $$BASEDIR/src/events/SearchRecipesResultEvent.hpp \
     $$BASEDIR/src/events/IngredientListEvent.hpp \
     $$BASEDIR/src/events/IngredientListRequestEvent.hpp \
     $$BASEDIR/src/events/IngredientListResultEvent.hpp \

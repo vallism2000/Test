@@ -13,10 +13,21 @@
 #include "DrinkIngredient.hpp"
 #include <string>
 #include <vector>
-#include <utility>
 
-typedef std::pair<int,std::string> RecipeIdNamePair;
-typedef std::vector<RecipeIdNamePair > RecipeIdNameList;
+typedef struct tuple
+{
+	tuple(int id, std::string name, bool haveIngredients) :
+		RecipeId(id),
+		Name(name),
+		HaveIngredients(haveIngredients)
+	{}
+
+	int RecipeId;
+	std::string Name;
+	bool HaveIngredients;
+} RecipeTuple;
+
+typedef std::vector<RecipeTuple > RecipeList;
 
 class DrinkRecipe {
 public:

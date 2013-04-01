@@ -11,11 +11,11 @@
 
 class GetAllRecipesResultEvent: public IEvent {
 public:
-	GetAllRecipesResultEvent(const RecipeIdNameList * allRecipes);
+	GetAllRecipesResultEvent(const RecipeList * allRecipes);
 	virtual ~GetAllRecipesResultEvent();
 
 	//Event doesn't take control of this. It should NOT delete the contents. Just the pointer.
-	const RecipeIdNameList * AllRecipeList;
+	const RecipeList * AllRecipeList;
 };
 
 #endif /* GETALLRECIPESRESULTEVENT_HPP_ */

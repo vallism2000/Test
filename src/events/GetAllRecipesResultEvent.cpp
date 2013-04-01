@@ -5,7 +5,7 @@
 
 #include "GetAllRecipesResultEvent.hpp"
 
-GetAllRecipesResultEvent::GetAllRecipesResultEvent(const RecipeIdNameList * allRecipes)
+GetAllRecipesResultEvent::GetAllRecipesResultEvent(const RecipeList * allRecipes)
  : IEvent(RECIPELISTRESULT),
    AllRecipeList(allRecipes)
 {
