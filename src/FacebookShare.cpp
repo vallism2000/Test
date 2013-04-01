@@ -7,6 +7,8 @@
 #include <bb/cascades/Invocation>
 #include <bb/cascades/InvokeQuery>
 #include <curl/curl.h>
+#include "ShareResponseStatusEvent.hpp"
+#include "ShareEventBus.hpp"
 
 FacebookShare::FacebookShare(){
 
@@ -41,6 +43,8 @@ void FacebookShare::share(std::string data){
 
 	    /* always cleanup */
 	    curl_easy_cleanup(curl);
+	    ShareResponseStatusEvent *e = new ShareResponseStatusEvent(ShareResponseStatusEvent::SUCCESS);
+	    ShareEventBus::FireEvent(e);
 	  }
 	  curl_global_cleanup();
 

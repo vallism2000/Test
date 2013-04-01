@@ -7,7 +7,7 @@
 
 #include "ShareResponseStatusEvent.hpp"
 
-ShareResponseStatusEvent::ShareResponseStatusEvent(std::string status) : IEvent(SHARERESPONSESTATUS){
+ShareResponseStatusEvent::ShareResponseStatusEvent(Status status) : IEvent(SHARERESPONSESTATUS){
 	m_status = status;
 }
 
@@ -15,7 +15,7 @@ ShareResponseStatusEvent::~ShareResponseStatusEvent(){
 
 }
 
-std::string ShareResponseStatusEvent::GetStatus(){
+ShareResponseStatusEvent::Status ShareResponseStatusEvent::GetStatus(){
 
 	return m_status;
 }

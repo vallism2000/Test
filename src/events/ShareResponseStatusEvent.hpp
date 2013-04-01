@@ -13,12 +13,17 @@
 class ShareResponseStatusEvent: public IEvent{
 
 public:
-	ShareResponseStatusEvent(std::string status);
+	enum Status
+		{
+			SUCCESS,
+			FAILURE
+		};
+	ShareResponseStatusEvent(Status status);
 	virtual ~ShareResponseStatusEvent();
-	std::string GetStatus();
+	Status GetStatus();
 
 private:
-	std::string m_status;
+	Status m_status;
 
 };
 
