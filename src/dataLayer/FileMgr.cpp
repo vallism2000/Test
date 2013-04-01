@@ -147,35 +147,115 @@ void FileMgr::CreateTables()
 	database.close();
 }
 
-void FileMgr::AddToIngredientList(int ingredientID,const std::string & name, bool isShoppingList)
+int FileMgr::DoesIngredientExist(const std::string & name, int id)
 {
-	/*QSqlDatabase database = QSqlDatabase::database();
-	QString table = (isShoppingList) ? ShoppingTable : InventoryTable;
+	QSqlDatabase database = QSqlDatabase::database();
 
+	QString qName = QString::fromStdString(name);
 	//Check for existance of ingredient
 	QSqlQuery query(database);
 	query.prepare("SELECT " + IngredientID + ", " + IngredientName
 			 + " FROM " + IngredientTable
 			 + " WHERE " + IngredientID + " = :id OR "
 			 + " UPPER(" + IngredientName + ") = UPPER(:name);");
-	query.bindValue(":id", ingredientID);
-	query.bindValue(":name", QString(name));
-	int responseCount = 0;
+	query.bindValue(":id", id);
+	query.bindValue(":name", qName);
+	bool ok = true;;
 	if(query.exec())
 	{
 		while(query.next())
 		{
-			responseCount++;
+			database.close();
+			return query.value(0).toInt(&ok);
 		}
 	}
 	else
 	{
-		std::cout << "ExistanceCheck failed: " << query.lastError().text().toStdString() << std::endl;
+		std::cout << "ExistenceCheck failed: " << query.lastError().text().toStdString() << std::endl;
 	}
 
 	database.close();
-	*/
-	std::cout << "FileMgr: Dummy handle for Add ingredient: " << ingredientID << name <<  " Shopping?: " << isShoppingList << std::endl;
+	return -1;
+}
+
+int FileMgr::AddIngredient(const std::string & name)
+{
+	bool ok = true;
+	QString qName = QString::fromStdString(name);
+	QSqlDatabase database = QSqlDatabase::database();
+	QSqlQuery query(database);
+	query.prepare("INSERT INTO " + IngredientTable
+			 + " (" + IngredientName + ")"
+			 + " VALUES (:name)");
+	query.bindValue(":name", qName);
+	if(!query.exec())
+	{
+		std::cout << "Create Ingredient failed: " << query.lastError().text().toStdString() << std::endl;
+	}
+
+	query.prepare("SELECT " + IngredientID
+					 + " FROM " + IngredientTable
+					 + " WHERE "
+					 + " UPPER(" + IngredientName + ") = UPPER(:name);");
+	query.bindValue(":name", qName);
+	if(query.exec())
+	{
+		query.next();
+		int toRet = query.value(0).toInt(&ok);
+		database.close();
+		return toRet;
+	}
+	else
+	{
+		std::cout << "Retrieve ID failed: " << query.lastError().text().toStdString() << std::endl;
+	}
+
+	database.close();
+	return -1;
+}
+
+void FileMgr::AddToIngredientList(int ingredientID,const std::string & name, bool isShoppingList)
+{
+	//Check for existence
+	int existsID = DoesIngredientExist(name, ingredientID);
+
+	if(existsID < 0)
+	{
+		existsID = AddIngredient(name);
+	}
+
+	QString table = (isShoppingList) ? ShoppingTable : InventoryTable;
+	QSqlDatabase database = QSqlDatabase::database();
+
+	//Is it already in the list?
+	QString qName = QString::fromStdString(name);
+	QSqlQuery query(database);
+	query.prepare("SELECT " + IngredientID + " FROM " + table
+			 + " WHERE " + IngredientID + " = :id ;");
+	query.bindValue(":id", existsID);
+	if(query.exec())
+	{
+		while(query.next())
+		{
+			//Yep. it's there. Do nothing
+			database.close();
+			return;
+		}
+	}
+	else
+	{
+		std::cout << "ExistenceCheck failed: " << query.lastError().text().toStdString() << std::endl;
+	}
+
+	//Add it to the list
+	query.prepare("INSERT INTO " + table + " (" + IngredientID + ") "
+				 + " VALUES( :id ) ;");
+	query.bindValue(":id", existsID);
+	if(!query.exec())
+	{
+		std::cout << "Adding ingredient to inv/shop failed: " << query.lastError().text().toStdString() << std::endl;
+	}
+	database.close();
 }
 
 void FileMgr::RemoveFromIngredientList(int ingredientID, bool isShoppingList)
@@ -199,9 +279,9 @@ std::vector<DrinkIngredient> * FileMgr::GetIngredientList(bool isShoppingList)
 	{
 		while(query.next())
 		{
-			bool * ok;
+			bool ok;
 			tempIngredients->push_back(DrinkIngredient(
-					query.value(0).toInt(ok),
+					query.value(0).toInt(&ok),
 					query.value(1).toString().toStdString()));
 		}
 	}

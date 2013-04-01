@@ -70,6 +70,12 @@ private:
 
 	//Initialize the DB if it hasn't already been done
 	void CreateTables();
+
+	//Checks for the existence. Returns the ID if it exists, otherwise -1;
+	int DoesIngredientExist(const std::string & name, int id = -1);
+
+	//Adds the Ingredient and returns its new index.
+	int AddIngredient(const std::string & name);
 };
 
 #endif /* FILEMGR_HPP_ */
