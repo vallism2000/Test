@@ -138,6 +138,7 @@ TabbedPane {
     }
     Tab {
         title: "Inventory"
+        imageSource: "ic_view_list.png"
         NavigationPane {
             Page {
                 titleBar: TitleBar {
@@ -173,16 +174,19 @@ TabbedPane {
 		        actions: [
 		             ActionItem {
 		                title: "Add"
+		                imageSource: "ic_add.png"
 		                onTriggered: {
 		                }
 		            },
 		            ActionItem {
 		                title: "Move Selected to Shopping List"
+		                imageSource: "ic_send_to_shoplist.png"
 		                onTriggered: {
 		                }
 		            },
 		            ActionItem {
 		                title: "Remove Selected"
+		                imageSource: "ic_delete.png"
 		                onTriggered: {
 		                }
 		            }
@@ -192,6 +196,7 @@ TabbedPane {
     }
     Tab {
         title: "Shopping List"
+        imageSource: "ic_shoplist.png"
         NavigationPane {
             Page {
                 titleBar: TitleBar {
