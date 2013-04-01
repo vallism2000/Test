@@ -64,6 +64,9 @@
     
     <!--  The category where the application appears. Either core.games or core.media. -->
     <category>core.games</category>
+    <icon>
+       <image>icon.png</image>
+    </icon>
   <configuration name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="arm/o.le-v7-g/DrinkItApp" entry="true" type="Qnx/Elf">DrinkItApp</asset>
@@ -84,9 +87,6 @@
 
     
     <!--  The icon for the application, which should be 86x86. -->
-    <icon>
-        <image>icon.png</image>
-    </icon>
 
     <asset path="icon.png">icon.png</asset>
     <asset path="assets">assets</asset>
@@ -99,5 +99,16 @@
     <!-- Request permission to execute native code.  Required for native applications. -->
     <permission system="true">run_native</permission>
     <env var="LD_LIBRARY_PATH" value="app/native/lib:/usr/lib/qt4/lib"/>
+    
+    <!-- Registering NDEF message type-->
+    <invoke-target id="com.example.DrinkItApp">
+    	<invoke-target-type>application</invoke-target-type>
+    	<invoke-target-name>DrinkItApp</invoke-target-name>
+    	<filter>
+        	<action>bb.action.OPEN</action>
+        	<mime-type>application/vnd.rim.nfc.ndef</mime-type>
+        	<property var="uris" value="ndef://1/T"/>
+    	</filter>
+	</invoke-target>
 
 </qnx>

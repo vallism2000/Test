@@ -8,4 +8,11 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>nfcshare</name>
+    <message>
+        <source></source>
+        <translation></translation>
+    </message>
+</context>
 </TS>

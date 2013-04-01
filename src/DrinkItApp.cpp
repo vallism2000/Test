@@ -64,6 +64,16 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     ShareEventBus::Initialize();
     _shareListener = new ShareEventListener();
     ShareEventBus::RegisterListener(_shareListener);
+
+    _invokeManager = new bb::system::InvokeManager();
+    _nfcHandler = NFCHandler::getInstance();
+    qml->setContextProperty("_nfcHandlerObject", _nfcHandler);
+
+    // Connections for receving nfc
+    QObject::connect(_invokeManager, SIGNAL(invoked(const bb::system::InvokeRequest&)), this,
+    		SLOT(receivedInvokeRequest(const bb::system::InvokeRequest&)));
+    QObject::connect(this, SIGNAL(message(QVariant)), root, SLOT(message(QVariant)));
+    QObject::connect(this, SIGNAL(launchReader(QVariant)), root, SLOT(launchReader(QVariant)));
 }
 
 void DrinkItApp::getFullList()
@@ -186,6 +196,27 @@ void DrinkItApp::createModules(){
 	_sharePage = new SharePage();
 }
 
+void DrinkItApp::receivedInvokeRequest(const bb::system::InvokeRequest& request) {
+
+	 QByteArray data = request.data();
+	 QtMobilitySubset::QNdefMessage ndefMessage = QtMobilitySubset::QNdefMessage::fromByteArray(data);
+
+
+	 QList<QtMobilitySubset::QNdefRecord>::const_iterator ndefRecord;
+
+	 for ( ndefRecord = ndefMessage.begin(); ndefRecord != ndefMessage.end(); ndefRecord++) {
+
+
+	 	if (ndefRecord->typeNameFormat() == QtMobilitySubset::QNdefRecord::NfcRtd) {
+	 		if (ndefRecord->type() == "T") {
+	 			std::cout << "Detected a Text Tag" << std::endl;
+	 			emit launchReader(QString("Tag read event detected"));
+	 			emit message(QString("%1").arg(_nfcHandler->getText(ndefRecord->payload())));
+	 		}
+	 	}
+
+	 }
+}
 
 
 

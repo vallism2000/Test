@@ -34,6 +34,7 @@ Page {
         ActionItem {
             id: share
             title: "Share"
+            imageSource: "asset:///ic_share.png"
             ActionBar.placement: ActionBarPlacement.OnBar
             
             onTriggered: {

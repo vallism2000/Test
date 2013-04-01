@@ -1,7 +1,29 @@
 import bb.cascades 1.0
 
 TabbedPane {
+    id: tabbedpane
     showTabsOnActionBar: true
+    
+    // This stuff is part of receiving the nfc text tag
+    property bool nfcReceivedVisible: false
+        
+        signal messageToChild(string text);
+        
+        function launchReader(text) {
+                if (!nfcReceivedVisible) {
+                    targetPageDefinition.source = "nfcshare.qml";
+        
+        	        var newPage = targetPageDefinition.createObject();
+                    nfcReceivedVisible = true;
+        	        nav.push(newPage);
+        	        tabbedpane.messageToChild.connect(newPage.message);
+                }
+            }
+            
+            function message(text) {
+                messageToChild(text);
+            }
+
     Tab {
         title: "Home"
 
@@ -9,6 +31,8 @@ TabbedPane {
 
 NavigationPane {
     id: nav
+    objectName: "navpane"
+    
     Page {
         id: mainPage
         titleBar: TitleBar {
@@ -79,7 +103,11 @@ NavigationPane {
             ComponentDefinition {
                 id: fileOpPageDefinition
                 source: "fileOp.qml"
+            },
+            ComponentDefinition {
+                id: targetPageDefinition
             }
+
         ]
         actions: [
             ActionItem {
@@ -104,10 +132,13 @@ NavigationPane {
         if (page == mainPage) {
             recipeList.clearSelection();
             TestObject.getFullList();
+            console.log("main onTopChanged");
+
         }
     }
     onPopTransitionEnded: {
         page.destroy();
+        nfcReceivedVisible = false;
     }
 }
 

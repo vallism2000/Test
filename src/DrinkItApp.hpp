@@ -17,7 +17,12 @@
 
 #include "UIEventHandler.hpp"
 
-#include "UIEventHandler.hpp"
+#include <bb/system/InvokeManager>
+#include <bb/system/InvokeRequest>
+#include <nfc/nfc.h>
+#include <nfc/nfc_ndef.h>
+#include <QtNfcSubset/qndefmessage.h>
+#include "NFCHandler.hpp"
 
 namespace bb { namespace cascades { class Application; }}
 
@@ -61,6 +66,17 @@ private:
     void createModules();
     SharePage* _sharePage;
     ShareEventListener* _shareListener;
+    bb::system::InvokeManager* _invokeManager;
+    NFCHandler* _nfcHandler;
+    bb::cascades::AbstractPane *test;
+
+signals:
+    void message(const QVariant &text);
+    void launchReader(const QVariant &text);
+
+public slots:
+    void receivedInvokeRequest(const bb::system::InvokeRequest& request);
+
 
 };
 
