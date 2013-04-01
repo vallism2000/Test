@@ -20,7 +20,7 @@ public:
 	NFCShare();
 	virtual ~NFCShare();
 	void share(std::string data);
-	std::string parseRecipe(DrinkRecipe *r);
+	std::string recipeToString(DrinkRecipe *r);
 
 private:
 	bb::cascades::Invocation *m_Invocation;

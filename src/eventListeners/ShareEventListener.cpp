@@ -36,6 +36,9 @@ void ShareEventListener::ActOnEvent(IEvent *e){
 		// TODO
 		std::cout << "Got NFCShare event" << std::endl;
 
+		NFCShare *nfcs = new NFCShare();
+		data = nfcs->recipeToString(se->GetRecipe());
+		nfcs->share(data);
 
 
 

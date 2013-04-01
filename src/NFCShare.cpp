@@ -5,9 +5,13 @@
 #include "NFCShare.hpp"
 #include <bb/cascades/Invocation>
 #include <bb/cascades/InvokeQuery>
+#include "drinkObjects/DrinkRecipe.hpp"
+#include "drinkObjects/DrinkIngredient.hpp"
+#include <iostream>
 #include <nfc/nfc_ndef.h>
 #include <bb/system/NfcShareManager>
 #include <bb/system/NfcShareDataContent>
+
 
 
 NFCShare::NFCShare(){
@@ -21,21 +25,20 @@ NFCShare::~NFCShare(){
 void NFCShare::share(std::string data){
 	// TODO: add the NFC calls to send the data to the other phone, send a ShareResponseEvent
 
-	/*bb::system::NfcShareDataContent share_data = bb::system::NfcShareDataContent();
+	bb::system::NfcShareDataContent share_data = bb::system::NfcShareDataContent();
 	bb::system::NfcShareManager *share_manager = new bb::system::NfcShareManager();
 
 	QString text = QString::fromStdString(data);
 	QByteArray array_data = QByteArray();
 	array_data.insert(0, text);
-
 	share_data.setMimeType("text/plain");
 	share_data.setData(array_data);
-
 	share_manager->setShareMode(bb::system::NfcShareMode::Data);
 	share_manager->setShareContent(share_data);
-*/
+
+
 // Can't test invoke NFC on the simulator
- QByteArray data_array = QByteArray();
+/* QByteArray data_array = QByteArray();
  data_array.insert(0, QString::fromStdString(data) );
 	m_Invocation = bb::cascades::Invocation::create(
 			  bb::cascades::InvokeQuery::create()
@@ -47,18 +50,37 @@ void NFCShare::share(std::string data){
 		);
 	QObject::connect(m_Invocation, SIGNAL(armed()), this, SLOT(onArmed()));
 	QObject::connect(m_Invocation, SIGNAL(finished()), m_Invocation, SLOT(deleteLater()));
-
-
+*/
 
 
 }
 
-// We've specified that sharing sends a string,
-// but need to parse that data from the recipe sent in the ShareRecipeEvent.
-// Maybe add a general parseRecipe function somewhere?
-std::string NFCShare::parseRecipe(DrinkRecipe *r){
+std::string NFCShare::recipeToString(DrinkRecipe *r){
+	/* Form for string should be:
+	 * "{rating:#} {name: Recipe name} {desc: Description} {instructions: instructions} {ingredients: [(name, name1) (amount, amount1)] ... }
+	 */
 
-	return "Foo";
+	std::string recipe_string;
+	QString tmpstr = QString::number(r->GetRating());
+	recipe_string.append("{rating: " + tmpstr.toStdString() + "} {name: " + r->GetName() + "} {desc: " + r->GetDesc() + "}");
+    recipe_string.append("{instructions: " + r->GetInstructions() + "} {ingredients: ");
+
+    std::cout << recipe_string << std::endl;
+
+    // loop to add ingredients
+    int ing_amount = r->GetNumIngredients();
+    for (int i = 0; i<ing_amount; i++){
+        std::string iname = r->GetIngredient(i).GetName();
+        std::string iamount = r->GetIngredientAmount(i);
+
+        recipe_string.append("[(name, " + iname + ") (amount, " + iamount + ")] ");
+    }
+
+    recipe_string += "}";
+
+    std::cout << recipe_string << std::endl;
+
+	return recipe_string;
 }
 
 void NFCShare::onArmed() {
