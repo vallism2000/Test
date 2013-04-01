@@ -41,7 +41,7 @@ void DataMgr::ActOnEvent(IEvent * e)
 		IngredientListEvent * parsedEvent = (IngredientListEvent *) e;
 		if(parsedEvent->IsAddEvent)
 		{
-			m_fileMgr.AddToIngredientList(parsedEvent->IngredientID, parsedEvent->IsShoppingList);
+			m_fileMgr.AddToIngredientList(parsedEvent->IngredientID, parsedEvent->IngredientName, parsedEvent->IsShoppingList);
 		}
 		else //Alternative is Remove
 		{

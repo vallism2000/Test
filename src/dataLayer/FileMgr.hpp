@@ -36,7 +36,7 @@ public:
 
 	//Add an ingredient to the list (if it isn't there already)
 	//This will not remove it from the other list if it is present there)
-	void AddToIngredientList(int ingredientID, bool isShoppingList);
+	void AddToIngredientList(int ingredientID, const std::string & name, bool isShoppingList);
 
 	//Remove from the designated list only.
 	void RemoveFromIngredientList(int ingredientID, bool isShoppingList);
