@@ -11,6 +11,20 @@
 
 using namespace bb::cascades;
 
+const QString IngredientTable = "Ingredients";
+const QString RecipeTable = "Recipes";
+const QString RecipeIngredientsTable = "RecipeIngredients";
+const QString ShoppingTable = "Shopping";
+const QString InventoryTable = "Inventory";
+
+const QString IngredientID = "ingredientID";
+const QString IngredientName = "ingredientName";
+const QString RecipeID = "recipeID";
+const QString RecipeRating = "recipeRating";
+const QString RecipeName = "recipeName";
+const QString RecipeDesc = "recipeDesc";
+const QString RecipeInstructions = "recipeInstructions";
+
 FileMgr::FileMgr()
 {
 	m_lastSearchResults = new RecipeList();
@@ -60,9 +74,9 @@ void FileMgr::CreateTables()
 	QSqlDatabase database = QSqlDatabase::database();
 
 	//Create Ingredients table
-	const QString ingredientTable = "CREATE TABLE IF NOT EXISTS Ingredients ("
-			" ingredientID INTEGER PRIMARY KEY AUTOINCREMENT,"
-			" ingredientName VARCHAR);";
+	const QString ingredientTable = "CREATE TABLE IF NOT EXISTS " + IngredientTable + " ("
+			" " + IngredientID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+			" " + IngredientName + " VARCHAR);";
 	QSqlQuery ingredientsQuery(database);
 	if(ingredientsQuery.exec(ingredientTable))
 	{
@@ -74,12 +88,12 @@ void FileMgr::CreateTables()
 	}
 
 	//Create Recipe table
-	const QString recipeTable = "CREATE TABLE IF NOT EXISTS Recipes ("
-			" recipeID INTEGER PRIMARY KEY AUTOINCREMENT,"
-			" recipeRating INTEGER,"
-			" recipeName VARCHAR,"
-			" recipeDesc VARCHAR,"
-			" recipeInstructions VARCHAR);";
+	const QString recipeTable = "CREATE TABLE IF NOT EXISTS " + RecipeTable + " ("
+			" " + RecipeID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+			" " + RecipeRating + " INTEGER,"
+			" " + RecipeName + " VARCHAR,"
+			" " + RecipeDesc + " VARCHAR,"
+			" " + RecipeInstructions + " VARCHAR);";
 	QSqlQuery recipesQuery(database);
 	if(recipesQuery.exec(recipeTable))
 	{
@@ -91,9 +105,9 @@ void FileMgr::CreateTables()
 	}
 
 	//Create RecipeIngredients table
-	const QString recipeIngredientsTable = "CREATE TABLE IF NOT EXISTS RecipeIngredients ("
-			" recipeID INTEGER,"
-			" ingredientID INTEGER);";
+	const QString recipeIngredientsTable = "CREATE TABLE IF NOT EXISTS " + RecipeIngredientsTable + " ("
+			" " + RecipeID + " INTEGER,"
+			" " + IngredientID + " INTEGER);";
 	QSqlQuery recipeIngredientsQuery(database);
 	if(recipeIngredientsQuery.exec(recipeIngredientsTable))
 	{
@@ -105,8 +119,8 @@ void FileMgr::CreateTables()
 	}
 
 	//Create ShoppingList table
-	const QString shoppingTable = "CREATE TABLE IF NOT EXISTS Shopping ("
-			" ingredientID INTEGER PRIMARY KEY);";
+	const QString shoppingTable = "CREATE TABLE IF NOT EXISTS " + ShoppingTable + " ("
+			" " + IngredientID + " INTEGER PRIMARY KEY);";
 	QSqlQuery shoppingQuery(database);
 	if(shoppingQuery.exec(shoppingTable))
 	{
@@ -118,8 +132,8 @@ void FileMgr::CreateTables()
 	}
 
 	//Create Inventory table
-	const QString inventoryTable = "CREATE TABLE IF NOT EXISTS Inventory ("
-			" ingredientID INTEGER PRIMARY KEY);";
+	const QString inventoryTable = "CREATE TABLE IF NOT EXISTS " + InventoryTable + " ("
+			" " + IngredientID + " INTEGER PRIMARY KEY);";
 	QSqlQuery inventoryQuery(database);
 	if(inventoryQuery.exec(inventoryTable))
 	{
@@ -135,6 +149,32 @@ void FileMgr::CreateTables()
 
 void FileMgr::AddToIngredientList(int ingredientID,const std::string & name, bool isShoppingList)
 {
+	/*QSqlDatabase database = QSqlDatabase::database();
+	QString table = (isShoppingList) ? ShoppingTable : InventoryTable;
+
+	//Check for existance of ingredient
+	QSqlQuery query(database);
+	query.prepare("SELECT " + IngredientID + ", " + IngredientName
+			 + " FROM " + IngredientTable
+			 + " WHERE " + IngredientID + " = :id OR "
+			 + " UPPER(" + IngredientName + ") = UPPER(:name);");
+	query.bindValue(":id", ingredientID);
+	query.bindValue(":name", QString(name));
+	int responseCount = 0;
+	if(query.exec())
+	{
+		while(query.next())
+		{
+			responseCount++;
+		}
+	}
+	else
+	{
+		std::cout << "ExistanceCheck failed: " << query.lastError().text().toStdString() << std::endl;
+	}
+
+	database.close();
+	*/
 	std::cout << "FileMgr: Dummy handle for Add ingredient: " << ingredientID << name <<  " Shopping?: " << isShoppingList << std::endl;
 }
 
@@ -145,24 +185,32 @@ void FileMgr::RemoveFromIngredientList(int ingredientID, bool isShoppingList)
 
 std::vector<DrinkIngredient> * FileMgr::GetIngredientList(bool isShoppingList)
 {
-	std::cout << "FileMgr: Dummy handle for GetIngredientList: Shopping?: " << isShoppingList << std::endl;
 	std::vector<DrinkIngredient> * tempIngredients = new std::vector<DrinkIngredient>();
-	if(isShoppingList)
+
+	QSqlDatabase database = QSqlDatabase::database();
+	QSqlQuery query(database);
+
+	QString table = (isShoppingList) ? ShoppingTable : InventoryTable;
+
+	QString ingredientListQuery = "SELECT list." + IngredientID + ", " + IngredientName
+			 + " FROM " + table + " AS list, " + IngredientTable + " AS main"
+			 + " WHERE list." + IngredientID + " = main." + IngredientID + ";";
+	if(query.exec(ingredientListQuery))
 	{
-		tempIngredients->push_back(DrinkIngredient(0, "TestBoozeNeed0"));
-		tempIngredients->push_back(DrinkIngredient(1, "TestBoozeNeed1"));
-		tempIngredients->push_back(DrinkIngredient(2, "TestBoozeNeed2"));
-		tempIngredients->push_back(DrinkIngredient(3, "TestBoozeNeed3"));
-		tempIngredients->push_back(DrinkIngredient(4, "TestBoozeNeed4"));
+		while(query.next())
+		{
+			bool * ok;
+			tempIngredients->push_back(DrinkIngredient(
+					query.value(0).toInt(ok),
+					query.value(1).toString().toStdString()));
+		}
 	}
 	else
 	{
-		tempIngredients->push_back(DrinkIngredient(0, "TestBoozeHave0"));
-		tempIngredients->push_back(DrinkIngredient(1, "TestBoozeHave1"));
-		tempIngredients->push_back(DrinkIngredient(2, "TestBoozeHave2"));
-		tempIngredients->push_back(DrinkIngredient(3, "TestBoozeHave3"));
-		tempIngredients->push_back(DrinkIngredient(4, "TestBoozeHave4"));
+		std::cout << "Read failed: " << query.lastError().text().toStdString() << std::endl;
 	}
+
+	database.close();
 	return tempIngredients;
 }
 
