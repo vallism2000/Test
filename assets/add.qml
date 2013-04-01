@@ -9,19 +9,41 @@ Page {
         layout: StackLayout {}
         
         TextArea {
-            id: displayName
+            id: addName
+            objectName: "addName"
             hintText: "Recipe Name"
-            onCreationCompleted: {
-                //
-            }
         }
         TextArea {
-            id: displayInfo
+            id: addInfo
+            objectName: "addInfo"
             hintText: "Recipe Information"
-            onCreationCompleted: {
-                //
-            }
         }
+        TextArea {
+            id: addInst
+            objectName: "addInst"
+            hintText: "Recipe Instructions"
+        }
+        ScrollView {
+            Container {
+		        TextArea {
+		        }
+		        TextArea {
+		        }
+		        TextArea {
+		        }
+		        TextArea {
+		        }
+		        TextArea {
+		        }
+		        TextArea {
+		        }
+		        TextArea {
+		        }
+		        TextArea {
+		        }
+	        }
+	    }
+        
         Button {
             text: "Save Recipe"
             onClicked: {

@@ -23,16 +23,20 @@ public:
 	// Functions related to Recipes
 	void getRecipeList(std::string s="");
 	void getRecipe(int index, int id);
-	void addRecipe();
+	void addRecipe(int rate, std::string text[], std::string ingred[], std::string amount[], int size);
 	void shareRecipe(int id);
 	std::string getRecipeName();
 	std::string getRecipeDescription();
+	std::string getRecipeInstructions();
 
-	// Functions related to Inventory
+	// Functions related to Inventory List
 	void getInvList();
 
 	// Functions related to Shoping List
 	void getShopList();
+
+	// Functions related to both
+	void moveListItem(int id, bool isShopList);
 
 private:
 	bb::cascades::NavigationPane * nav;
@@ -43,6 +47,7 @@ private:
 	int m_id;
 	std::string m_name;
 	std::string m_description;
+	std::string m_instructions;
 
 	//
 	bb::cascades::ArrayDataModel * model3;

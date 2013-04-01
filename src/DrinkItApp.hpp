@@ -51,11 +51,14 @@ public:
 
     Q_INVOKABLE void getInvList();
     Q_INVOKABLE void getShopList();
+    Q_INVOKABLE void moveListItems(int id, bool isShopList);
 
 private:
     bb::cascades::TabbedPane *root;
     bb::cascades::NavigationPane *nav;
     bb::cascades::ListView *list;
+    bb::cascades::ListView *list2;
+    bb::cascades::ListView *list3;
     bb::cascades::ArrayDataModel *model1;
     bb::cascades::ArrayDataModel *model2;
     bb::cascades::ArrayDataModel *model3;

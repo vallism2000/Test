@@ -6,6 +6,9 @@
 
 #include "events/GetAllRecipesEvent.hpp"
 #include "events/GetAllRecipesResultEvent.hpp"
+#include "events/GetRecipeEvent.hpp"
+#include "events/GetRecipeResultEvent.hpp"
+#include "events/AddRecipeEvent.hpp"
 #include "events/IngredientListRequestEvent.hpp"
 #include "events/IngredientListResultEvent.hpp"
 
@@ -42,7 +45,15 @@ void UIEventHandler::ActOnEvent(IEvent * e) {
 			model2->append(s.c_str());
 		}
 	}
-	//
+	// Incoming RecipeItem Data
+	if (e->GetType() == IEvent::RECIPERESULT) {
+		GetRecipeResultEvent * event = (GetRecipeResultEvent*) e;
+		DrinkRecipe * recipeItem = event->Recipe;
+		m_name = recipeItem->GetName();
+		m_description = recipeItem->GetDesc();
+		m_instructions = recipeItem->GetInstructions();
+	}
+	// Incoming IngredientList Data (Inventory or Shopping List)
 	if (e->GetType() == IEvent::INGREDIENTLISTRESULT) {
 		IngredientListResultEvent * event = (IngredientListResultEvent*) e;
 		const std::vector<DrinkIngredient> * ingredientList = event->Ingredients;
@@ -110,6 +121,8 @@ void UIEventHandler::getRecipe(int index, int id) {
 	else if (id == 4) {
 		m_name = "Submitted Recipe Name";
 	}
+	*/
+	/*
 	if (id == 0) {
 		m_description = "Ingredients:\n2oz Vodka\n1oz Coffee Liqueur\nCream";
 	}
@@ -125,14 +138,20 @@ void UIEventHandler::getRecipe(int index, int id) {
 	else if (id == 4) {
 		m_description = "Submitted Recipe Info";
 	}
-	std::cout << "index: '" << index << "', id: '" << id << "'" << std::endl;
 	*/
+	//std::cout << "index: '" << index << "', id: '" << id << "'" << std::endl;
 	// Test END
 
 	// Fire Request
-	//
+	GetRecipeEvent * event = new GetRecipeEvent(m_id);
+	CoreEventBus::FireEvent(event);
 }
-void UIEventHandler::addRecipe() {
+void UIEventHandler::addRecipe(int rate, std::string text[], std::string ingred[], std::string amount[], int size) {
+	// Test START
+	// Test END
+
+	// Fire Submission
+	AddRecipeEvent * event = new AddRecipeEvent(rate, text[0], text[1], text[2]);
 	//
 }
 void UIEventHandler::shareRecipe(int id) {
@@ -144,6 +163,9 @@ std::string UIEventHandler::getRecipeName() {
 }
 std::string UIEventHandler::getRecipeDescription() {
 	return m_description;
+}
+std::string UIEventHandler::getRecipeInstructions() {
+	return m_instructions;
 }
 
 
@@ -170,6 +192,11 @@ void UIEventHandler::getShopList() {
 	// Fire Request
 	IngredientListRequestEvent * event = new IngredientListRequestEvent(true);
 	CoreEventBus::FireEvent(event);
+}
+
+
+void UIEventHandler::moveListItem(int id, bool isShopList) {
+	std::cout << "Item Moved:: ID: '" << id << "', ShopList Origin?: '" << isShopList << "'" << std::endl;
 }
 
 

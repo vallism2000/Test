@@ -6,6 +6,7 @@
 #include <bb/cascades/AbstractPane>
 
 #include <bb/cascades/Label>
+#include <bb/cascades/TextArea>
 
 #include <bb/data/JsonDataAccess>
 #include <iostream>
@@ -47,6 +48,8 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     // Find Cascades Objects
     nav = root->findChild<NavigationPane*>("nav");
     list = root->findChild<ListView*>("recipeList");
+    list2 = root->findChild<ListView*>("invList");
+    list3 = root->findChild<ListView*>("shopList");
     model1 = root->findChild<ArrayDataModel*>("recipeID");
     model2 = root->findChild<ArrayDataModel*>("recipeName");
     model3 = root->findChild<ArrayDataModel*>("invID");
@@ -125,7 +128,13 @@ QString DrinkItApp::getRecipeInfo()
 
 void DrinkItApp::submitRecipe()
 {
-	recipeSubmitted = true;
+	//recipeSubmitted = true;
+	std::string text[3];
+	text[0] = root->findChild<TextArea*>("addName")->text().toStdString();
+	text[1] = root->findChild<TextArea*>("addInfo")->text().toStdString();
+	text[2] = root->findChild<TextArea*>("addInst")->text().toStdString();
+
+	EH->addRecipe(0, text, NULL, NULL, 0);
 }
 
 //The following are file save/load methods and should not be located here according to our architecture.
@@ -189,6 +198,16 @@ void DrinkItApp::getInvList()
 void DrinkItApp::getShopList()
 {
 	EH->getShopList();
+}
+
+void DrinkItApp::moveListItems(int id, bool isShopList) {
+	//if (!isShopList) {
+	//	for (int i=0; i<list2->selectionList().size(); i++) {
+	//		int x = list2->selectionList().at(i).toInt();
+	//		EH->moveListItem(x, false);
+	//	}
+	//}
+	std::cout << "'" << id << "'" << std::endl;
 }
 
 void DrinkItApp::receivedInvokeRequest(const bb::system::InvokeRequest& request) {

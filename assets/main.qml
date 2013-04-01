@@ -162,17 +162,31 @@ TabbedPane {
 		                ]
 		                onTriggered: {
 		                    toggleSelection(indexPath);
-		                    
-		                    //var page = recipePageDefinition.createObject();
-		                    //nav.push(page);
 		                }
 		                onSelectionChanged: {
 		                    if (selected) {
-		                    //    TestObject.getRecipe(indexPath, recipeID.data(indexPath));
+		                    //
 		                    }
 		                }
 		            }
 		        }
+		        actions: [
+		             ActionItem {
+		                title: "Add"
+		                onTriggered: {
+		                }
+		            },
+		            ActionItem {
+		                title: "Move Selected to Shopping List"
+		                onTriggered: {
+		                }
+		            },
+		            ActionItem {
+		                title: "Remove Selected"
+		                onTriggered: {
+		                }
+		            }
+		        ]
             }
         }
     }
@@ -202,13 +216,10 @@ TabbedPane {
 		                ]
 		                onTriggered: {
 		                    toggleSelection(indexPath);
-		                    
-		                    //var page = recipePageDefinition.createObject();
-		                    //nav.push(page);
 		                }
 		                onSelectionChanged: {
 		                    if (selected) {
-		                    //    TestObject.getRecipe(indexPath, recipeID.data(indexPath));
+		                    //
 		                    }
 		                }
 		            }
