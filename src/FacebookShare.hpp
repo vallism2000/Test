@@ -19,6 +19,7 @@ public:
 	FacebookShare();
 	virtual ~FacebookShare();
 	void share(std::string data);
+	void getRecipes();
 
 private:
 	bb::cascades::Invocation *m_Invocation;
