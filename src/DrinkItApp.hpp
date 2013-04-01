@@ -80,7 +80,7 @@ private:
     bb::cascades::AbstractPane *test;
 
 signals:
-    void message(const QVariant &text);
+    void message(const QVariant &text, const QVariant &formatted);
     void launchReader(const QVariant &text);
 
 public slots:

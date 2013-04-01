@@ -2,9 +2,13 @@ import bb.cascades 1.0
 
 Page {
     id: nfcsharePage
-	function message(text) {
+    
+    property string original_text
+    
+	function message(text, formatted_text) {
 	    console.log(text);
-	    recipe.text = text;    
+	    recipe.text = formatted_text;    
+	    original_text = text;
 	}
     titleBar: TitleBar {
     title: "Received Recipe via NFC"
@@ -28,7 +32,7 @@ Page {
             
             onTriggered: {
                 console.log("Should parse the text add the recipe");
-                _nfcHandlerObject.parseText(recipe.text);
+                _nfcHandlerObject.parseText(original_text);
                 nav.pop();
             }
         }

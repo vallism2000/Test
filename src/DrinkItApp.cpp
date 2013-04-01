@@ -82,7 +82,7 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     // Connections for receving nfc
     QObject::connect(_invokeManager, SIGNAL(invoked(const bb::system::InvokeRequest&)), this,
     		SLOT(receivedInvokeRequest(const bb::system::InvokeRequest&)));
-    QObject::connect(this, SIGNAL(message(QVariant)), root, SLOT(message(QVariant)));
+    QObject::connect(this, SIGNAL(message(QVariant, QVariant)), root, SLOT(message(QVariant, QVariant)));
     QObject::connect(this, SIGNAL(launchReader(QVariant)), root, SLOT(launchReader(QVariant)));
 }
 
@@ -206,7 +206,8 @@ void DrinkItApp::receivedInvokeRequest(const bb::system::InvokeRequest& request)
 	 		if (ndefRecord->type() == "T") {
 	 			std::cout << "Detected a Text Tag" << std::endl;
 	 			emit launchReader(QString("Tag read event detected"));
-	 			emit message(QString("%1").arg(_nfcHandler->getText(ndefRecord->payload())));
+	 			emit message(QString("%1").arg(_nfcHandler->getText(ndefRecord->payload())),
+	 					QString("%1").arg(_nfcHandler->FormatTextForPage(ndefRecord->payload())));
 	 		}
 	 	}
 

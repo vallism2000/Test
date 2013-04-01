@@ -7,7 +7,7 @@ TabbedPane {
     // This stuff is part of receiving the nfc text tag
     property bool nfcReceivedVisible: false
         
-        signal messageToChild(string text);
+        signal messageToChild(string text, string formatted_text);
         
         function launchReader(text) {
                 if (!nfcReceivedVisible) {
@@ -20,8 +20,8 @@ TabbedPane {
                 }
             }
             
-            function message(text) {
-                messageToChild(text);
+            function message(text, formatted_text) {
+                messageToChild(text, formatted_text);
             }
 
     Tab {

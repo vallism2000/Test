@@ -25,6 +25,7 @@ public:
 	static NFCHandler* getInstance();
 	QString getText(const QByteArray &payload);
 	Q_INVOKABLE void parseText(QString text);
+	QString FormatTextForPage(const QByteArray &payload);
 
 
 private:
