@@ -99,4 +99,11 @@ const RecipeIdNameList * FileMgr::GetAllRecipes()
 
 }
 
+DrinkRecipe * FileMgr::GetRecipe(int recipeId)
+{
+	DrinkRecipe * toRet = new DrinkRecipe(recipeId, 5, "Specific Drink", "Tasty.", "Mix!");
+	toRet->AddIngredient(3, "Wodka", "Tons");
+	return toRet;
+}
+
 

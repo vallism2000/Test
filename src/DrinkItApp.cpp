@@ -45,16 +45,26 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     m_dataManager = new DataMgr();
 
     // Find Cascades Objects
+    nav = root->findChild<NavigationPane*>("nav");
     list = root->findChild<ListView*>("recipeList");
     model1 = root->findChild<ArrayDataModel*>("recipeID");
     model2 = root->findChild<ArrayDataModel*>("recipeName");
+    model3 = root->findChild<ArrayDataModel*>("invID");
+    model4 = root->findChild<ArrayDataModel*>("invName");
+    model5 = root->findChild<ArrayDataModel*>("shopID");
+    model6 = root->findChild<ArrayDataModel*>("shopName");
+
+    ArrayDataModel* IDs[] = {model1, model3, model5};
+    ArrayDataModel* Names[] = {model2, model4, model6};
 
     // Create Listener
-    EH = new UIEventHandler(model1, model2);
+    EH = new UIEventHandler(IDs, Names, nav);
 
     recipeSubmitted = false;
 
     getFullList();
+    getInvList();
+    getShopList();
 
     // Set up ShareObject
     createModules();
@@ -82,49 +92,24 @@ void DrinkItApp::getSearchedList()
 void DrinkItApp::getRecipe(int index, int id)
 {
 	recipeID = id;
-	recipeName = "";
-	if (id == 0) {
-		recipeName = "White Russian";
-	}
-	else if (id == 1) {
-		recipeName = "Rum and Coke";
-	}
-	else if (id == 2) {
-		recipeName = "Irish Car Bomb";
-	}
-	else if (id == 3) {
-		recipeName = "Long Island Iced Tea";
-	}
-	else if (id == 4) {
-		recipeName = "Submitted Recipe Name";
-	}
-	recipeInfo = "";
-	if (id == 0) {
-		recipeInfo = "Ingredients:\n2oz Vodka\n1oz Coffee Liqueur\nCream";
-	}
-	else if (id == 1) {
-		recipeInfo = "Ingredients:\n4oz Rum\n8oz Coca Cola";
-	}
-	else if (id == 2) {
-		recipeInfo = "Ingredients:\n1 Pint Guiness/Dry Irish Stout\n1oz Irish Cream Liqueur\n1oz Irish Whiskey";
-	}
-	else if (id == 3) {
-		recipeInfo = "Ingredients:\n1oz Vodka\n1oz Tequila\n1oz Rum\n1oz Gin\n1oz Triple Sec\n1.5oz Sour Mix\n1 Splash Coca Cola";
-	}
-	else if (id == 4) {
-		recipeInfo = "Submitted Recipe Info";
-	}
-	std::cout << "index: '" << index << "', id: '" << id << "'" << std::endl;
+	recipeName = "BAD DATA";
+	recipeInfo = "MORE BAD DATA";
+
+	EH->getRecipe(index, id);
 }
 
 QString DrinkItApp::getRecipeName()
 {
+	recipeName = EH->getRecipeName();
+
 	std::cout << "recipe name: '" << recipeName << "'" << std::endl;
 	return (QString(recipeName.c_str()));
 }
 
 QString DrinkItApp::getRecipeInfo()
 {
+	recipeInfo = EH->getRecipeDescription();
+
 	return (QString(recipeInfo.c_str()));
 }
 
@@ -184,6 +169,16 @@ QString DrinkItApp::loadJSON()
 
 void DrinkItApp::createModules(){
 	_sharePage = new SharePage();
+}
+
+void DrinkItApp::getInvList()
+{
+	EH->getInvList();
+}
+
+void DrinkItApp::getShopList()
+{
+	EH->getShopList();
 }
 
 

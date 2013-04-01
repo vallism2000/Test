@@ -31,8 +31,7 @@ void FacebookShare::share(std::string data){
 	       data. */
 	    curl_easy_setopt(curl, CURLOPT_URL, "https://graph.facebook.com/me/drinkitapp:make");
 	    /* Now specify the POST data */
-	    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "access_token=AAAImC5A4sygBADFPE1BmT1ofn3zkAVpRJIQHLubcauBuQYSWBnzbeA220b4pijvZCcNPrnZCMwq3JivndoAXLuXxZAeiTBmpFe1jZBvgkQZDZD&method=POST&drink=http://samples.ogp.me/604782039551942");
-
+	    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "access_token=AAAImC5A4sygBAGdZCFRZBgOy8ZAXKbHU0CccciSVWp4zTXmBqwYpqp1kt0MZC4ZCd3p20Yl3h6m0qHxD0ubDAKremoT201sZB0uw30lHyGIwZDZD&method=POST&drink=http://samples.ogp.me/604782039551942");
 	    /* Perform the request, res will get the return code */
 	    res = curl_easy_perform(curl);
 	    /* Check for errors */
