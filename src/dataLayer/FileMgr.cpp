@@ -330,7 +330,7 @@ std::vector<DrinkIngredient> * FileMgr::GetIngredientList(bool isShoppingList)
 	{
 		while(query.next())
 		{
-			bool ok;
+			bool ok = false;
 			tempIngredients->push_back(DrinkIngredient(
 					query.value(0).toInt(&ok),
 					query.value(1).toString().toStdString()));
@@ -430,8 +430,8 @@ const RecipeList * FileMgr::GetAllRecipes()
 	}
 	while(getRecipeIdsQuery.next()) {
 
-		bool * ok;
-		int recipeId = getRecipeIdsQuery.value(0).toInt(ok);
+		bool ok = false;
+		int recipeId = getRecipeIdsQuery.value(0).toInt(&ok);
 		std::string recipeName = getRecipeIdsQuery.value(1).toString().toStdString();
 		// TODO: Add in logic for finding out if we have the ingredient
 		allRecipes->push_back(RecipeTuple(recipeId, recipeName, false));
