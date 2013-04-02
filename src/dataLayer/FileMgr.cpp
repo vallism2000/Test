@@ -419,16 +419,70 @@ void FileMgr::RemoveRecipe(int recipeID)
 //The file manager will keep an active pointer to the full list and only blow it away when things change.
 const RecipeList * FileMgr::GetAllRecipes()
 {
-	std::cout << "FileMgr: Dummy handle for GetAllRecipes." << std::endl;
-	return m_allRecipeList;
+	QSqlDatabase database = QSqlDatabase::database();
+	RecipeList * allRecipes = new RecipeList();
+	QString getRecipeIds = "SELECT " + RecipeID + ", " + RecipeName + " FROM " + RecipeTable + " ORDER BY " + RecipeID + " ASC";
+	QSqlQuery getRecipeIdsQuery(database);
+	if (!getRecipeIdsQuery.exec(getRecipeIds)) {
+		const QSqlError error = getRecipeIdsQuery.lastError();
+		std::cout << "SQL Error in getRecipeIdsQuery " << error.text().toStdString() << "\n";
+		return NULL;
+	}
+	while(getRecipeIdsQuery.next()) {
+
+		bool * ok;
+		int recipeId = getRecipeIdsQuery.value(0).toInt(ok);
+		std::string recipeName = getRecipeIdsQuery.value(1).toString().toStdString();
+		// TODO: Add in logic for finding out if we have the ingredient
+		allRecipes->push_back(RecipeTuple(recipeId, recipeName, false));
+	}
+	return allRecipes;
 
 }
 
 DrinkRecipe * FileMgr::GetRecipe(int recipeId)
 {
-	std::cout << "FileMgr: Dummy handle for GetRecipe." << std::endl;
-	DrinkRecipe * toRet = new DrinkRecipe(recipeId, 5, "Specific Drink", "Tasty.", "Mix!");
-	toRet->AddIngredient(3, "Wodka", "Tons");
+	QSqlDatabase database = QSqlDatabase::database();
+	QString getRecipe = "SELECT " + RecipeRating + ", " + RecipeName + ", " + RecipeDesc + ", " +  RecipeInstructions + " FROM " + RecipeTable + " WHERE " + RecipeID + " = :rId";
+	QSqlQuery getRecipeQuery(database);
+	getRecipeQuery.prepare(getRecipe);
+	getRecipeQuery.bindValue(":rId", recipeId);
+	DrinkRecipe * toRet;
+	if (!getRecipeQuery.exec()) {
+		const QSqlError error = getRecipeQuery.lastError();
+		std::cout << "SQL Error in getRecipeQuery " << error.text().toStdString() << "\n";
+		return NULL;
+	}
+	if (getRecipeQuery.next()) {
+		bool * ok;
+		int recipeRating = getRecipeQuery.value(0).toInt(ok);
+		std::string recipeName = getRecipeQuery.value(1).toString().toStdString();
+		std::string recipeDesc = getRecipeQuery.value(2).toString().toStdString();
+		std::string recipeInstructions = getRecipeQuery.value(3).toString().toStdString();
+		toRet = new DrinkRecipe(recipeId, recipeRating, recipeName, recipeDesc, recipeInstructions);
+	}
+	else {
+		return NULL;
+	}
+	QSqlQuery getIngredientsQuery(database);
+	QString getIngredients = "SELECT I." + IngredientID + ", I." + IngredientName + ", RI." + IngredientQuantity + " FROM " + RecipeIngredientsTable + " RI INNER JOIN " + IngredientTable + " I ON I." + IngredientID + " = RI." + IngredientID + " WHERE RI." + RecipeID + " = :rId";
+	std::cout << getIngredients.toStdString() << "\n";
+	getIngredientsQuery.prepare(getIngredients);
+	getIngredientsQuery.bindValue(":rId", recipeId);
+	if (!getIngredientsQuery.exec()) {
+		const QSqlError error = getIngredientsQuery.lastError();
+		std::cout << "SQL Error in getIngredientsQuery " << error.text().toStdString() << "\n";
+		return NULL;
+	}
+	while (getIngredientsQuery.next()) {
+		bool * ok;
+		int ingredientId = getIngredientsQuery.value(0).toInt(ok);
+		std::string ingredientName = getIngredientsQuery.value(1).toString().toStdString();
+		std::string ingredientQuantity = getIngredientsQuery.value(2).toString().toStdString();
+		toRet->AddIngredient(ingredientId, ingredientName, ingredientQuantity);
+	}
+
+
 	return toRet;
 }
 
