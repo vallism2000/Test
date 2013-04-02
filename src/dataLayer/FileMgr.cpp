@@ -108,7 +108,6 @@ void FileMgr::DropTables() {
 }
 void FileMgr::CreateTables()
 {
-	DropTables();
 	QSqlDatabase database = QSqlDatabase::database();
 
 	//Create Ingredients table
