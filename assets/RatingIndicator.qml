@@ -6,7 +6,7 @@ Container {
     layout: AbsoluteLayout {
     }
     property int rating
-    signal ratingWasChanged
+   
     onRatingChanged: {
         console.log("Rating changed")
         star1.ratingChanged()
@@ -14,8 +14,11 @@ Container {
         star3.ratingChanged()
         star4.ratingChanged()
         star5.ratingChanged()
-        // TODO Will need to update the recipe with the new rating
-        TestObject.updateRecipeRating(rating)
+
+    }
+    
+    function ratingUpdate(){
+     TestObject.updateRecipeRating(rating)   
     }
     
     ImageView {
@@ -32,8 +35,11 @@ Container {
         }
         
         onTouch: {
-            ratingIndicator.rating = 1
-            ratingIndicator.ratingWasChanged()
+            if (event.touchType == TouchType.Move || event.touchType == TouchType.Down){
+                ratingIndicator.rating = 1
+            } else if (event.touchType == TouchType.Up) {
+                ratingIndicator.ratingUpdate()
+            }
             
         }
         onRatingChanged: {
@@ -62,9 +68,12 @@ Container {
            }
            
            onTouch: {
-               ratingIndicator.rating = 2
-               ratingIndicator.ratingWasChanged()
-               
+                if (event.touchType == TouchType.Move || event.touchType == TouchType.Down){
+                    ratingIndicator.rating = 2
+                } else if (event.touchType == TouchType.Up) {
+                    ratingIndicator.ratingUpdate()
+                }
+
            }
            onRatingChanged: {
             if(rating >= 2){
@@ -93,8 +102,12 @@ Container {
 	     }
      
 	     onTouch: {
-	         ratingIndicator.rating = 3
-	         ratingIndicator.ratingWasChanged()
+	        if (event.touchType == TouchType.Move || event.touchType == TouchType.Down){
+                ratingIndicator.rating = 3
+            } else if (event.touchType == TouchType.Up) {
+                ratingIndicator.ratingUpdate()
+            }
+	        
 	         
 	     }
 	     onRatingChanged: {
@@ -123,8 +136,12 @@ Container {
        }
          
          onTouch: {
-             ratingIndicator.rating = 4
-             ratingIndicator.ratingWasChanged()
+             if (event.touchType == TouchType.Move || event.touchType == TouchType.Down){
+                 ratingIndicator.rating = 4
+             } else if (event.touchType == TouchType.Up) {
+                 ratingIndicator.ratingUpdate()
+             }
+            
              
          }
          onRatingChanged: {
@@ -153,8 +170,12 @@ Container {
        }
          
          onTouch: {
-             ratingIndicator.rating = 5
-             ratingIndicator.ratingWasChanged()
+            if (event.touchType == TouchType.Move || event.touchType == TouchType.Down){
+                ratingIndicator.rating = 5
+            } else if (event.touchType == TouchType.Up) {
+                ratingIndicator.ratingUpdate()
+            }
+           
              
          }
          onRatingChanged: {
