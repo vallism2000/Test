@@ -71,6 +71,12 @@ private:
 	//Initialize the DB if it hasn't already been done
 	void CreateTables();
 
+	//Drop all the tables in the DB
+	void DropTables();
+
+	//Perform a query
+	bool PerformQuery(QString queryString);
+
 	//Checks for the existence. Returns the ID if it exists, otherwise -1;
 	int DoesIngredientExist(const std::string & name, int id = -1);
 

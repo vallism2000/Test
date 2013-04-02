@@ -24,7 +24,18 @@ const QString RecipeRating = "recipeRating";
 const QString RecipeName = "recipeName";
 const QString RecipeDesc = "recipeDesc";
 const QString RecipeInstructions = "recipeInstructions";
-
+const QString IngredientQuantity = "ingredientQuantity";
+QString getLastExecutedQuery(const QSqlQuery& query)
+{
+ QString str = query.lastQuery();
+ QMapIterator<QString, QVariant> it(query.boundValues());
+ while (it.hasNext())
+ {
+  it.next();
+  str.replace(it.key(),it.value().toString());
+ }
+ return str;
+}
 FileMgr::FileMgr()
 {
 	m_lastSearchResults = new RecipeList();
@@ -68,9 +79,36 @@ FileMgr::FileMgr()
 FileMgr::~FileMgr()
 {
 }
+bool FileMgr::PerformQuery(QString queryString) {
+	QSqlDatabase database = QSqlDatabase::database();
+	QSqlQuery q(database);
+	if (!q.exec(queryString)) {
+		const QSqlError error = q.lastError();
+		std::cout << "SQL Error in query " << queryString.toStdString() << "\n" << error.text().toStdString() << "\n";
+		return false;
+	}
+	std::cout << "Query successful: " << queryString.toStdString() << "\n";
+	return true;
+}
+void FileMgr::DropTables() {
 
+	const QString dropIngredients = "DROP TABLE " + IngredientTable;
+	const QString dropRecipes = "DROP TABLE " + RecipeTable;
+	const QString dropRecipeIngredients = "DROP TABLE " + RecipeIngredientsTable;
+	const QString dropShoppingList = "DROP TABLE " + ShoppingTable;
+	const QString dropInventory = "DROP TABLE " + InventoryTable;
+	int length = 5;
+	QString dropStrings[5] = {dropIngredients, dropRecipes, dropRecipeIngredients, dropShoppingList, dropInventory};
+
+	for (int i = 0; i < length; i++) {
+		PerformQuery(dropStrings[i]);
+	}
+
+
+}
 void FileMgr::CreateTables()
 {
+	DropTables();
 	QSqlDatabase database = QSqlDatabase::database();
 
 	//Create Ingredients table
@@ -86,7 +124,7 @@ void FileMgr::CreateTables()
 	{
 		std::cout << "Ingredient table errored on creation." << std::endl;
 	}
-
+	std::cout << getLastExecutedQuery(ingredientsQuery).toStdString() << "\n";
 	//Create Recipe table
 	const QString recipeTable = "CREATE TABLE IF NOT EXISTS " + RecipeTable + " ("
 			" " + RecipeID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -103,11 +141,13 @@ void FileMgr::CreateTables()
 	{
 		std::cout << "Recipe table errored on creation." << std::endl;
 	}
-
+	std::cout << getLastExecutedQuery(recipesQuery).toStdString() << "\n";
 	//Create RecipeIngredients table
-	const QString recipeIngredientsTable = "CREATE TABLE IF NOT EXISTS " + RecipeIngredientsTable + " ("
-			" " + RecipeID + " INTEGER,"
-			" " + IngredientID + " INTEGER);";
+	const QString recipeIngredientsTable = "CREATE TABLE IF NOT EXISTS "
+			+ RecipeIngredientsTable + " ("
+					"" + RecipeID + " INTEGER,"
+					" " + IngredientID + " INTEGER,"
+					" " + IngredientQuantity + " VARCHAR);";
 	QSqlQuery recipeIngredientsQuery(database);
 	if(recipeIngredientsQuery.exec(recipeIngredientsTable))
 	{
@@ -117,7 +157,7 @@ void FileMgr::CreateTables()
 	{
 		std::cout << "RecipeIngredients table errored on creation." << std::endl;
 	}
-
+	std::cout << getLastExecutedQuery(recipeIngredientsQuery).toStdString() << "\n";
 	//Create ShoppingList table
 	const QString shoppingTable = "CREATE TABLE IF NOT EXISTS " + ShoppingTable + " ("
 			" " + IngredientID + " INTEGER PRIMARY KEY);";
@@ -307,12 +347,62 @@ std::vector<DrinkIngredient> * FileMgr::GetIngredientList(bool isShoppingList)
 }
 
 void FileMgr::AddRecipe(int rating, const std::string & name,
-			const std::string & description, const std::string & instructions,
-			const std::vector<std::pair<std::string, std::string> > & ingredients)
-{
-	std::cout << "FileMgr: Dummy handle for Add Recipe:" << rating << name << description << instructions << std::endl;
-	(void)ingredients;
-}
+		const std::string & description, const std::string & instructions,
+		const std::vector<std::pair<std::string, std::string> > & ingredients) {
+	QSqlDatabase database = QSqlDatabase::database();
+	QString qName = QString::fromStdString(name);
+	QString qDescription = QString::fromStdString(description);
+	QString qInstructions = QString::fromStdString(instructions);
+
+	QSqlQuery insertQuery(database);
+	QSqlQuery getInsertedIdQuery(database);
+	insertQuery.prepare(
+			"INSERT INTO " + RecipeTable
+					+ " (" + RecipeRating + ", " + RecipeName + ", " + RecipeDesc + ", " +  RecipeInstructions+ ") VALUES(:rating, :name, :description, :instructions);");
+	insertQuery.bindValue(":rating", rating);
+	insertQuery.bindValue(":name", qName);
+	insertQuery.bindValue(":description", qDescription);
+	insertQuery.bindValue(":instructions", qInstructions);
+
+	if (!insertQuery.exec()) {
+		const QSqlError error = insertQuery.lastError();
+		std::cout << "SQL Error in insertRecipe" << error.text().toStdString() << "\n";
+		//return;
+	}
+
+	std::cout << getLastExecutedQuery(insertQuery).toStdString() << "\n";
+
+	bool * ok;
+	int test = insertQuery.lastInsertId().toInt(ok);
+	std::cout << test << "\n";
+	int recipeId = test;
+
+	std::cout << "Inserted recipe id: " << recipeId << "\n";
+	unsigned int i = 0;
+	for (i = 0; i < ingredients.size(); i++) {
+		std::pair<std::string, std::string> p = ingredients.at(i);
+		std::string iName = p.first;
+		std::string iQuantity = p.second;
+		QString qiQuantity = QString::fromStdString(iQuantity);
+
+
+		int ingredientId = DoesIngredientExist(iName, -1);
+		if (ingredientId == -1) {
+			ingredientId = AddIngredient(iName);
+		}
+		database = QSqlDatabase::database();
+		QSqlQuery insertRecipeIngredientQuery(database);
+		insertRecipeIngredientQuery.prepare("INSERT INTO " +  RecipeIngredientsTable + " (" + RecipeID + ", " + IngredientID + ", " +  IngredientQuantity +") VALUES(:rId, :iId, :iq);");
+		insertRecipeIngredientQuery.bindValue(":rId", recipeId);
+		insertRecipeIngredientQuery.bindValue(":iId", ingredientId);
+		insertRecipeIngredientQuery.bindValue(":iq", qiQuantity);
+		if (!insertRecipeIngredientQuery.exec()) {
+			const QSqlError error2 = insertRecipeIngredientQuery.lastError();
+			std::cout << "SQL Error in insertRecipeIngredientQuery " << error2.text().toStdString() << "\n";
+		}
+		std::cout << getLastExecutedQuery(insertRecipeIngredientQuery).toStdString() << "\n";
+		}
+	}
 
 void FileMgr::ModifyRecipe(int recipeID, int rating, const std::string & name,
 			const std::string & description, const std::string & instructions,
