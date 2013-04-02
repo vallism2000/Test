@@ -11,18 +11,37 @@ Page {
             id: displayName
             text: "Recipe Name"
             editable: false
+          textStyle {
+                fontSize: FontSize.XXLarge
+                fontWeight: FontWeight.W500
+          }
             onCreationCompleted: {
                 displayName.setText(TestObject.getRecipeName());
             }
+
+        }
+        RatingIndicator{
+            rating: TestObject.getRecipeRating()
         }
         TextArea {
             id: displayInfo
             text: "Recipe Information"
+            textStyle {
+                fontStyle: FontStyle.Italic
+            }
             editable: false
             onCreationCompleted: {
                 displayInfo.setText(TestObject.getRecipeInfo());
             }
         }
+        
+        TextArea {
+            id: displayIngredients
+            text: ""
+            editable: false
+
+        }
+
     }
     attachedObjects: [
         ComponentDefinition {
@@ -39,6 +58,14 @@ Page {
             
             onTriggered: {
                 var page = sharePageDefinition.createObject();
+              
+                // _shareObject.setRecipeID(TestObject.getRecipeID());
+                 //_shareObject.setRecipeName(TestObject.getRecipeName());
+                 //_shareObject.setRecipeDesc(TestObject.getRecipeInfo());
+                 //_shareObject.setRecipeIngredients(TestObject.getIngredients());
+                // _shareObject.setRecipeInstructions(TestObject.getInstructions());
+                // _shareObject.setRating(TestObject.getRecipeRating());
+                 
                 nav.push(page);
             }
         }

@@ -44,6 +44,10 @@ public:
 
     Q_INVOKABLE QString getRecipeName();
     Q_INVOKABLE QString getRecipeInfo();
+    Q_INVOKABLE int getRecipeRating();
+    Q_INVOKABLE std::vector<std::pair<DrinkIngredient, std::string> > getIngredients();
+    Q_INVOKABLE QString getInstructions();
+    Q_INVOKABLE int getRecipeID();
 
     Q_INVOKABLE void saveJSON(QString text);
     Q_INVOKABLE void submitRecipe();
@@ -52,6 +56,8 @@ public:
     Q_INVOKABLE void getInvList();
     Q_INVOKABLE void getShopList();
     Q_INVOKABLE void moveListItems(int id, bool isShopList);
+
+    Q_INVOKABLE void updateRecipeRating(int rating);
 
 private:
     bb::cascades::TabbedPane *root;
@@ -69,6 +75,9 @@ private:
     int recipeID;
     std::string recipeName;
     std::string recipeInfo;
+    std::string recipeInstr;
+    std::vector<std::pair<DrinkIngredient, std::string> > recipeIngredients;
+    int recipeRating;
 
     bool recipeSubmitted;
     DataMgr * m_dataManager;

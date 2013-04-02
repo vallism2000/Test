@@ -10,6 +10,7 @@
 
 #include "events/IEvent.hpp"
 #include "eventListeners/IEventListener.hpp"
+#include "drinkObjects/DrinkIngredient.hpp"
 
 class UIEventHandler : public IEventListener
 {
@@ -28,6 +29,10 @@ public:
 	std::string getRecipeName();
 	std::string getRecipeDescription();
 	std::string getRecipeInstructions();
+	std::vector<std::pair<DrinkIngredient, std::string> > getRecipeIngredients();
+	int getRecipeID();
+	int getRecipeRating();
+
 
 	// Functions related to Inventory List
 	void getInvList();
@@ -37,6 +42,8 @@ public:
 
 	// Functions related to both
 	void moveListItem(int id, bool isShopList);
+
+	void updateRecipeRating(int rating);
 
 private:
 	bb::cascades::NavigationPane * nav;
@@ -48,6 +55,8 @@ private:
 	std::string m_name;
 	std::string m_description;
 	std::string m_instructions;
+	int m_rating;
+	std::vector<std::pair<DrinkIngredient, std::string> > m_ingredients;
 
 	//
 	bb::cascades::ArrayDataModel * model3;

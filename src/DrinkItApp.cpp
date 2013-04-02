@@ -126,6 +126,31 @@ QString DrinkItApp::getRecipeInfo()
 	return (QString(recipeInfo.c_str()));
 }
 
+int DrinkItApp::getRecipeRating(){
+
+	recipeRating = EH->getRecipeRating();
+
+	return recipeRating;
+}
+
+int DrinkItApp::getRecipeID(){
+
+	recipeID = EH->getRecipeID();
+
+	return recipeID;
+}
+
+std::vector<std::pair<DrinkIngredient, std::string> > DrinkItApp::getIngredients(){
+
+	recipeIngredients = EH->getRecipeIngredients();
+
+	return recipeIngredients;
+}
+
+QString DrinkItApp::getInstructions(){
+	return (QString(recipeInstr.c_str()));
+}
+
 void DrinkItApp::submitRecipe()
 {
 	//recipeSubmitted = true;
@@ -253,6 +278,10 @@ void DrinkItApp::receivedInvokeRequest(const bb::system::InvokeRequest& request)
 	 	}
 
 	 }
+}
+
+void DrinkItApp::updateRecipeRating(int rating){
+    EH->updateRecipeRating(rating);
 }
 
 

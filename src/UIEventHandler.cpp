@@ -13,6 +13,7 @@
 #include "events/AddRecipeEvent.hpp"
 #include "events/IngredientListRequestEvent.hpp"
 #include "events/IngredientListResultEvent.hpp"
+#include "events/ModifyRecipeEvent.hpp"
 
 #include "drinkObjects/DrinkRecipe.hpp"
 #include "drinkObjects/DrinkIngredient.hpp"
@@ -54,6 +55,13 @@ void UIEventHandler::ActOnEvent(IEvent * e) {
 		m_name = recipeItem->GetName();
 		m_description = recipeItem->GetDesc();
 		m_instructions = recipeItem->GetInstructions();
+
+		for(unsigned int i=0; i < recipeItem->GetNumIngredients(); i++){
+			std::pair<DrinkIngredient, std::string> ing (recipeItem->GetIngredient(i), recipeItem->GetIngredientAmount(i));
+
+			m_ingredients.push_back(ing);
+
+		}
 	}
 	// Incoming IngredientList Data (Inventory or Shopping List)
 	if (e->GetType() == IEvent::INGREDIENTLISTRESULT) {
@@ -183,6 +191,17 @@ std::string UIEventHandler::getRecipeInstructions() {
 	return m_instructions;
 }
 
+int UIEventHandler::getRecipeID(){
+	return m_id;
+}
+
+int UIEventHandler::getRecipeRating(){
+	return m_rating;
+}
+
+std::vector<std::pair<DrinkIngredient, std::string> > UIEventHandler::getRecipeIngredients(){
+	return m_ingredients;
+}
 
 void UIEventHandler::getInvList() {
 	model3->clear(); model4->clear();
@@ -212,6 +231,12 @@ void UIEventHandler::getShopList() {
 
 void UIEventHandler::moveListItem(int id, bool isShopList) {
 	std::cout << "Item Moved:: ID: '" << id << "', ShopList Origin?: '" << isShopList << "'" << std::endl;
+}
+
+void UIEventHandler::updateRecipeRating(int rating){
+
+	ModifyRecipeEvent* event = new ModifyRecipeEvent(m_id, rating, m_name, m_description, m_instructions);
+	CoreEventBus::FireEvent(event);
 }
 
 
