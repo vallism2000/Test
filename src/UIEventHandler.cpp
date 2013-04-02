@@ -55,7 +55,7 @@ void UIEventHandler::ActOnEvent(IEvent * e) {
 		m_name = recipeItem->GetName();
 		m_description = recipeItem->GetDesc();
 		m_instructions = recipeItem->GetInstructions();
-
+        m_rating = recipeItem->GetRating();
 		for(unsigned int i=0; i < recipeItem->GetNumIngredients(); i++){
 			std::pair<DrinkIngredient, std::string> ing (recipeItem->GetIngredient(i), recipeItem->GetIngredientAmount(i));
 

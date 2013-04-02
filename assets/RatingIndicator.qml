@@ -26,7 +26,7 @@ Container {
         signal ratingChanged
         
         id: star1
-        imageSource: "icon_martini_full.png" // would change to something else
+        imageSource: "icon_martini_empty.png"
         opacity: 0.25
         
         layoutProperties: AbsoluteLayoutProperties {
@@ -59,7 +59,7 @@ Container {
            signal ratingChanged
            
            id: star2
-           imageSource: "icon_martini_full.png" // would change to something else
+           imageSource: "icon_martini_empty.png" // would change to something else
            opacity: 0.25
            
            layoutProperties: AbsoluteLayoutProperties {
@@ -93,7 +93,7 @@ Container {
 	     signal ratingChanged
 	     
 	     id: star3
-	     imageSource: "icon_martini_full.png" // would change to something else
+	     imageSource: "icon_martini_empty.png" // would change to something else
 	     opacity: 0.25
 	     
 	     layoutProperties: AbsoluteLayoutProperties {
@@ -127,7 +127,7 @@ Container {
        signal ratingChanged
          
        id: star4
-       imageSource: "icon_martini_full.png" // would change to something else
+       imageSource: "icon_martini_empty.png" // would change to something else
        opacity: 0.25
          
        layoutProperties: AbsoluteLayoutProperties {
@@ -161,7 +161,7 @@ Container {
        signal ratingChanged
          
        id: star5
-       imageSource: "icon_martini_full.png" // would change to something else
+       imageSource: "icon_martini_empty.png" // would change to something else
        opacity: 0.25
          
        layoutProperties: AbsoluteLayoutProperties {
