@@ -12,6 +12,8 @@ Page {
             id: displayName
             text: "Recipe Name"
             editable: false
+            inputMode: TextAreaInputMode.Text
+            input.flags: TextInputFlag.SpellCheckOff
           textStyle {
                 fontSize: FontSize.XXLarge
                 fontWeight: FontWeight.W500
@@ -27,6 +29,8 @@ Page {
         TextArea {
             id: displayInfo
             text: "Recipe Information"
+            inputMode: TextAreaInputMode.Text
+            input.flags: TextInputFlag.SpellCheckOff
             textStyle {
                 fontStyle: FontStyle.Italic
             }
@@ -40,6 +44,8 @@ Page {
         TextArea {
             id: displayIngredients
             text: "ingredients"
+            inputMode: TextAreaInputMode.Text
+            input.flags: TextInputFlag.SpellCheckOff
             editable: false
             onCreationCompleted: {
                  displayIngredients.setText(TestObject.getIngredientsText());
@@ -52,6 +58,8 @@ Page {
          id: displayInstructions
          editable: false
          text: "Instructions"
+         inputMode: TextAreaInputMode.Text
+         input.flags: TextInputFlag.SpellCheckOff
          onCreationCompleted: {
              displayInstructions.setText(TestObject.getInstructions());
          }

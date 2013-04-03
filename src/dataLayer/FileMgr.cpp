@@ -38,24 +38,6 @@ FileMgr::FileMgr() {
 	m_lastSearchResults = new RecipeList();
 	m_allRecipeList = new RecipeList();
 
-	//Fill it with dummy data for now
-	m_allRecipeList->push_back(RecipeTuple(0, "AllDrink0", true));
-	m_allRecipeList->push_back(RecipeTuple(1, "AllDrink1", true));
-	m_allRecipeList->push_back(RecipeTuple(2, "AllDrink2", false));
-	m_allRecipeList->push_back(RecipeTuple(3, "AllDrink3", true));
-	m_allRecipeList->push_back(RecipeTuple(4, "AllDrink4", true));
-	m_allRecipeList->push_back(RecipeTuple(5, "AllDrink5", false));
-	m_allRecipeList->push_back(RecipeTuple(6, "AllDrink6", true));
-	m_allRecipeList->push_back(RecipeTuple(7, "AllDrink7", true));
-	m_allRecipeList->push_back(RecipeTuple(8, "AllDrink8", false));
-	m_allRecipeList->push_back(RecipeTuple(9, "AllDrink9", true));
-	m_allRecipeList->push_back(RecipeTuple(10, "AllDrink10", false));
-	m_allRecipeList->push_back(RecipeTuple(11, "AllDrink11", false));
-	m_allRecipeList->push_back(RecipeTuple(12, "AllDrink12", true));
-	m_allRecipeList->push_back(RecipeTuple(13, "AllDrink13", false));
-	m_allRecipeList->push_back(RecipeTuple(14, "AllDrink14", true));
-	m_allRecipeList->push_back(RecipeTuple(15, "AllDrink15", false));
-	m_allRecipeList->push_back(RecipeTuple(16, "AllDrink16", true));
 
 	const QString databasePath = "./data/recipes.db";
 	QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
