@@ -48,6 +48,17 @@ void UIEventHandler::ActOnEvent(IEvent * e) {
 			model2->append(s.c_str());
 		}
 	}
+	// Incoming Searched RecipeList Data
+	if (e->GetType() == IEvent::RECIPESEARCHRESULT) {
+		SearchRecipesResultEvent * event = (SearchRecipesResultEvent*) e;
+		const RecipeList * recipeList = event->Results;
+		//
+		for (unsigned int i=0; i<recipeList->size(); i++) {
+			model1->append(recipeList->at(i).RecipeId);
+			std::string s = recipeList->at(i).Name;
+			model2->append(s.c_str());
+		}
+	}
 	// Incoming RecipeItem Data
 	if (e->GetType() == IEvent::RECIPERESULT) {
 		GetRecipeResultEvent * event = (GetRecipeResultEvent*) e;
@@ -107,12 +118,34 @@ void UIEventHandler::getRecipeList(std::string s) {
 
 	// Fire Request
 	IEvent * event;
-	//if (s == "") {
+	if (s == "") {
 		event = new GetAllRecipesEvent();
-	//} else {
-	//	vector<std::string> ing;
-	//	event = new SearchRecipesEvent("", , true);
-	//}
+	} else {
+		std::vector<std::string> ing;
+		std::string str = s;
+		unsigned int x;
+
+		x = str.find(" ");
+		while(x != std::string::npos) {
+			if (str.substr(0, x) != "") {
+				ing.push_back(str.substr(0, x));
+			}
+			str = str.substr(x+1);
+			x = str.find(" ");
+		}
+		if (str != "") {
+			ing.push_back(str);
+		}
+		event = new SearchRecipesEvent("", ing, true);
+		// Test START
+		std::cout << "Search String: '" << s << "'" << std::endl;
+		std::cout << "Parsed String:";
+		for (int i=0; i<ing.size(); i++) {
+			std::cout << " '" << ing.at(i) << "'";
+		}
+		std::cout << std::endl;
+		// Test END
+	}
 	CoreEventBus::FireEvent(event);
 }
 void UIEventHandler::getRecipe(int index, int id) {

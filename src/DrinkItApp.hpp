@@ -39,7 +39,7 @@ public:
     DrinkItApp(bb::cascades::Application *app);
     virtual ~DrinkItApp() {}
     Q_INVOKABLE void getFullList();
-    Q_INVOKABLE void getSearchedList();
+    Q_INVOKABLE void getSearchedList(QString s);
     Q_INVOKABLE void getRecipe(int index, int id);
 
     Q_INVOKABLE QString getRecipeName();
