@@ -19,12 +19,27 @@ Page {
                     nav.pop();
                 }
             },
+            SystemToast {
+                id: myAddToast
+                body: "Ingredients Added"
+                onFinished: {
+                    TestObject.addIngredientsToShoppingList();
+                }
+            },
             SystemDialog {
                 id: deletionConfirmDialog
                 title: "Confirm Deletion"
                 body: "Are you sure you want to delete this recipe?"
                 onFinished: {
                     if (deletionConfirmDialog != SystemUiResult.CancelButtonSelection) myQmlToast.show();
+                }
+            },
+            SystemDialog {
+                id: additionConfirmDialog
+                title: "Confirm Addition"
+                body: "Are you sure you want to add the ingredients from this recipe to your shopping list?"
+                onFinished: {
+                    if (additionConfirmDialog != SystemUiResult.CancelButtonSelection) myAddToast.show();
                 }
             }
         ]
@@ -107,6 +122,15 @@ Page {
             ActionBar.placement: ActionBarPlacement.OnBar
             onTriggered: {
                 deletionConfirmDialog.show();
+            }
+        },
+        ActionItem {
+            id: addToShopping
+            title: "Add To Shopping List"
+            imageSource: "asset:///ic_shoplist.png"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                additionConfirmDialog.show();
             }
         }
     ]
