@@ -107,18 +107,10 @@ TabbedPane {
 		        ]
 		        actions: [
 		            ActionItem {
-		                title: "AddItem"
+		                title: "Add Recipe"
 		                //ActionBar.placement: ActionBarPlacement.OnBar
 		                onTriggered: {
 		                    var page = addPageDefinition.createObject();
-		                    nav.push(page);
-		                }
-		            },
-		            ActionItem {
-		                title: "Save/Load Demo"
-		                //ActionBar.placement: ActionBarPlacement.OnBar
-		                onTriggered: {
-		                    var page = fileOpPageDefinition.createObject();
 		                    nav.push(page);
 		                }
 		            }
