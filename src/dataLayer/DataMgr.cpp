@@ -96,7 +96,7 @@ void DataMgr::ActOnEvent(IEvent * e)
 		std::cout << "DataMgr: Search Request event is being handled." << std::endl;
 		SearchRecipesEvent * parsedEvent = (SearchRecipesEvent *) e;
 		const RecipeList * results = m_fileMgr.GetSearchResults(parsedEvent->Name,
-				parsedEvent->IngredientNames,
+				*(parsedEvent->IngredientNames),
 				parsedEvent->UseANDForSearch);
 		SearchRecipesResultEvent * toSend = new SearchRecipesResultEvent(results);
 		CoreEventBus::FireEvent(toSend);

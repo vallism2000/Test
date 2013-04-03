@@ -5,7 +5,7 @@
 
 #include "SearchRecipesEvent.hpp"
 
-SearchRecipesEvent::SearchRecipesEvent(const std::string & name, const std::vector<std::string> & ingredients, bool useANDforSearch)
+SearchRecipesEvent::SearchRecipesEvent(const std::string & name, const std::vector<std::string> * ingredients, bool useANDforSearch)
  : IEvent(RECIPESEARCHREQUEST),
    Name(name),
    IngredientNames(ingredients),
