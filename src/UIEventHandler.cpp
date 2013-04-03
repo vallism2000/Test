@@ -306,6 +306,14 @@ void UIEventHandler::addListItem(std::string name, bool isShopList) {
 void UIEventHandler::updateRecipeRating(int rating){
 
 	ModifyRecipeEvent* event = new ModifyRecipeEvent(m_id, rating, m_name, m_description, m_instructions);
+
+	for(unsigned int i=0; i < m_ingredients.size(); i++){
+		std::pair<DrinkIngredient, std::string> tmp = m_ingredients.at(i);
+		std::string name = tmp.first.GetName();
+		std::string amount = tmp.second;
+		event->AddIngredient(name, amount);
+
+	}
 	CoreEventBus::FireEvent(event);
 }
 

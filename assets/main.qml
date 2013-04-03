@@ -265,7 +265,7 @@ TabbedPane {
 		            //},
 		            ActionItem {
 		                title: "Move Selected to Inventory List"
-		                imageSource: "ic_send_to_shoplist.png"
+		                imageSource: "ic_send_to_inventory.png"
 		                onTriggered: {
 		                    TestObject.moveListItems(true);
 		                }
