@@ -44,8 +44,9 @@ Page {
                 console.log("Selected " + selectedItem.name);
                 _nfcHandlerObject.enableDataSharing();
                 _shareObject.triggerShareEvent(selectedItem.name);
-                myQmlDialog.show()
-                
+                if (selectedItem.name == "Facebook") {
+                    myQmlDialog.show()
+                }
             }
         }
     }
