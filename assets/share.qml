@@ -1,4 +1,6 @@
 import bb.cascades 1.0
+import bb.platform 1.0
+import bb.system 1.0
 
 Page {
     id: sharePage
@@ -6,7 +8,8 @@ Page {
         title: "Share Recipe"
     }
     Container {
-        layout: StackLayout {}
+        layout: StackLayout {
+        }
         Label {
             id: shareLabel
             text: "Select how to share this recipe:"
@@ -19,16 +22,24 @@ Page {
             listItemComponents: [
                 ListItemComponent {
                     type: "option"
-
                     StandardListItem {
                         title: ListItemData.name
                     }
-                } 
+                }
+            ]
+            attachedObjects: [
+                SystemDialog {
+                    id: myQmlDialog
+                    title: "Share Status:"
+                    body: "Share Successful "
+                    cancelButton.label: undefined
+                }
             ]
             onTriggered: {
                 var selectedItem = dataModel.data(indexPath);
                 console.log("Selected " + selectedItem.name);
                 _shareObject.triggerShareEvent(selectedItem.name);
+                myQmlDialog.show()
             }
         }
     }

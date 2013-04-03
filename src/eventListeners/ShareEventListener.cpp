@@ -15,6 +15,8 @@
 #include "TwitterShare.hpp"
 #include "FacebookShare.hpp"
 #include "NFCShare.hpp"
+#include "ShareResponseStatusEvent.hpp"
+#include "CoreEventBus.hpp"
 
 ShareEventListener::ShareEventListener(){
 
@@ -77,7 +79,8 @@ void ShareEventListener::ActOnEvent(IEvent *e){
 		// TODO
 		std::cout << "Got NFCReceivedRecipe event" << std::endl;
 	} else if (type == IEvent::SHARERESPONSESTATUS){
-		// TODO
+		ShareResponseStatusEvent * event = (ShareResponseStatusEvent *) e;
+		CoreEventBus::FireEvent(event);
 		std::cout << "Got ShareResponseStatus event" << std::endl;
 	}
 }
