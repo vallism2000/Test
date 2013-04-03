@@ -132,6 +132,9 @@ TabbedPane {
     Tab {
         title: "Inventory"
         imageSource: "ic_view_list.png"
+        onTriggered: {
+            TestObject.getInvList();
+        }
         NavigationPane {
             Page {
                 titleBar: TitleBar {
@@ -163,24 +166,38 @@ TabbedPane {
 		                    }
 		                }
 		            }
+		            TextField {
+		                id: addInvText
+		                input.submitKey: SubmitKey.Submit
+		                hintText: "Add Ingredient"
+		                onTextChanged: {
+		                    if (addInvText.text != "") {
+		                        TestObject.addListItem(addInvText.text, false);
+		                        addInvText.text = "";
+		                    }
+		                }
+                    }
 		        }
 		        actions: [
-		             ActionItem {
-		                title: "Add"
-		                imageSource: "ic_add.png"
-		                onTriggered: {
-		                }
-		            },
+		            //ActionItem {
+		            //    title: "Add"
+		            //    imageSource: "ic_add.png"
+		            //    onTriggered: {
+		            //        //
+		            //    }
+		            //},
 		            ActionItem {
 		                title: "Move Selected to Shopping List"
 		                imageSource: "ic_send_to_shoplist.png"
 		                onTriggered: {
+		                    TestObject.moveListItems(false);
 		                }
 		            },
 		            ActionItem {
 		                title: "Remove Selected"
 		                imageSource: "ic_delete.png"
 		                onTriggered: {
+		                    TestObject.removeListItems(false);
 		                }
 		            }
 		        ]
@@ -190,6 +207,9 @@ TabbedPane {
     Tab {
         title: "Shopping List"
         imageSource: "ic_shoplist.png"
+        onTriggered: {
+            TestObject.getShopList();
+        }
         NavigationPane {
             Page {
                 titleBar: TitleBar {
@@ -221,7 +241,41 @@ TabbedPane {
 		                    }
 		                }
 		            }
+		            TextField {
+		                id: addShopText
+		                input.submitKey: SubmitKey.Submit
+		                hintText: "Add Ingredient"
+		                onTextChanged: {
+		                    if (addShopText.text != "") {
+		                        TestObject.addListItem(addShopText.text, true);
+		                        addShopText.text = "";
+		                    }
+		                }
+                    }
 		        }
+		        actions: [
+		            //ActionItem {
+		            //    title: "Add"
+		            //    imageSource: "ic_add.png"
+		            //    onTriggered: {
+		            //        //
+		            //    }
+		            //},
+		            ActionItem {
+		                title: "Move Selected to Inventory List"
+		                imageSource: "ic_send_to_shoplist.png"
+		                onTriggered: {
+		                    TestObject.moveListItems(true);
+		                }
+		            },
+		            ActionItem {
+		                title: "Remove Selected"
+		                imageSource: "ic_delete.png"
+		                onTriggered: {
+		                    TestObject.removeListItems(true);
+		                }
+		            }
+		        ]
             }
         }
     }

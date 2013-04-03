@@ -312,7 +312,7 @@ void DrinkItApp::removeListItems(bool isShopList) {
 }
 
 void DrinkItApp::addListItem(std::string name, bool isShopList) {
-	//
+	EH->addListItem(name, isShopList);
 }
 
 void DrinkItApp::receivedInvokeRequest(const bb::system::InvokeRequest& request) {
