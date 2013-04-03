@@ -288,6 +288,11 @@ void DrinkItApp::moveListItems(bool isShopList) {
 			EH->moveListItem(y, z, true);
 		}
 	}
+	if (!isShopList) {
+		getInvList();
+	} else {
+		getShopList();
+	}
 }
 
 void DrinkItApp::removeListItems(bool isShopList) {
@@ -311,10 +316,20 @@ void DrinkItApp::removeListItems(bool isShopList) {
 			EH->removeListItem(y, z, true);
 		}
 	}
+	if (!isShopList) {
+		getInvList();
+	} else {
+		getShopList();
+	}
 }
 
-void DrinkItApp::addListItem(std::string name, bool isShopList) {
-	EH->addListItem(name, isShopList);
+void DrinkItApp::addListItem(QString name, bool isShopList) {
+	EH->addListItem(name.toStdString(), isShopList);
+	if (!isShopList) {
+		getInvList();
+	} else {
+		getShopList();
+	}
 }
 
 void DrinkItApp::receivedInvokeRequest(const bb::system::InvokeRequest& request) {

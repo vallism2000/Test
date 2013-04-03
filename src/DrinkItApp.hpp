@@ -59,7 +59,7 @@ public:
     Q_INVOKABLE void getShopList();
     Q_INVOKABLE void moveListItems(bool isShopList);
     Q_INVOKABLE void removeListItems(bool isShopList);
-    Q_INVOKABLE void addListItem(std::string name, bool isShopList);
+    Q_INVOKABLE void addListItem(QString name, bool isShopList);
 
     Q_INVOKABLE void updateRecipeRating(int rating);
 
