@@ -56,7 +56,7 @@ TabbedPane {
 		                    }
 		                    else {
 		                        titleLabel.title = "Searching for: " + searchText.text;
-		                        TestObject.getSearchedList();
+		                        TestObject.getSearchedList(searchText.text);
 		                    }
 		                }
 		            }

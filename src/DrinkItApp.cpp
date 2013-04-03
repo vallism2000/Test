@@ -95,12 +95,12 @@ void DrinkItApp::getFullList()
 	EH->getRecipeList("");
 }
 
-void DrinkItApp::getSearchedList()
+void DrinkItApp::getSearchedList(QString s)
 {
 	//Example call to the CoreEventBus
 	CoreEventBus::FireEvent(new RemoveRecipeEvent(0));
 
-	EH->getRecipeList("Search Info");
+	EH->getRecipeList(s.toStdString());
 }
 
 void DrinkItApp::getRecipe(int index, int id)
