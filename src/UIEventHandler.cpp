@@ -285,7 +285,7 @@ void UIEventHandler::moveListItem(int id, std::string name, bool isShopList) {
 	// Fire Event
 	IngredientListEvent * event = new IngredientListEvent(id, name, isShopList, false);
 	CoreEventBus::FireEvent(event);
-	event = new IngredientListEvent(0, name, isShopList, true);
+	event = new IngredientListEvent(0, name, !isShopList, true);
 	CoreEventBus::FireEvent(event);
 }
 void UIEventHandler::removeListItem(int id, std::string name, bool isShopList) {
