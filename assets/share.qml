@@ -39,7 +39,9 @@ Page {
                 var selectedItem = dataModel.data(indexPath);
                 console.log("Selected " + selectedItem.name);
                 _shareObject.triggerShareEvent(selectedItem.name);
-                myQmlDialog.show()
+                if (selectedItem.name == "Facebook") {
+                    myQmlDialog.show()
+                }
             }
         }
     }
