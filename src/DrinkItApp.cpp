@@ -265,14 +265,54 @@ void DrinkItApp::getShopList()
 	EH->getShopList();
 }
 
-void DrinkItApp::moveListItems(int id, bool isShopList) {
-	//if (!isShopList) {
-	//	for (int i=0; i<list2->selectionList().size(); i++) {
-	//		int x = list2->selectionList().at(i).toInt();
-	//		EH->moveListItem(x, false);
-	//	}
-	//}
-	std::cout << "'" << id << "'" << std::endl;
+void DrinkItApp::moveListItems(bool isShopList) {
+	int x;
+	int y;
+	std::string z;
+	if (!isShopList) {
+		for (int i=0; i<list2->selectionList().size(); i++) {
+			x = list2->selectionList().at(i).toList().at(0).toInt();
+			y = model3->value(x).toInt();
+			z = model4->value(x).toString().toStdString();
+			//std::cout << "'" << x << "', '" << y << "'" << std::endl;
+			EH->moveListItem(y, z, false);
+		}
+	} else {
+		for (int i=0; i<list3->selectionList().size(); i++) {
+			x = list3->selectionList().at(i).toList().at(0).toInt();
+			y = model5->value(x).toInt();
+			z = model6->value(x).toString().toStdString();
+			//std::cout << "'" << x << "', '" << y << "'" << std::endl;
+			EH->moveListItem(y, z, true);
+		}
+	}
+}
+
+void DrinkItApp::removeListItems(bool isShopList) {
+	int x;
+	int y;
+	std::string z;
+	if (!isShopList) {
+		for (int i=0; i<list2->selectionList().size(); i++) {
+			x = list2->selectionList().at(i).toList().at(0).toInt();
+			y = model3->value(x).toInt();
+			z = model4->value(x).toString().toStdString();
+			//std::cout << "'" << x << "', '" << y << "'" << std::endl;
+			EH->removeListItem(y, z, false);
+		}
+	} else {
+		for (int i=0; i<list3->selectionList().size(); i++) {
+			x = list3->selectionList().at(i).toList().at(0).toInt();
+			y = model5->value(x).toInt();
+			z = model6->value(x).toString().toStdString();
+			//std::cout << "'" << x << "', '" << y << "'" << std::endl;
+			EH->removeListItem(y, z, true);
+		}
+	}
+}
+
+void DrinkItApp::addListItem(std::string name, bool isShopList) {
+	//
 }
 
 void DrinkItApp::receivedInvokeRequest(const bb::system::InvokeRequest& request) {
