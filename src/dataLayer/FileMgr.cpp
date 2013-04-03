@@ -50,6 +50,7 @@ FileMgr::FileMgr() {
 	database.close();
 
 	CreateTables();
+
 }
 
 FileMgr::~FileMgr() {
@@ -84,6 +85,7 @@ void FileMgr::DropTables() {
 
 }
 void FileMgr::CreateTables() {
+
 	QSqlDatabase database = QSqlDatabase::database();
 	//Create Ingredients table
 	const QString ingredientTable = "CREATE TABLE IF NOT EXISTS "
@@ -309,7 +311,7 @@ void FileMgr::AddRecipe(int rating, const std::string & name,
 	QString qInstructions = QString::fromStdString(instructions);
 
 	QSqlQuery insertQuery(database);
-	QSqlQuery getInsertedIdQuery(database);
+
 	insertQuery.prepare(
 			"INSERT INTO " + RecipeTable + " (" + RecipeRating + ", "
 					+ RecipeName + ", " + RecipeDesc + ", " + RecipeInstructions
@@ -326,14 +328,14 @@ void FileMgr::AddRecipe(int rating, const std::string & name,
 		//return;
 	}
 
-	std::cout << getLastExecutedQuery(insertQuery).toStdString() << "\n";
+	std::cout << getLastExecutedQuery(insertQuery).toStdString() << std::endl;;
 
-	bool * ok;
-	int test = insertQuery.lastInsertId().toInt(ok);
+	bool ok = false;
+	int test = insertQuery.lastInsertId().toInt(&ok);
 	std::cout << test << "\n";
 	int recipeId = test;
 
-	std::cout << "Inserted recipe id: " << recipeId << "\n";
+	std::cout << "Inserted recipe id: " << recipeId << std::endl;
 	unsigned int i = 0;
 	for (i = 0; i < ingredients.size(); i++) {
 		std::pair<std::string, std::string> p = ingredients.at(i);
@@ -357,11 +359,11 @@ void FileMgr::AddRecipe(int rating, const std::string & name,
 		if (!insertRecipeIngredientQuery.exec()) {
 			const QSqlError error2 = insertRecipeIngredientQuery.lastError();
 			std::cout << "SQL Error in insertRecipeIngredientQuery "
-					<< error2.text().toStdString() << "\n";
+					<< error2.text().toStdString() << std::endl;
 		}
 		std::cout
 				<< getLastExecutedQuery(insertRecipeIngredientQuery).toStdString()
-				<< "\n";
+				<< std::endl;
 	}
 }
 
