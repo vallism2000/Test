@@ -46,7 +46,7 @@ void ShareEventListener::ActOnEvent(IEvent *e){
 
 	} else if( type == IEvent::BBMSHARE ){
 		// Prepare the data that will be shared
-		data = "I just made a " + se->GetRecipe()->GetName() + "with DrinkItApp!";
+		data = "I just made a " + se->GetRecipe()->GetName() + " with DrinkItApp!";
 		// Call the share function
 		BBMShare* bbm = new BBMShare();
 		bbm->share(data);
@@ -56,7 +56,7 @@ void ShareEventListener::ActOnEvent(IEvent *e){
 
 	} else if (type == IEvent::TWITTERSHARE){
 		// Prepare the data that will be shared
-	    data = "I just made a " + se->GetRecipe()->GetName() + "with DrinkItApp!";
+	    data = "I just made a " + se->GetRecipe()->GetName() + " with DrinkItApp!";
 
 	    TwitterShare* tw = new TwitterShare();
 	    tw->share(data);
