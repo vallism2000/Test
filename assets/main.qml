@@ -108,6 +108,7 @@ TabbedPane {
 		        actions: [
 		            ActionItem {
 		                title: "Add Recipe"
+		                imageSource: "ic_add.png"
 		                //ActionBar.placement: ActionBarPlacement.OnBar
 		                onTriggered: {
 		                    var page = addPageDefinition.createObject();
