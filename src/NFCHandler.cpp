@@ -60,7 +60,7 @@ void NFCHandler::finished(bb::system::NfcShareSuccess::Type result) {
 }
 
 void NFCHandler::error(bb::system::NfcShareError::Type error) {
-    qDebug() << error =" << error << endl;
+    qDebug() << "error =" << error << endl;
 }
 
 
