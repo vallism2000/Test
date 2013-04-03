@@ -134,7 +134,7 @@ TabbedPane {
         NavigationPane {
             Page {
                 titleBar: TitleBar {
-                    title: "Inventory Page"
+                    title: "Inventory"
                 }
                 Container {
 		            layout: StackLayout {}
@@ -192,7 +192,7 @@ TabbedPane {
         NavigationPane {
             Page {
                 titleBar: TitleBar {
-                    title: "Shopping List Page"
+                    title: "Shopping List"
                 }
                 Container {
 		            layout: StackLayout {}
