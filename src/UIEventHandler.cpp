@@ -11,12 +11,15 @@
 #include "events/GetRecipeEvent.hpp"
 #include "events/GetRecipeResultEvent.hpp"
 #include "events/AddRecipeEvent.hpp"
+#include "events/IngredientListEvent.hpp"
 #include "events/IngredientListRequestEvent.hpp"
 #include "events/IngredientListResultEvent.hpp"
 #include "events/ModifyRecipeEvent.hpp"
+#include "events/RemoveRecipeEvent.hpp"
 
 #include "drinkObjects/DrinkRecipe.hpp"
 #include "drinkObjects/DrinkIngredient.hpp"
+
 
 UIEventHandler::UIEventHandler(bb::cascades::ArrayDataModel * m1[], bb::cascades::ArrayDataModel * m2[], bb::cascades::NavigationPane * n) {
 	//
@@ -212,6 +215,10 @@ void UIEventHandler::addRecipe(int rate, std::string text[], std::string ingred[
 	}
 	CoreEventBus::FireEvent(event);
 }
+void UIEventHandler::removeRecipe() {
+	RemoveRecipeEvent * event = new RemoveRecipeEvent(m_id);
+	CoreEventBus::FireEvent(event);
+}
 void UIEventHandler::shareRecipe(int id) {
 	//
 }
@@ -241,8 +248,12 @@ std::vector<std::pair<DrinkIngredient, std::string> > UIEventHandler::getRecipeI
 void UIEventHandler::getInvList() {
 	model3->clear(); model4->clear();
 	// Test START
-	//model3->append(0); model4->append("Booze(tm)");
-	//model3->append(1); model4->append("Vodka");
+	//model3->append(10); model4->append("Booze(tm)1");
+	//model3->append(11); model4->append("Vodka1");
+	//model3->append(12); model4->append("Booze(tm)2");
+	//model3->append(13); model4->append("Vodka2");
+	//model3->append(14); model4->append("Booze(tm)3");
+	//model3->append(15); model4->append("Vodka3");
 	// Test END
 
 	// Fire Request
@@ -254,8 +265,12 @@ void UIEventHandler::getInvList() {
 void UIEventHandler::getShopList() {
 	model5->clear(); model6->clear();
 	// Test START
-	//model5->append(0); model6->append("Salt");
-	//model5->append(1); model6->append("Pepper");
+	//model5->append(10); model6->append("Salt1");
+	//model5->append(11); model6->append("Pepper1");
+	//model5->append(12); model6->append("Salt2");
+	//model5->append(13); model6->append("Pepper2");
+	//model5->append(14); model6->append("Salt3");
+	//model5->append(15); model6->append("Pepper3");
 	// Test END
 
 	// Fire Request
@@ -264,8 +279,28 @@ void UIEventHandler::getShopList() {
 }
 
 
-void UIEventHandler::moveListItem(int id, bool isShopList) {
-	std::cout << "Item Moved:: ID: '" << id << "', ShopList Origin?: '" << isShopList << "'" << std::endl;
+void UIEventHandler::moveListItem(int id, std::string name, bool isShopList) {
+	std::cout << "Item Moved:: ID: '" << id << "', Name: '" << name << "', ShopList Origin?: '" << isShopList << "'" << std::endl;
+
+	// Fire Event
+	IngredientListEvent * event = new IngredientListEvent(id, name, isShopList, false);
+	CoreEventBus::FireEvent(event);
+	event = new IngredientListEvent(0, name, isShopList, true);
+	CoreEventBus::FireEvent(event);
+}
+void UIEventHandler::removeListItem(int id, std::string name, bool isShopList) {
+	std::cout << "Item Removed:: ID: '" << id << "', Name: '" << name << "', ShopList Origin?: '" << isShopList << "'" << std::endl;
+
+	// Fire Event
+	IngredientListEvent * event = new IngredientListEvent(id, name, isShopList, false);
+	CoreEventBus::FireEvent(event);
+}
+void UIEventHandler::addListItem(std::string name, bool isShopList) {
+	std::cout << "Item Added:: Name: '" << name << "', ShopList Origin?: '" << isShopList << "'" << std::endl;
+
+	// Fire Event
+	IngredientListEvent * event = new IngredientListEvent(0, name, isShopList, true);
+	CoreEventBus::FireEvent(event);
 }
 
 void UIEventHandler::updateRecipeRating(int rating){

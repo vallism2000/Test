@@ -25,6 +25,7 @@ public:
 	void getRecipeList(std::string s="");
 	void getRecipe(int index, int id);
 	void addRecipe(int rate, std::string text[], std::string ingred[], std::string amount[], int size);
+	void removeRecipe();
 	void shareRecipe(int id);
 	std::string getRecipeName();
 	std::string getRecipeDescription();
@@ -41,7 +42,9 @@ public:
 	void getShopList();
 
 	// Functions related to both
-	void moveListItem(int id, bool isShopList);
+	void moveListItem(int id, std::string name, bool isShopList);
+	void removeListItem(int id, std::string name, bool isShopList);
+	void addListItem(std::string name, bool isShopList);
 
 	void updateRecipeRating(int rating);
 

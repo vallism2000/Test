@@ -1,0 +1,178 @@
+// Add after the create tables call in FileMgr.cpp
+// You probably want to call DropTables before the CreateTables as well just to ensure clean.
+//MASS RECIPE ADD START
+	std::vector<std::pair<std::string, std::string> > * ingredients;
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Coffee Liqueur", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Vodka", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Cream", "1 part"));
+	AddRecipe(5, "White Russian", "Creamy and Strong.", "Mix and enjoy!", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Orange Juice", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Vodka", "1 part"));
+	AddRecipe(3, "Screw Driver", "Refreshing", "Mix and enjoy!", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Campari", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Vermouth", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Soda Water", "a splash"));
+	AddRecipe(0, "Americano", "Refreshing", "Mix and enjoy!", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("White Rum", "9 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Lemon Juice", "4 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Grenadine", "1 part"));
+	AddRecipe(0, "Bacardi Cocktail", "Tart and sweet", "Mix and enjoy!", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Gin", "6 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Vermouth", "5 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Orange Juice", "3 parts"));
+	AddRecipe(0, "Bronx", "Refreshing", "Serve neat.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("White Rum", "9 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Lemon Juice", "4 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Simple Syrup", "1 part"));
+	AddRecipe(0, "Daiquiri", "Refreshing", "Shake in a shaker.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Gin", "6 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Vermouth", "1 part"));
+	AddRecipe(0, "Gibson", "Refreshing", "Shake in a shaker.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("White Wine", "9 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Creme de Cassis", "1 part"));
+	AddRecipe(0, "Kir", "French drink for an apertif.", "Add creme first.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Tequila", "7 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Cointreau", "4 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Lime Juice", "3 parts"));
+	AddRecipe(0, "Margarita", "Mexican Cocktail.", "Serve in a salt-rimmed glass.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Bourbon", "3 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Lemon Juice", "2 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Gomme Syrup", "1 part"));
+	AddRecipe(0, "Whiskey Sour", "Very Tart.", "Shake with ice.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Gin", "7 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Brandy", "4 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Orange Juice", "3 part"));
+	AddRecipe(0, "Paradise", "Pre-dinner drink.", "Shake over ice.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Vodka", "5 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Coffee Liqueur", "2 parts"));
+	AddRecipe(0, "Black Russian", "Strong.", "Shake with ice.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Creme de menthe", "1 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Creme de cacao", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Cream", "1 part"));
+	AddRecipe(0, "Grasshopper", "Quite light.", "Shake briskly with ice.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Scotch", "9 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Drambuie", "5 parts"));
+	AddRecipe(0, "Rusty Nail", "Sweet.", "Stir gently.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Sparkling wine", "2 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Peach puree", "1 part"));
+	AddRecipe(0, "Bellini", "Very Tart.", "Serve straight.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Vodka", "3 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Tomato Juice", "6 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Lemon Juice", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Tabasco Sauce", "a splash"));
+	AddRecipe(0, "Bloody Mary", "Flavourful.", "Stir over ice.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Gin", "3 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Lemon Juice", "2 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Gomme Syrup", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Soda Water", "5 part"));
+	AddRecipe(0, "Gin Fizz", "Bubbly.", "Stir over ice.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Champagne", "1 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Orange Juice", "1 part"));
+	AddRecipe(0, "Mimosa", "Refreshing.", "Serve cold.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Tequila", "3 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Orange Juice", "6 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Grenadine", "1 part"));
+	AddRecipe(0, "Tequila Sunrise", "Colourful.", "Pour over ice.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Vodka", "3 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Apple Schnapps", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Cointreau", "1 part"));
+	AddRecipe(0, "Appletini", "Sweet.", "Mix in a shaker.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Vodka", "3 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Lime Juice", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Cointreau", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Cranberry Juice", "2 parts"));
+	AddRecipe(0, "Cosmopolitan", "Sweet.", "Mix in a shaker.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Midori", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Lemon Juice", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Cointreau", "1 part"));
+	AddRecipe(0, "Japanese Slipper", "", "Mix in a shaker.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("White Rum", "2 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Lime Juice", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Sugar", "a dash"));
+	ingredients->push_back(std::pair<std::string,std::string>("Soda Water", "top"));
+	ingredients->push_back(std::pair<std::string,std::string>("Mint", "6 leaves"));
+	AddRecipe(0, "Mojito", "Sweet Citrus.", "Mix in a shaker.", *ingredients);
+	delete ingredients;
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("Vodka", "1 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Triple Sec", "1 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Lime Juice", "1 part"));
+	AddRecipe(0, "Kamikaze", "Tart.", "Mix in a shaker.", *ingredients);
+
+	ingredients = new std::vector<std::pair<std::string, std::string> >();
+	ingredients->push_back(std::pair<std::string,std::string>("White Rum", "8 parts"));
+	ingredients->push_back(std::pair<std::string,std::string>("Dark Rum", "4 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Curacao", "3 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Orgeat Syrup", "3 part"));
+	ingredients->push_back(std::pair<std::string,std::string>("Lime Juice", "2 part"));
+	AddRecipe(0, "Mai Tai", ".", "Mix in a shaker.", *ingredients);
+	delete ingredients;
+	//MASS RECIPE ADD END

@@ -24,7 +24,6 @@
 #include <nfc/nfc_ndef.h>
 #include <QtNfcSubset/qndefmessage.h>
 #include "NFCHandler.hpp"
-#include "ListModel.hpp"
 
 namespace bb { namespace cascades { class Application; }}
 
@@ -53,11 +52,14 @@ public:
 
     Q_INVOKABLE void saveJSON(QString text);
     Q_INVOKABLE void submitRecipe();
+    Q_INVOKABLE void removeRecipe();
     Q_INVOKABLE QString loadJSON();
 
     Q_INVOKABLE void getInvList();
     Q_INVOKABLE void getShopList();
-    Q_INVOKABLE void moveListItems(int id, bool isShopList);
+    Q_INVOKABLE void moveListItems(bool isShopList);
+    Q_INVOKABLE void removeListItems(bool isShopList);
+    Q_INVOKABLE void addListItem(QString name, bool isShopList);
 
     Q_INVOKABLE void updateRecipeRating(int rating);
 
@@ -92,7 +94,6 @@ private:
     bb::system::InvokeManager* _invokeManager;
     NFCHandler* _nfcHandler;
     bb::cascades::AbstractPane *test;
-    ListModel* _listModel;
 
 signals:
     void message(const QVariant &text, const QVariant &formatted);
