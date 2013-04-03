@@ -386,9 +386,71 @@ void FileMgr::AddRecipe(int rating, const std::string & name,
 void FileMgr::ModifyRecipe(int recipeID, int rating, const std::string & name,
 		const std::string & description, const std::string & instructions,
 		const std::vector<std::pair<std::string, std::string> > & ingredients) {
-	std::cout << "FileMgr: Dummy handle for Modify Recipe:" << recipeID
-			<< rating << name << description << instructions << std::endl;
-	(void) ingredients;
+	QSqlDatabase database = QSqlDatabase::database();
+	QSqlQuery updateRecipeQuery(database);
+	QString updateRecipe = "UPDATE " + RecipeTable + " SET " + RecipeRating + " = :rRating, " + RecipeName + " = :rName, " + RecipeDesc + " = :rDescription, " + RecipeInstructions + " = :rInstructions WHERE " + RecipeID + " = :rID";
+	updateRecipeQuery.prepare(updateRecipe);
+	updateRecipeQuery.bindValue(":rRating", rating);
+	updateRecipeQuery.bindValue(":rName", QString::fromStdString(name));
+	updateRecipeQuery.bindValue(":rDescription", QString::fromStdString(description));
+	updateRecipeQuery.bindValue(":rInstructions", QString::fromStdString(instructions));
+	updateRecipeQuery.bindValue(":rID", recipeID);
+	if (!updateRecipeQuery.exec()) {
+		std::cout
+				<< getLastExecutedQuery(updateRecipeQuery).toStdString()
+				<< std::endl;
+		const QSqlError error = updateRecipeQuery.lastError();
+		std::cout << "SQL Error in updateRecipeQuery "
+				<< error.text().toStdString() << std::endl;
+	}
+	std::cout
+			<< getLastExecutedQuery(updateRecipeQuery).toStdString()
+			<< std::endl;
+	QSqlQuery deleteRecipeIngredientsQuery(database);
+	QString deleteRecipeIngredients = "DELETE FROM " + RecipeIngredientsTable +
+			" WHERE " + RecipeID + " = :id";
+	deleteRecipeIngredientsQuery.prepare(deleteRecipeIngredients);
+	deleteRecipeIngredientsQuery.bindValue(":id", recipeID);
+	if (!deleteRecipeIngredientsQuery.exec()) {
+		std::cout
+				<< getLastExecutedQuery(deleteRecipeIngredientsQuery).toStdString()
+				<< std::endl;
+		const QSqlError error = deleteRecipeIngredientsQuery.lastError();
+		std::cout << "SQL Error in deleteRecipeIngredientsQuery "
+				<< error.text().toStdString() << std::endl;
+	}
+	std::cout
+			<< getLastExecutedQuery(deleteRecipeIngredientsQuery).toStdString()
+			<< std::endl;
+	for (int i = 0; i < ingredients.size(); i++) {
+		std::pair<std::string, std::string> p = ingredients.at(i);
+		std::string iName = p.first;
+		std::string iQuantity = p.second;
+		QString qiQuantity = QString::fromStdString(iQuantity);
+
+		int ingredientId = DoesIngredientExist(iName, -1);
+		if (ingredientId == -1) {
+			ingredientId = AddIngredient(iName);
+		}
+		database = QSqlDatabase::database();
+		QSqlQuery insertRecipeIngredientQuery(database);
+		insertRecipeIngredientQuery.prepare(
+				"INSERT INTO " + RecipeIngredientsTable + " (" + RecipeID + ", "
+						+ IngredientID + ", " + IngredientQuantity
+						+ ") VALUES(:rId, :iId, :iq);");
+		insertRecipeIngredientQuery.bindValue(":rId", recipeID);
+		insertRecipeIngredientQuery.bindValue(":iId", ingredientId);
+		insertRecipeIngredientQuery.bindValue(":iq", qiQuantity);
+		if (!insertRecipeIngredientQuery.exec()) {
+			const QSqlError error2 = insertRecipeIngredientQuery.lastError();
+			std::cout << "SQL Error in insertRecipeIngredientQuery "
+					<< error2.text().toStdString() << std::endl;
+		}
+		std::cout
+				<< getLastExecutedQuery(insertRecipeIngredientQuery).toStdString()
+				<< std::endl;
+	}
+
 }
 
 void FileMgr::RemoveRecipe(int recipeID) {

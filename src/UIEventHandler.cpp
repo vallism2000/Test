@@ -122,27 +122,28 @@ void UIEventHandler::getRecipeList(std::string s) {
 	if (s == "") {
 		event = new GetAllRecipesEvent();
 	} else {
-		std::vector<std::string> ing;
+		std::vector<std::string> * ing = new std::vector<std::string>();
 		std::string str = s;
 		unsigned int x;
 
 		x = str.find(" ");
 		while(x != std::string::npos) {
 			if (str.substr(0, x) != "") {
-				ing.push_back(str.substr(0, x));
+				ing->push_back(str.substr(0, x));
 			}
 			str = str.substr(x+1);
 			x = str.find(" ");
 		}
 		if (str != "") {
-			ing.push_back(str);
+			ing->push_back(str);
 		}
+
 		event = new SearchRecipesEvent("", ing, true);
 		// Test START
 		std::cout << "Search String: '" << s << "'" << std::endl;
 		std::cout << "Parsed String:";
-		for (int i=0; i<ing.size(); i++) {
-			std::cout << " '" << ing.at(i) << "'";
+		for (unsigned int i=0; i<ing->size(); i++) {
+			std::cout << " '" << ing->at(i) << "'";
 		}
 		std::cout << std::endl;
 		// Test END
