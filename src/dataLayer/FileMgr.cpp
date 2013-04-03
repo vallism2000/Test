@@ -392,9 +392,28 @@ void FileMgr::ModifyRecipe(int recipeID, int rating, const std::string & name,
 }
 
 void FileMgr::RemoveRecipe(int recipeID) {
-	std::cout << "FileMgr: Dummy handle for Delete Recipe:" << recipeID
-			<< std::endl;
+	QSqlDatabase database = QSqlDatabase::database();
+	QSqlQuery query(database);
+
+	//Remove it from the Main table
+	query.prepare("DELETE FROM " + RecipeTable +
+			" WHERE " + RecipeID + " = :id ;");
+	query.bindValue(":id", recipeID);
+	if(!query.exec()) {
+		std::cout << "Removing Recipe failed: " << query.lastError().text().toStdString() << std::endl;
+	}
+
+	query.prepare("DELETE FROM " + RecipeIngredientsTable +
+			" WHERE " + RecipeID + " = :id ;");
+	query.bindValue(":id", recipeID);
+	if(!query.exec())
+	{
+		std::cout << "Removing Recipe Ingredients failed: " << query.lastError().text().toStdString() << std::endl;
+	}
+
+	database.close();
 }
+
 bool FileMgr::HasAllIngredientsForRecipe(int recipeID) {
 	QSqlDatabase database = QSqlDatabase::database();
 	QSqlQuery getHasIngredientsQuery(database);
