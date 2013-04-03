@@ -22,6 +22,7 @@
 
 using namespace bb::cascades;
 
+
 DrinkItApp::DrinkItApp(bb::cascades::Application *app)
 : QObject(app)
 {
@@ -92,23 +93,21 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     QObject::connect( root, SIGNAL(enableDataSharing()), _nfcHandler, SLOT(enableDataSharing()));
 	QObject::connect( root, SIGNAL(disableSharing()), _nfcHandler, SLOT(disableSharing()));
 	QObject::connect( root, SIGNAL(updateMessage(QString)), _nfcHandler, SLOT(dataShareContentChanged(QString)));
+
 }
 
-void DrinkItApp::getFullList()
-{
+void DrinkItApp::getFullList() {
 	EH->getRecipeList("");
 }
 
-void DrinkItApp::getSearchedList(QString s)
-{
+void DrinkItApp::getSearchedList(QString s) {
 	//Example call to the CoreEventBus
 	CoreEventBus::FireEvent(new RemoveRecipeEvent(0));
 
 	EH->getRecipeList(s.toStdString());
 }
 
-void DrinkItApp::getRecipe(int index, int id)
-{
+void DrinkItApp::getRecipe(int index, int id) {
 	recipeID = id;
 	recipeName = "BAD DATA";
 	recipeInfo = "MORE BAD DATA";
@@ -116,23 +115,21 @@ void DrinkItApp::getRecipe(int index, int id)
 	EH->getRecipe(index, id);
 }
 
-QString DrinkItApp::getRecipeName()
-{
+QString DrinkItApp::getRecipeName() {
 	recipeName = EH->getRecipeName();
     _sharePage->setRecipeName(recipeName);
 	std::cout << "recipe name: '" << recipeName << "'" << std::endl;
 	return (QString(recipeName.c_str()));
 }
 
-QString DrinkItApp::getRecipeInfo()
-{
+QString DrinkItApp::getRecipeInfo() {
 	recipeInfo = EH->getRecipeDescription();
 	_sharePage->setRecipeDesc(recipeInfo);
 
 	return (QString(recipeInfo.c_str()));
 }
 
-int DrinkItApp::getRecipeRating(){
+int DrinkItApp::getRecipeRating() {
 
 	recipeRating = EH->getRecipeRating();
 	_sharePage->setRating(recipeRating);
@@ -140,7 +137,7 @@ int DrinkItApp::getRecipeRating(){
 	return recipeRating;
 }
 
-int DrinkItApp::getRecipeID(){
+int DrinkItApp::getRecipeID() {
 
 	recipeID = EH->getRecipeID();
 	_sharePage->setRecipeID(recipeID);
@@ -148,37 +145,56 @@ int DrinkItApp::getRecipeID(){
 	return recipeID;
 }
 
-std::vector<std::pair<DrinkIngredient, std::string> > DrinkItApp::getIngredients(){
+std::vector<std::pair<DrinkIngredient, std::string> > DrinkItApp::getIngredients() {
 	recipeIngredients = EH->getRecipeIngredients();
 	_sharePage->setRecipeIngredients(recipeIngredients);
 	return recipeIngredients;
 }
+QString DrinkItApp::getIngredientTextAt(int i) {
+	recipeIngredients = EH->getRecipeIngredients();
+	if (i >= recipeIngredients.size()) {
+		QString empty = "";
+		return empty;
+	}
+	std::pair<DrinkIngredient, std::string> recipeAtI = recipeIngredients.at(i);
+	return QString::fromStdString(recipeAtI.first.GetName());
+}
+QString DrinkItApp::getIngredientQuantityTextAt(int i) {
+	recipeIngredients = EH->getRecipeIngredients();
+	if (i >= recipeIngredients.size()) {
+		QString empty = "";
+		return empty;
+	}
+	std::pair<DrinkIngredient, std::string> recipeAtI = recipeIngredients.at(i);
+	return QString::fromStdString(recipeAtI.second);
+}
 
-QString DrinkItApp::getInstructions(){
+QString DrinkItApp::getInstructions() {
 
 	recipeInstr = EH->getRecipeInstructions();
 	_sharePage->setRecipeInstructions(recipeInstr);
 	return (QString(recipeInstr.c_str()));
 }
 
-QString DrinkItApp::getIngredientsText(){
+QString DrinkItApp::getIngredientsText() {
 	QString ings;
 
-    recipeIngredients = EH->getRecipeIngredients();
+	recipeIngredients = EH->getRecipeIngredients();
 
-	for(unsigned int i=0; i < recipeIngredients.size(); i++){
-		std::pair<DrinkIngredient, std::string>  tmp = recipeIngredients.at(i);
+	for (unsigned int i = 0; i < recipeIngredients.size(); i++) {
+		std::pair<DrinkIngredient, std::string> tmp = recipeIngredients.at(i);
 		std::string name = tmp.first.GetName();
 		std::string amount = tmp.second;
 
-		ings.append( QString::fromStdString(amount) + " \t" + QString::fromStdString(name) + "\n");
+		ings.append(
+				QString::fromStdString(amount) + " \t"
+						+ QString::fromStdString(name) + "\n");
 	}
 
 	return ings;
 }
 
-void DrinkItApp::submitRecipe()
-{
+void DrinkItApp::submitRecipe() {
 	//recipeSubmitted = true;
 	std::string text[3];
 	std::string ingred[5];
@@ -201,57 +217,83 @@ void DrinkItApp::submitRecipe()
 	amount[3] = root->findChild<TextArea*>("ing42")->text().toStdString();
 	amount[4] = root->findChild<TextArea*>("ing52")->text().toStdString();
 
-	for (int i=5; i>0; i--) {
-		if (ingred[i-1] == "") {
-			size = i-1;
+	for (int i = 5; i > 0; i--) {
+		if (ingred[i - 1] == "") {
+			size = i - 1;
 		}
 	}
 
 	EH->addRecipe(0, text, ingred, amount, size);
 }
+void DrinkItApp::modRecipe() {
+
+	std::string text[3];
+	std::string ingred[5];
+	std::string amount[5];
+	int size = 5;
+
+
+	text[0] = root->findChild<TextArea*>("editName")->text().toStdString();
+	text[1] = root->findChild<TextArea*>("editInfo")->text().toStdString();
+	text[2] = root->findChild<TextArea*>("editInstructions")->text().toStdString();
+
+	ingred[0] = root->findChild<TextArea*>("ing11")->text().toStdString();
+	ingred[1] = root->findChild<TextArea*>("ing21")->text().toStdString();
+	ingred[2] = root->findChild<TextArea*>("ing31")->text().toStdString();
+	ingred[3] = root->findChild<TextArea*>("ing41")->text().toStdString();
+	ingred[4] = root->findChild<TextArea*>("ing51")->text().toStdString();
+
+	amount[0] = root->findChild<TextArea*>("ing12")->text().toStdString();
+	amount[1] = root->findChild<TextArea*>("ing22")->text().toStdString();
+	amount[2] = root->findChild<TextArea*>("ing32")->text().toStdString();
+	amount[3] = root->findChild<TextArea*>("ing42")->text().toStdString();
+	amount[4] = root->findChild<TextArea*>("ing52")->text().toStdString();
+
+	for (int i = 5; i > 0; i--) {
+		if (ingred[i - 1] == "") {
+			size = i - 1;
+		}
+	}
+
+	EH->modRecipe(getRecipeID(), getRecipeRating(), text, ingred, amount, size);
+
+}
 void DrinkItApp::removeRecipe() {
 	EH->removeRecipe();
 }
 //The following are file save/load methods and should not be located here according to our architecture.
-void DrinkItApp::saveJSON(QString text)
-{
+void DrinkItApp::saveJSON(QString text) {
 	std::cout << "Saving " << text.toStdString() << " to file." << std::endl;
 
 	QVariantMap testObj;
-	testObj.insert("text",text);
+	testObj.insert("text", text);
 
 	QVariant testData = QVariant(testObj);
 
 	QDir home = QDir::home();
 	QFile file(home.absoluteFilePath("test.json"));
 
-	if (file.open(QIODevice::WriteOnly))
-	{
+	if (file.open(QIODevice::WriteOnly)) {
 		bb::data::JsonDataAccess jda;
 		jda.save(testData, &file);
 
-		if(jda.hasError())
-		{
+		if (jda.hasError()) {
 			std::cout << "errors encountered saving" << std::endl;
 		}
 		file.close();
-	}
-	else
-	{
+	} else {
 		std::cout << "File would not open." << std::endl;
 	}
 }
 
-QString DrinkItApp::loadJSON()
-{
+QString DrinkItApp::loadJSON() {
 	std::cout << "Loading data from file." << std::endl;
 
 	bb::data::JsonDataAccess jda;
 	QDir home = QDir::home();
 	QVariant list = jda.load(home.absoluteFilePath("test.json"));
 
-	if(jda.hasError())
-	{
+	if (jda.hasError()) {
 		std::cout << "errors encountered loading" << std::endl;
 
 		std::cout << jda.error().errorMessage().toStdString() << std::endl;
@@ -261,17 +303,15 @@ QString DrinkItApp::loadJSON()
 	return map.value("text").toString();
 }
 
-void DrinkItApp::createModules(){
+void DrinkItApp::createModules() {
 	_sharePage = new SharePage();
 }
 
-void DrinkItApp::getInvList()
-{
+void DrinkItApp::getInvList() {
 	EH->getInvList();
 }
 
-void DrinkItApp::getShopList()
-{
+void DrinkItApp::getShopList() {
 	EH->getShopList();
 }
 
@@ -280,7 +320,7 @@ void DrinkItApp::moveListItems(bool isShopList) {
 	int y;
 	std::string z;
 	if (!isShopList) {
-		for (int i=0; i<list2->selectionList().size(); i++) {
+		for (int i = 0; i < list2->selectionList().size(); i++) {
 			x = list2->selectionList().at(i).toList().at(0).toInt();
 			y = model3->value(x).toInt();
 			z = model4->value(x).toString().toStdString();
@@ -288,7 +328,7 @@ void DrinkItApp::moveListItems(bool isShopList) {
 			EH->moveListItem(y, z, false);
 		}
 	} else {
-		for (int i=0; i<list3->selectionList().size(); i++) {
+		for (int i = 0; i < list3->selectionList().size(); i++) {
 			x = list3->selectionList().at(i).toList().at(0).toInt();
 			y = model5->value(x).toInt();
 			z = model6->value(x).toString().toStdString();
@@ -308,7 +348,7 @@ void DrinkItApp::removeListItems(bool isShopList) {
 	int y;
 	std::string z;
 	if (!isShopList) {
-		for (int i=0; i<list2->selectionList().size(); i++) {
+		for (int i = 0; i < list2->selectionList().size(); i++) {
 			x = list2->selectionList().at(i).toList().at(0).toInt();
 			y = model3->value(x).toInt();
 			z = model4->value(x).toString().toStdString();
@@ -316,7 +356,7 @@ void DrinkItApp::removeListItems(bool isShopList) {
 			EH->removeListItem(y, z, false);
 		}
 	} else {
-		for (int i=0; i<list3->selectionList().size(); i++) {
+		for (int i = 0; i < list3->selectionList().size(); i++) {
 			x = list3->selectionList().at(i).toList().at(0).toInt();
 			y = model5->value(x).toInt();
 			z = model6->value(x).toString().toStdString();
@@ -340,40 +380,44 @@ void DrinkItApp::addListItem(QString name, bool isShopList) {
 	}
 }
 void DrinkItApp::addIngredientsToShoppingList() {
-    recipeIngredients = EH->getRecipeIngredients();
+	recipeIngredients = EH->getRecipeIngredients();
 
-	for(unsigned int i=0; i < recipeIngredients.size(); i++){
-		std::pair<DrinkIngredient, std::string>  tmp = recipeIngredients.at(i);
+	for (unsigned int i = 0; i < recipeIngredients.size(); i++) {
+		std::pair<DrinkIngredient, std::string> tmp = recipeIngredients.at(i);
 		QString name = QString::fromStdString(tmp.first.GetName());
 		addListItem(name, true);
 	}
 }
-void DrinkItApp::receivedInvokeRequest(const bb::system::InvokeRequest& request) {
+void DrinkItApp::receivedInvokeRequest(
+		const bb::system::InvokeRequest& request) {
 
-	 QByteArray data = request.data();
-	 QtMobilitySubset::QNdefMessage ndefMessage = QtMobilitySubset::QNdefMessage::fromByteArray(data);
+	QByteArray data = request.data();
+	QtMobilitySubset::QNdefMessage ndefMessage =
+			QtMobilitySubset::QNdefMessage::fromByteArray(data);
 
+	QList<QtMobilitySubset::QNdefRecord>::const_iterator ndefRecord;
 
-	 QList<QtMobilitySubset::QNdefRecord>::const_iterator ndefRecord;
+	for (ndefRecord = ndefMessage.begin(); ndefRecord != ndefMessage.end();
+			ndefRecord++) {
 
-	 for ( ndefRecord = ndefMessage.begin(); ndefRecord != ndefMessage.end(); ndefRecord++) {
+		if (ndefRecord->typeNameFormat()
+				== QtMobilitySubset::QNdefRecord::NfcRtd) {
+			if (ndefRecord->type() == "T") {
+				std::cout << "Detected a Text Tag" << std::endl;
+				emit launchReader(QString("Tag read event detected"));
+				emit message(
+						QString("%1").arg(
+								_nfcHandler->getText(ndefRecord->payload())),
+						QString("%1").arg(
+								_nfcHandler->FormatTextForPage(
+										ndefRecord->payload())));
+			}
+		}
 
-
-	 	if (ndefRecord->typeNameFormat() == QtMobilitySubset::QNdefRecord::NfcRtd) {
-	 		if (ndefRecord->type() == "T") {
-	 			std::cout << "Detected a Text Tag" << std::endl;
-	 			emit launchReader(QString("Tag read event detected"));
-	 			emit message(QString("%1").arg(_nfcHandler->getText(ndefRecord->payload())),
-	 					QString("%1").arg(_nfcHandler->FormatTextForPage(ndefRecord->payload())));
-	 		}
-	 	}
-
-	 }
+	}
 }
 
-void DrinkItApp::updateRecipeRating(int rating){
-    EH->updateRecipeRating(rating);
+void DrinkItApp::updateRecipeRating(int rating) {
+	EH->updateRecipeRating(rating);
 }
-
-
 

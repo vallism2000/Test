@@ -102,6 +102,10 @@ Page {
         ComponentDefinition {
             id: sharePageDefinition
             source: "share.qml"
+        },
+        ComponentDefinition {
+            id: editPageDefinition
+            source: "editRecipe.qml"
         }
     ]
     actions: [
@@ -131,6 +135,15 @@ Page {
             ActionBar.placement: ActionBarPlacement.OnBar
             onTriggered: {
                 additionConfirmDialog.show();
+            }
+        },
+        ActionItem {
+            id: edit
+            title: "Edit Recipe"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                var page = editPageDefinition.createObject();
+                nav.push(page);
             }
         }
     ]

@@ -64,6 +64,9 @@ public:
     Q_INVOKABLE void addIngredientsToShoppingList();
 
     Q_INVOKABLE void updateRecipeRating(int rating);
+    Q_INVOKABLE QString getIngredientTextAt(int i);
+    Q_INVOKABLE QString getIngredientQuantityTextAt(int i);
+    Q_INVOKABLE void modRecipe();
 
 private:
     bb::cascades::TabbedPane *root;

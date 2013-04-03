@@ -215,6 +215,13 @@ void UIEventHandler::addRecipe(int rate, std::string text[], std::string ingred[
 	}
 	CoreEventBus::FireEvent(event);
 }
+void UIEventHandler::modRecipe(int recipeID, int rate, std::string text[], std::string ingred[], std::string amount[], int size) {
+	ModifyRecipeEvent * event = new ModifyRecipeEvent(recipeID, rate, text[0], text[1], text[2]);
+	for (int i=0; i<size; i++) {
+		event->AddIngredient(ingred[i], amount[i]);
+	}
+	CoreEventBus::FireEvent(event);
+}
 void UIEventHandler::removeRecipe() {
 	RemoveRecipeEvent * event = new RemoveRecipeEvent(m_id);
 	CoreEventBus::FireEvent(event);
