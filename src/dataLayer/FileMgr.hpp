@@ -77,6 +77,9 @@ private:
 	//Perform a query
 	bool PerformQuery(QString queryString);
 
+	// return if the user has all the ingredients for a particular recipe
+	bool HasAllIngredientsForRecipe(int recipeID);
+
 	//Checks for the existence. Returns the ID if it exists, otherwise -1;
 	int DoesIngredientExist(const std::string & name, int id = -1);
 

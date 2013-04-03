@@ -109,7 +109,6 @@ void FileMgr::DropTables() {
 void FileMgr::CreateTables()
 {
 	QSqlDatabase database = QSqlDatabase::database();
-
 	//Create Ingredients table
 	const QString ingredientTable = "CREATE TABLE IF NOT EXISTS " + IngredientTable + " ("
 			" " + IngredientID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -415,7 +414,24 @@ void FileMgr::RemoveRecipe(int recipeID)
 {
 	std::cout << "FileMgr: Dummy handle for Delete Recipe:" << recipeID << std::endl;
 }
-
+bool FileMgr::HasAllIngredientsForRecipe(int recipeID) {
+	QSqlDatabase database = QSqlDatabase::database();
+	QSqlQuery getHasIngredientsQuery(database);
+	QString getHasIngredients = "SELECT COUNT(RI. + " + IngredientID + ") = COUNT(I." + IngredientID + ") FROM " + RecipeIngredientsTable + " RI LEFT JOIN " + InventoryTable + " I ON RI." + IngredientID + " = I." + IngredientID + "  WHERE RI." + RecipeID + " = :rId";
+	getHasIngredientsQuery.prepare(getHasIngredients);
+	getHasIngredientsQuery.bindValue(":rId", recipeID);
+	if (!getHasIngredientsQuery.exec()) {
+		const QSqlError error = getHasIngredientsQuery.lastError();
+		std::cout << "SQL Error in getHasIngredientsQuery " << error.text().toStdString() << "\n";
+		return false;
+	}
+	bool ok = false;
+	if (getHasIngredientsQuery.next()) {
+		bool ret = getHasIngredientsQuery.value(0).toBool();
+		return ret;
+	}
+	return false;
+}
 //The file manager will keep an active pointer to the full list and only blow it away when things change.
 const RecipeList * FileMgr::GetAllRecipes()
 {
@@ -433,8 +449,8 @@ const RecipeList * FileMgr::GetAllRecipes()
 		bool ok = false;
 		int recipeId = getRecipeIdsQuery.value(0).toInt(&ok);
 		std::string recipeName = getRecipeIdsQuery.value(1).toString().toStdString();
-		// TODO: Add in logic for finding out if we have the ingredient
-		allRecipes->push_back(RecipeTuple(recipeId, recipeName, false));
+		bool hasIngredients = HasAllIngredientsForRecipe(recipeId);
+		allRecipes->push_back(RecipeTuple(recipeId, recipeName, hasIngredients));
 	}
 	return allRecipes;
 
