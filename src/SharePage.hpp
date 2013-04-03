@@ -27,9 +27,12 @@ public:
 	Q_INVOKABLE void triggerShareEvent(QString type);
 	Q_INVOKABLE void setRecipeID(int id);
 	Q_INVOKABLE void setRecipeName(QString name);
+	Q_INVOKABLE void setRecipeName(std::string name);
 	Q_INVOKABLE void setRecipeDesc(QString desc);
+	Q_INVOKABLE void setRecipeDesc(std::string desc);
 	Q_INVOKABLE void setRecipeIngredients(std::vector<std::pair<DrinkIngredient, std::string> > ingredients);
 	Q_INVOKABLE void setRecipeInstructions(QString instructions);
+	Q_INVOKABLE void setRecipeInstructions(std::string name);
 	Q_INVOKABLE void setRating(int rating);
 
 private:

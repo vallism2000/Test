@@ -59,15 +59,24 @@ void SharePage::setRecipeID(int id){
 }
 
 void SharePage::setRecipeName(QString name){
-	recipeName = name.toStdString();;
+	recipeName = name.toStdString();
+}
+
+void SharePage::setRecipeName(std::string name){
+	recipeName = name;
 }
 
 void SharePage::setRecipeDesc(QString desc){
 	recipeDesc = desc.toStdString();
 }
 
+void SharePage::setRecipeDesc(std::string desc){
+	recipeDesc = desc;
+}
+
 void SharePage::setRecipeIngredients(std::vector<std::pair<DrinkIngredient, std::string> > ingredients){
 	 recipeIngredients = ingredients;
+	 std::cout << "set recipe ingredients" << std::endl;
 	 /*for(int i=0; i< ingredients.size(); i++){
 
 		 std::pair<DrinkIngredient, std::string> addIng = ingredients[i];
@@ -78,6 +87,10 @@ void SharePage::setRecipeIngredients(std::vector<std::pair<DrinkIngredient, std:
 
 void SharePage::setRecipeInstructions(QString instructions){
 	recipeInstr = instructions.toStdString();
+}
+
+void SharePage::setRecipeInstructions(std::string instructions){
+	recipeInstr = instructions;
 }
 
 void SharePage::setRating(int rating){

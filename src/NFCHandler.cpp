@@ -15,18 +15,64 @@
 
 NFCHandler* NFCHandler::nfch_instance;
 
-NFCHandler::NFCHandler(){
+NFCHandler::NFCHandler(SharePage* sp){
+		_sharePage = sp;
+		share_manager = new bb::system::NfcShareManager();
+	   // QObject::connect( _sharePage, SIGNAL(enableDataSharing()), this, SLOT(enableDataSharing()));
+	   // QObject::connect( _sharePage, SIGNAL(disableSharing()), this, SLOT(disableSharing()));
+	  //  QObject::connect( _sharePage, SIGNAL(updateMessage(QString, QString)), this, SLOT(dataShareContentChanged(QString, QString)));
 
+	    QObject::connect(share_manager, SIGNAL(shareModeChanged(bb::system::NfcShareMode::Type)), this, SLOT(shareModeChanged(bb::system::NfcShareMode::Type)));
+	    QObject::connect(share_manager, SIGNAL(finished(bb::system::NfcShareSuccess::Type)), this, SLOT(finished(bb::system::NfcShareSuccess::Type)));
+	    QObject::connect(share_manager, SIGNAL(error(bb::system::NfcShareError::Type)), this, SLOT(error(bb::system::NfcShareError::Type)));
+
+	    QObject::connect( this, SIGNAL(setShareMode(bb::system::NfcShareMode::Type)), share_manager, SLOT(setShareMode(bb::system::NfcShareMode::Type)));
 }
 
 NFCHandler::~NFCHandler(){
 
 }
 
-NFCHandler* NFCHandler::getInstance(){
+void NFCHandler::disableSharing() {
+    qDebug() << "XXXX sharing disabled" << endl;
+    setSharingActive(false);
+    emit setShareMode(bb::system::NfcShareMode::Disabled);
+}
+
+void NFCHandler::enableDataSharing() {
+	setSharingActive(true);
+	emit setShareMode(bb::system::NfcShareMode::Data);
+}
+
+bool NFCHandler::sharingActive() const {
+	return sharing_active;
+}
+
+void NFCHandler::setSharingActive(bool sharingState) {
+	if (sharing_active == sharingState){
+		return;
+	}
+	sharing_active = sharingState;
+	emit detectSharingActive();
+}
+void NFCHandler::shareModeChanged(bb::system::NfcShareMode::Type mode) {
+    qDebug() << "XXXX shareModeChanged mode =" << mode << endl;
+}
+
+void NFCHandler::finished(bb::system::NfcShareSuccess::Type result) {
+    qDebug() << "XXXX finished result =" << result << endl;
+}
+
+void NFCHandler::error(bb::system::NfcShareError::Type error) {
+    qDebug() << "XXXX error error =" << error << endl;
+}
+
+
+
+NFCHandler* NFCHandler::getInstance(SharePage* sp){
 
 	if(nfch_instance == NULL){
-		nfch_instance = new NFCHandler();
+		nfch_instance = new NFCHandler(sp);
 	}
 	return nfch_instance;
 }
@@ -230,4 +276,14 @@ QStringList NFCHandler::parseIngredient(QString ing){
 
 	return result;
 
+}
+
+void NFCHandler::dataShareContentChanged(QString message) {
+qDebug() << "XXXX shareContentChanged message : " << message << endl;
+	bb::system::NfcShareDataContent request;
+    QByteArray data(message.toUtf8());
+    request.setMimeType("text/plain");
+    request.setData(data);
+    bb::system::NfcShareSetContentError::Type rc = share_manager->setShareContent(request);
+    qDebug() << "XXXX shareContentChanged rc =" << rc << endl;
 }

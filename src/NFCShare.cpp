@@ -8,14 +8,11 @@
 #include "drinkObjects/DrinkRecipe.hpp"
 #include "drinkObjects/DrinkIngredient.hpp"
 #include <iostream>
-#include <nfc/nfc_ndef.h>
-#include <bb/system/NfcShareManager>
-#include <bb/system/NfcShareDataContent>
-
 
 
 NFCShare::NFCShare(){
-
+	share_data = bb::system::NfcShareDataContent();
+	share_manager = new bb::system::NfcShareManager();
 }
 
 NFCShare::~NFCShare(){
@@ -24,9 +21,6 @@ NFCShare::~NFCShare(){
 
 void NFCShare::share(std::string data){
 	// TODO: add the NFC calls to send the data to the other phone, send a ShareResponseEvent
-
-	bb::system::NfcShareDataContent share_data = bb::system::NfcShareDataContent();
-	bb::system::NfcShareManager *share_manager = new bb::system::NfcShareManager();
 
 	QString text = QString::fromStdString(data);
 	QByteArray array_data = QByteArray();
@@ -85,4 +79,8 @@ std::string NFCShare::recipeToString(DrinkRecipe *r){
 
 void NFCShare::onArmed() {
 	m_Invocation->trigger("bb.action.SHARE");
+}
+
+void NFCShare::clearShare(){
+	share_manager->reset();
 }

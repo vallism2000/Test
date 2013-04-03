@@ -12,5 +12,6 @@ LIBS += -lcurl
 LIBS += -lnfc
 LIBS += -lbbsystem
 LIBS += -lQtNfcSubset
+LIBS += -lnfc_bps
 
 include(config.pri)

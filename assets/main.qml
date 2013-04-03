@@ -3,7 +3,9 @@ import bb.cascades 1.0
 TabbedPane {
     id: tabbedpane
     showTabsOnActionBar: true
-    
+    signal enableDataSharing()
+    signal disableSharing()
+    signal updateMessage(string message)
     // This stuff is part of receiving the nfc text tag
     property bool nfcReceivedVisible: false
         

@@ -73,15 +73,7 @@ Page {
             ActionBar.placement: ActionBarPlacement.OnBar
             
             onTriggered: {
-                var page = sharePageDefinition.createObject();
-              
-                 _shareObject.setRecipeID(TestObject.getRecipeID());
-                 _shareObject.setRecipeName(TestObject.getRecipeName());
-                 _shareObject.setRecipeDesc(TestObject.getRecipeInfo());
-                // _shareObject.setRecipeIngredients(TestObject.getIngredients());
-                 _shareObject.setRecipeInstructions(TestObject.getInstructions());
-                 _shareObject.setRating(TestObject.getRecipeRating());
-                 
+                var page = sharePageDefinition.createObject();   
                 nav.push(page);
             }
         }

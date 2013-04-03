@@ -79,7 +79,7 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     ShareEventBus::RegisterListener(_shareListener);
 
     _invokeManager = new bb::system::InvokeManager();
-    _nfcHandler = NFCHandler::getInstance();
+    _nfcHandler = NFCHandler::getInstance(_sharePage);
     qml->setContextProperty("_nfcHandlerObject", _nfcHandler);
 
     // Connections for receving nfc
@@ -87,6 +87,10 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     		SLOT(receivedInvokeRequest(const bb::system::InvokeRequest&)));
     QObject::connect(this, SIGNAL(message(QVariant, QVariant)), root, SLOT(message(QVariant, QVariant)));
     QObject::connect(this, SIGNAL(launchReader(QVariant)), root, SLOT(launchReader(QVariant)));
+
+    QObject::connect( root, SIGNAL(enableDataSharing()), _nfcHandler, SLOT(enableDataSharing()));
+	QObject::connect( root, SIGNAL(disableSharing()), _nfcHandler, SLOT(disableSharing()));
+	QObject::connect( root, SIGNAL(updateMessage(QString)), _nfcHandler, SLOT(dataShareContentChanged(QString)));
 }
 
 void DrinkItApp::getFullList()
@@ -114,7 +118,7 @@ void DrinkItApp::getRecipe(int index, int id)
 QString DrinkItApp::getRecipeName()
 {
 	recipeName = EH->getRecipeName();
-
+    _sharePage->setRecipeName(recipeName);
 	std::cout << "recipe name: '" << recipeName << "'" << std::endl;
 	return (QString(recipeName.c_str()));
 }
@@ -122,6 +126,7 @@ QString DrinkItApp::getRecipeName()
 QString DrinkItApp::getRecipeInfo()
 {
 	recipeInfo = EH->getRecipeDescription();
+	_sharePage->setRecipeDesc(recipeInfo);
 
 	return (QString(recipeInfo.c_str()));
 }
@@ -129,6 +134,7 @@ QString DrinkItApp::getRecipeInfo()
 int DrinkItApp::getRecipeRating(){
 
 	recipeRating = EH->getRecipeRating();
+	_sharePage->setRating(recipeRating);
 
 	return recipeRating;
 }
@@ -136,20 +142,21 @@ int DrinkItApp::getRecipeRating(){
 int DrinkItApp::getRecipeID(){
 
 	recipeID = EH->getRecipeID();
+	_sharePage->setRecipeID(recipeID);
 
 	return recipeID;
 }
 
 std::vector<std::pair<DrinkIngredient, std::string> > DrinkItApp::getIngredients(){
 	recipeIngredients = EH->getRecipeIngredients();
-
+	_sharePage->setRecipeIngredients(recipeIngredients);
 	return recipeIngredients;
 }
 
 QString DrinkItApp::getInstructions(){
 
 	recipeInstr = EH->getRecipeInstructions();
-
+	_sharePage->setRecipeInstructions(recipeInstr);
 	return (QString(recipeInstr.c_str()));
 }
 
