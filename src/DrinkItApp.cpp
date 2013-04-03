@@ -201,7 +201,9 @@ void DrinkItApp::submitRecipe()
 
 	EH->addRecipe(0, text, ingred, amount, size);
 }
-
+void DrinkItApp::removeRecipe() {
+	EH->removeRecipe();
+}
 //The following are file save/load methods and should not be located here according to our architecture.
 void DrinkItApp::saveJSON(QString text)
 {

@@ -25,6 +25,7 @@ public:
 	void getRecipeList(std::string s="");
 	void getRecipe(int index, int id);
 	void addRecipe(int rate, std::string text[], std::string ingred[], std::string amount[], int size);
+	void removeRecipe();
 	void shareRecipe(int id);
 	std::string getRecipeName();
 	std::string getRecipeDescription();

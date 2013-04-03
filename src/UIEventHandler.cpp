@@ -15,9 +15,11 @@
 #include "events/IngredientListRequestEvent.hpp"
 #include "events/IngredientListResultEvent.hpp"
 #include "events/ModifyRecipeEvent.hpp"
+#include "events/RemoveRecipeEvent.hpp"
 
 #include "drinkObjects/DrinkRecipe.hpp"
 #include "drinkObjects/DrinkIngredient.hpp"
+
 
 UIEventHandler::UIEventHandler(bb::cascades::ArrayDataModel * m1[], bb::cascades::ArrayDataModel * m2[], bb::cascades::NavigationPane * n) {
 	//
@@ -211,6 +213,10 @@ void UIEventHandler::addRecipe(int rate, std::string text[], std::string ingred[
 	for (int i=0; i<size; i++) {
 		event->AddIngredient(ingred[i], amount[i]);
 	}
+	CoreEventBus::FireEvent(event);
+}
+void UIEventHandler::removeRecipe() {
+	RemoveRecipeEvent * event = new RemoveRecipeEvent(m_id);
 	CoreEventBus::FireEvent(event);
 }
 void UIEventHandler::shareRecipe(int id) {

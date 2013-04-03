@@ -1,4 +1,6 @@
 import bb.cascades 1.0
+import bb.platform 1.0
+import bb.system 1.0
 
 Page {
     id: recipePage
@@ -6,7 +8,26 @@ Page {
         title: "Drink Recipe"
     }
     Container {
-        layout: StackLayout {}
+        layout: StackLayout {
+        }
+        attachedObjects: [
+            SystemToast {
+                id: myQmlToast
+                body: "Recipe Deleted"
+                onFinished: {
+                    TestObject.removeRecipe();
+                    nav.pop();
+                }
+            },
+            SystemDialog {
+                id: deletionConfirmDialog
+                title: "Confirm Deletion"
+                body: "Are you sure you want to delete this recipe?"
+                onFinished: {
+                    if (deletionConfirmDialog != SystemUiResult.CancelButtonSelection) myQmlToast.show();
+                }
+            }
+        ]
         preferredWidth: 90.0
         TextArea {
             id: displayName
@@ -14,16 +35,15 @@ Page {
             editable: false
             inputMode: TextAreaInputMode.Text
             input.flags: TextInputFlag.SpellCheckOff
-          textStyle {
+            textStyle {
                 fontSize: FontSize.XXLarge
                 fontWeight: FontWeight.W500
-          }
+            }
             onCreationCompleted: {
                 displayName.setText(TestObject.getRecipeName());
             }
-
         }
-        RatingIndicator{
+        RatingIndicator {
             rating: TestObject.getRecipeRating()
         }
         TextArea {
@@ -40,7 +60,6 @@ Page {
                 TestObject.getIngredients();
             }
         }
- 
         TextArea {
             id: displayIngredients
             text: "ingredients"
@@ -48,21 +67,18 @@ Page {
             input.flags: TextInputFlag.SpellCheckOff
             editable: false
             onCreationCompleted: {
-                 displayIngredients.setText(TestObject.getIngredientsText());
-
-             }
-            
+                displayIngredients.setText(TestObject.getIngredientsText());
+            }
         }
-        
-        TextArea{
-         id: displayInstructions
-         editable: false
-         text: "Instructions"
-         inputMode: TextAreaInputMode.Text
-         input.flags: TextInputFlag.SpellCheckOff
-         onCreationCompleted: {
-             displayInstructions.setText(TestObject.getInstructions());
-         }
+        TextArea {
+            id: displayInstructions
+            editable: false
+            text: "Instructions"
+            inputMode: TextAreaInputMode.Text
+            input.flags: TextInputFlag.SpellCheckOff
+            onCreationCompleted: {
+                displayInstructions.setText(TestObject.getInstructions());
+            }
             leftPadding: 20.0
             rightPadding: 20.0
         }
@@ -79,18 +95,24 @@ Page {
             title: "Share"
             imageSource: "asset:///ic_share.png"
             ActionBar.placement: ActionBarPlacement.OnBar
-            
             onTriggered: {
                 var page = sharePageDefinition.createObject();
-              
-                 _shareObject.setRecipeID(TestObject.getRecipeID());
-                 _shareObject.setRecipeName(TestObject.getRecipeName());
-                 _shareObject.setRecipeDesc(TestObject.getRecipeInfo());
+                _shareObject.setRecipeID(TestObject.getRecipeID());
+                _shareObject.setRecipeName(TestObject.getRecipeName());
+                _shareObject.setRecipeDesc(TestObject.getRecipeInfo());
                 // _shareObject.setRecipeIngredients(TestObject.getIngredients());
-                 _shareObject.setRecipeInstructions(TestObject.getInstructions());
-                 _shareObject.setRating(TestObject.getRecipeRating());
-                 
+                _shareObject.setRecipeInstructions(TestObject.getInstructions());
+                _shareObject.setRating(TestObject.getRecipeRating());
                 nav.push(page);
+            }
+        },
+        ActionItem {
+            id: del
+            title: "Remove"
+            imageSource: "asset:///ic_delete.png"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                deletionConfirmDialog.show();
             }
         }
     ]

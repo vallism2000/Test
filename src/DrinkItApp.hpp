@@ -52,6 +52,7 @@ public:
 
     Q_INVOKABLE void saveJSON(QString text);
     Q_INVOKABLE void submitRecipe();
+    Q_INVOKABLE void removeRecipe();
     Q_INVOKABLE QString loadJSON();
 
     Q_INVOKABLE void getInvList();
