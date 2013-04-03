@@ -1,5 +1,4 @@
 import bb.cascades 1.0
-import QtQuick 1.0
 
 Page {
     id: recipePage
@@ -37,21 +36,16 @@ Page {
                 TestObject.getIngredients();
             }
         }
-                
-        ListView {
-            bottomPadding: 0
+ 
+        TextArea {
             id: displayIngredients
-            dataModel: list_ingredients.fields
+            text: "ingredients"
+            editable: false
+            onCreationCompleted: {
+                 displayIngredients.setText(TestObject.getIngredientsText());
 
-            listItemComponents: ListItemComponent {
-            type: ""
-
-            ViewIngredientField {
-                name: ListItemData.name
-                amount: ListItemData.amount
-            }
+             }
             
-            }
         }
         
         TextArea{
@@ -81,12 +75,12 @@ Page {
             onTriggered: {
                 var page = sharePageDefinition.createObject();
               
-                // _shareObject.setRecipeID(TestObject.getRecipeID());
-                 //_shareObject.setRecipeName(TestObject.getRecipeName());
-                 //_shareObject.setRecipeDesc(TestObject.getRecipeInfo());
-                 //_shareObject.setRecipeIngredients(TestObject.getIngredients());
-                // _shareObject.setRecipeInstructions(TestObject.getInstructions());
-                // _shareObject.setRating(TestObject.getRecipeRating());
+                 _shareObject.setRecipeID(TestObject.getRecipeID());
+                 _shareObject.setRecipeName(TestObject.getRecipeName());
+                 _shareObject.setRecipeDesc(TestObject.getRecipeInfo());
+                // _shareObject.setRecipeIngredients(TestObject.getIngredients());
+                 _shareObject.setRecipeInstructions(TestObject.getInstructions());
+                 _shareObject.setRating(TestObject.getRecipeRating());
                  
                 nav.push(page);
             }

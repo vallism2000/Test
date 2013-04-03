@@ -72,7 +72,6 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     // Set up ShareObject
     createModules();
     qml->setContextProperty("_shareObject", _sharePage);
-    qml->setContextProperty("list_ingredients", _listModel);
 
     // Initialize share event bus
     ShareEventBus::Initialize();
@@ -142,9 +141,7 @@ int DrinkItApp::getRecipeID(){
 }
 
 std::vector<std::pair<DrinkIngredient, std::string> > DrinkItApp::getIngredients(){
-std::cout << "get ingredients" << std::endl;
 	recipeIngredients = EH->getRecipeIngredients();
-	_listModel->listChanged(recipeIngredients);
 
 	return recipeIngredients;
 }
@@ -154,6 +151,22 @@ QString DrinkItApp::getInstructions(){
 	recipeInstr = EH->getRecipeInstructions();
 
 	return (QString(recipeInstr.c_str()));
+}
+
+QString DrinkItApp::getIngredientsText(){
+	QString ings;
+
+    recipeIngredients = EH->getRecipeIngredients();
+
+	for(unsigned int i=0; i < recipeIngredients.size(); i++){
+		std::pair<DrinkIngredient, std::string>  tmp = recipeIngredients.at(i);
+		std::string name = tmp.first.GetName();
+		std::string amount = tmp.second;
+
+		ings.append( QString::fromStdString(amount) + " \t" + QString::fromStdString(name) + "\n");
+	}
+
+	return ings;
 }
 
 void DrinkItApp::submitRecipe()
@@ -240,7 +253,6 @@ QString DrinkItApp::loadJSON()
 
 void DrinkItApp::createModules(){
 	_sharePage = new SharePage();
-	_listModel = new ListModel(recipeIngredients);
 }
 
 void DrinkItApp::getInvList()

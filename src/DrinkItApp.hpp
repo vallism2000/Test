@@ -49,6 +49,7 @@ public:
     Q_INVOKABLE std::vector<std::pair<DrinkIngredient, std::string> > getIngredients();
     Q_INVOKABLE QString getInstructions();
     Q_INVOKABLE int getRecipeID();
+    Q_INVOKABLE QString getIngredientsText();
 
     Q_INVOKABLE void saveJSON(QString text);
     Q_INVOKABLE void submitRecipe();
