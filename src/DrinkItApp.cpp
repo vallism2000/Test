@@ -79,7 +79,7 @@ DrinkItApp::DrinkItApp(bb::cascades::Application *app)
     ShareEventBus::RegisterListener(_shareListener);
 
     _invokeManager = new bb::system::InvokeManager();
-    _nfcHandler = NFCHandler::getInstance(_sharePage);
+    _nfcHandler = NFCHandler::getInstance();
     qml->setContextProperty("_nfcHandlerObject", _nfcHandler);
 
     // Connections for receving nfc

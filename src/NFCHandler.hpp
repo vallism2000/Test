@@ -33,11 +33,11 @@ class NFCHandler : public QObject {
 public:
 
 	virtual ~NFCHandler();
-	static NFCHandler* getInstance(SharePage * sp);
 	static NFCHandler* getInstance();
 	QString getText(const QByteArray &payload);
 	Q_INVOKABLE void parseText(QString text);
 	QString FormatTextForPage(const QByteArray &payload);
+	bb::system::NfcShareManager* getShareManager();
 
 public slots:
     void dataShareContentChanged(QString message);
@@ -53,7 +53,7 @@ signals:
 
 private:
 	// Private since we only want one instance of it
-    NFCHandler(SharePage* sp);
+    NFCHandler();
 	QStringList parseIngredient(QString ing);
 	static NFCHandler* nfch_instance;
 	bb::system::NfcShareDataContent share_data;

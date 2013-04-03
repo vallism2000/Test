@@ -15,12 +15,8 @@
 
 NFCHandler* NFCHandler::nfch_instance;
 
-NFCHandler::NFCHandler(SharePage* sp){
-		_sharePage = sp;
+NFCHandler::NFCHandler(){
 		share_manager = new bb::system::NfcShareManager();
-	   // QObject::connect( _sharePage, SIGNAL(enableDataSharing()), this, SLOT(enableDataSharing()));
-	   // QObject::connect( _sharePage, SIGNAL(disableSharing()), this, SLOT(disableSharing()));
-	  //  QObject::connect( _sharePage, SIGNAL(updateMessage(QString, QString)), this, SLOT(dataShareContentChanged(QString, QString)));
 
 	    QObject::connect(share_manager, SIGNAL(shareModeChanged(bb::system::NfcShareMode::Type)), this, SLOT(shareModeChanged(bb::system::NfcShareMode::Type)));
 	    QObject::connect(share_manager, SIGNAL(finished(bb::system::NfcShareSuccess::Type)), this, SLOT(finished(bb::system::NfcShareSuccess::Type)));
@@ -34,7 +30,7 @@ NFCHandler::~NFCHandler(){
 }
 
 void NFCHandler::disableSharing() {
-    qDebug() << "XXXX sharing disabled" << endl;
+    qDebug() << "sharing disabled" << endl;
     setSharingActive(false);
     emit setShareMode(bb::system::NfcShareMode::Disabled);
 }
@@ -56,23 +52,23 @@ void NFCHandler::setSharingActive(bool sharingState) {
 	emit detectSharingActive();
 }
 void NFCHandler::shareModeChanged(bb::system::NfcShareMode::Type mode) {
-    qDebug() << "XXXX shareModeChanged mode =" << mode << endl;
+    qDebug() << "shareModeChanged mode =" << mode << endl;
 }
 
 void NFCHandler::finished(bb::system::NfcShareSuccess::Type result) {
-    qDebug() << "XXXX finished result =" << result << endl;
+    qDebug() << "finished result code  =" << result << endl;
 }
 
 void NFCHandler::error(bb::system::NfcShareError::Type error) {
-    qDebug() << "XXXX error error =" << error << endl;
+    qDebug() << error =" << error << endl;
 }
 
 
 
-NFCHandler* NFCHandler::getInstance(SharePage* sp){
+NFCHandler* NFCHandler::getInstance(){
 
 	if(nfch_instance == NULL){
-		nfch_instance = new NFCHandler(sp);
+		nfch_instance = new NFCHandler();
 	}
 	return nfch_instance;
 }
@@ -279,11 +275,14 @@ QStringList NFCHandler::parseIngredient(QString ing){
 }
 
 void NFCHandler::dataShareContentChanged(QString message) {
-qDebug() << "XXXX shareContentChanged message : " << message << endl;
+    // Not sure if I ever call this function
 	bb::system::NfcShareDataContent request;
     QByteArray data(message.toUtf8());
     request.setMimeType("text/plain");
     request.setData(data);
     bb::system::NfcShareSetContentError::Type rc = share_manager->setShareContent(request);
-    qDebug() << "XXXX shareContentChanged rc =" << rc << endl;
+}
+
+bb::system::NfcShareManager* NFCHandler::getShareManager(){
+	return share_manager;
 }

@@ -7,12 +7,13 @@
 #include <bb/cascades/InvokeQuery>
 #include "drinkObjects/DrinkRecipe.hpp"
 #include "drinkObjects/DrinkIngredient.hpp"
+#include "NFCHandler.hpp"
 #include <iostream>
 
 
 NFCShare::NFCShare(){
 	share_data = bb::system::NfcShareDataContent();
-	share_manager = new bb::system::NfcShareManager();
+	share_manager = NFCHandler::getInstance()->getShareManager();
 }
 
 NFCShare::~NFCShare(){
