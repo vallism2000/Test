@@ -24,6 +24,7 @@
 #include <nfc/nfc_ndef.h>
 #include <QtNfcSubset/qndefmessage.h>
 #include "NFCHandler.hpp"
+#include "ListModel.hpp"
 
 namespace bb { namespace cascades { class Application; }}
 
@@ -90,6 +91,7 @@ private:
     bb::system::InvokeManager* _invokeManager;
     NFCHandler* _nfcHandler;
     bb::cascades::AbstractPane *test;
+    ListModel* _listModel;
 
 signals:
     void message(const QVariant &text, const QVariant &formatted);

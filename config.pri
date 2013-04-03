@@ -47,6 +47,7 @@ SOURCES +=  \
     $$BASEDIR/src/events/UIRecipeListEvent.cpp \
     $$BASEDIR/src/events/UIShareEvent.cpp \
     $$BASEDIR/src/NFCHandler.cpp \
+    $$BASEDIR/src/ListModel.cpp \
     $$BASEDIR/src/main.cpp
 
 HEADERS +=  \
@@ -85,6 +86,7 @@ HEADERS +=  \
     $$BASEDIR/src/events/UIRecipeEvent.hpp \
     $$BASEDIR/src/events/UIRecipeListEvent.hpp \
     $$BASEDIR/src/events/UIShareEvent.hpp \
+    $$BASEDIR/src/ListModel.hpp \
     $$BASEDIR/src/NFCHandler.hpp
 
 CONFIG += precompile_header

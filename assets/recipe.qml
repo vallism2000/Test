@@ -1,4 +1,5 @@
 import bb.cascades 1.0
+import QtQuick 1.0
 
 Page {
     id: recipePage
@@ -7,6 +8,7 @@ Page {
     }
     Container {
         layout: StackLayout {}
+        preferredWidth: 90.0
         TextArea {
             id: displayName
             text: "Recipe Name"
@@ -32,16 +34,36 @@ Page {
             editable: false
             onCreationCompleted: {
                 displayInfo.setText(TestObject.getRecipeInfo());
+                TestObject.getIngredients();
+            }
+        }
+                
+        ListView {
+            bottomPadding: 0
+            id: displayIngredients
+            dataModel: list_ingredients.fields
+
+            listItemComponents: ListItemComponent {
+            type: ""
+
+            ViewIngredientField {
+                name: ListItemData.name
+                amount: ListItemData.amount
+            }
+            
             }
         }
         
-        TextArea {
-            id: displayIngredients
-            text: ""
-            editable: false
-
+        TextArea{
+         id: displayInstructions
+         editable: false
+         text: "Instructions"
+         onCreationCompleted: {
+             displayInstructions.setText(TestObject.getInstructions());
+         }
+            leftPadding: 20.0
+            rightPadding: 20.0
         }
-
     }
     attachedObjects: [
         ComponentDefinition {
