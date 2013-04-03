@@ -41,7 +41,9 @@ public:
 	void getShopList();
 
 	// Functions related to both
-	void moveListItem(int id, bool isShopList);
+	void moveListItem(int id, std::string name, bool isShopList);
+	void removeListItem(int id, std::string name, bool isShopList);
+	void addListItem(std::string name, bool isShopList);
 
 	void updateRecipeRating(int rating);
 
