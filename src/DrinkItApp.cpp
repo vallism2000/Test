@@ -18,6 +18,7 @@
 
 #include "events/ShareRecipeEvent.hpp"
 #include "ShareEventBus.hpp"
+#include <QString>
 
 using namespace bb::cascades;
 
@@ -331,7 +332,15 @@ void DrinkItApp::addListItem(QString name, bool isShopList) {
 		getShopList();
 	}
 }
+void DrinkItApp::addIngredientsToShoppingList() {
+    recipeIngredients = EH->getRecipeIngredients();
 
+	for(unsigned int i=0; i < recipeIngredients.size(); i++){
+		std::pair<DrinkIngredient, std::string>  tmp = recipeIngredients.at(i);
+		QString name = QString::fromStdString(tmp.first.GetName());
+		addListItem(name, true);
+	}
+}
 void DrinkItApp::receivedInvokeRequest(const bb::system::InvokeRequest& request) {
 
 	 QByteArray data = request.data();
